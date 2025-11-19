@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg831;
+
+// Message with various field types
+message Message831 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage831 nested = 7;
+  Status831 status = 8;
+}
+
+// Nested message type
+message NestedMessage831 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item831 items = 3;
+}
+
+// Simple item message
+message Item831 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status831 {
+  STATUS_831_UNSPECIFIED = 0;
+  STATUS_831_ACTIVE = 1;
+  STATUS_831_INACTIVE = 2;
+  STATUS_831_PENDING = 3;
+}
+
+// Service definition
+service Service831 {
+  rpc Get831(Get831Request) returns (Get831Response);
+  rpc List831(List831Request) returns (List831Response);
+  rpc Create831(Create831Request) returns (Create831Response);
+}
+
+message Get831Request {
+  string id = 1;
+}
+
+message Get831Response {
+  Message831 result = 1;
+}
+
+message List831Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List831Response {
+  repeated Message831 results = 1;
+  string next_page_token = 2;
+}
+
+message Create831Request {
+  Message831 message = 1;
+}
+
+message Create831Response {
+  Message831 result = 1;
+}

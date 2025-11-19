@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg64;
+
+// Message with various field types
+message Message64 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage64 nested = 7;
+  Status64 status = 8;
+}
+
+// Nested message type
+message NestedMessage64 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item64 items = 3;
+}
+
+// Simple item message
+message Item64 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status64 {
+  STATUS_64_UNSPECIFIED = 0;
+  STATUS_64_ACTIVE = 1;
+  STATUS_64_INACTIVE = 2;
+  STATUS_64_PENDING = 3;
+}
+
+// Service definition
+service Service64 {
+  rpc Get64(Get64Request) returns (Get64Response);
+  rpc List64(List64Request) returns (List64Response);
+  rpc Create64(Create64Request) returns (Create64Response);
+}
+
+message Get64Request {
+  string id = 1;
+}
+
+message Get64Response {
+  Message64 result = 1;
+}
+
+message List64Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List64Response {
+  repeated Message64 results = 1;
+  string next_page_token = 2;
+}
+
+message Create64Request {
+  Message64 message = 1;
+}
+
+message Create64Response {
+  Message64 result = 1;
+}

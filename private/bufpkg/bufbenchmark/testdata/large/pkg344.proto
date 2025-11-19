@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg344;
+
+// Message with various field types
+message Message344 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage344 nested = 7;
+  Status344 status = 8;
+}
+
+// Nested message type
+message NestedMessage344 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item344 items = 3;
+}
+
+// Simple item message
+message Item344 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status344 {
+  STATUS_344_UNSPECIFIED = 0;
+  STATUS_344_ACTIVE = 1;
+  STATUS_344_INACTIVE = 2;
+  STATUS_344_PENDING = 3;
+}
+
+// Service definition
+service Service344 {
+  rpc Get344(Get344Request) returns (Get344Response);
+  rpc List344(List344Request) returns (List344Response);
+  rpc Create344(Create344Request) returns (Create344Response);
+}
+
+message Get344Request {
+  string id = 1;
+}
+
+message Get344Response {
+  Message344 result = 1;
+}
+
+message List344Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List344Response {
+  repeated Message344 results = 1;
+  string next_page_token = 2;
+}
+
+message Create344Request {
+  Message344 message = 1;
+}
+
+message Create344Response {
+  Message344 result = 1;
+}

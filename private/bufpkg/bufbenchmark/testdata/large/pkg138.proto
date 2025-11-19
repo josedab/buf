@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg138;
+
+// Message with various field types
+message Message138 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage138 nested = 7;
+  Status138 status = 8;
+}
+
+// Nested message type
+message NestedMessage138 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item138 items = 3;
+}
+
+// Simple item message
+message Item138 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status138 {
+  STATUS_138_UNSPECIFIED = 0;
+  STATUS_138_ACTIVE = 1;
+  STATUS_138_INACTIVE = 2;
+  STATUS_138_PENDING = 3;
+}
+
+// Service definition
+service Service138 {
+  rpc Get138(Get138Request) returns (Get138Response);
+  rpc List138(List138Request) returns (List138Response);
+  rpc Create138(Create138Request) returns (Create138Response);
+}
+
+message Get138Request {
+  string id = 1;
+}
+
+message Get138Response {
+  Message138 result = 1;
+}
+
+message List138Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List138Response {
+  repeated Message138 results = 1;
+  string next_page_token = 2;
+}
+
+message Create138Request {
+  Message138 message = 1;
+}
+
+message Create138Response {
+  Message138 result = 1;
+}

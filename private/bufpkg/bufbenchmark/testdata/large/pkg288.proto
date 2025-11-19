@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg288;
+
+// Message with various field types
+message Message288 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage288 nested = 7;
+  Status288 status = 8;
+}
+
+// Nested message type
+message NestedMessage288 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item288 items = 3;
+}
+
+// Simple item message
+message Item288 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status288 {
+  STATUS_288_UNSPECIFIED = 0;
+  STATUS_288_ACTIVE = 1;
+  STATUS_288_INACTIVE = 2;
+  STATUS_288_PENDING = 3;
+}
+
+// Service definition
+service Service288 {
+  rpc Get288(Get288Request) returns (Get288Response);
+  rpc List288(List288Request) returns (List288Response);
+  rpc Create288(Create288Request) returns (Create288Response);
+}
+
+message Get288Request {
+  string id = 1;
+}
+
+message Get288Response {
+  Message288 result = 1;
+}
+
+message List288Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List288Response {
+  repeated Message288 results = 1;
+  string next_page_token = 2;
+}
+
+message Create288Request {
+  Message288 message = 1;
+}
+
+message Create288Response {
+  Message288 result = 1;
+}

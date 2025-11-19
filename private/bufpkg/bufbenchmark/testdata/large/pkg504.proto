@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg504;
+
+// Message with various field types
+message Message504 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage504 nested = 7;
+  Status504 status = 8;
+}
+
+// Nested message type
+message NestedMessage504 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item504 items = 3;
+}
+
+// Simple item message
+message Item504 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status504 {
+  STATUS_504_UNSPECIFIED = 0;
+  STATUS_504_ACTIVE = 1;
+  STATUS_504_INACTIVE = 2;
+  STATUS_504_PENDING = 3;
+}
+
+// Service definition
+service Service504 {
+  rpc Get504(Get504Request) returns (Get504Response);
+  rpc List504(List504Request) returns (List504Response);
+  rpc Create504(Create504Request) returns (Create504Response);
+}
+
+message Get504Request {
+  string id = 1;
+}
+
+message Get504Response {
+  Message504 result = 1;
+}
+
+message List504Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List504Response {
+  repeated Message504 results = 1;
+  string next_page_token = 2;
+}
+
+message Create504Request {
+  Message504 message = 1;
+}
+
+message Create504Response {
+  Message504 result = 1;
+}

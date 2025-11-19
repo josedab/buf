@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg232;
+
+// Message with various field types
+message Message232 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage232 nested = 7;
+  Status232 status = 8;
+}
+
+// Nested message type
+message NestedMessage232 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item232 items = 3;
+}
+
+// Simple item message
+message Item232 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status232 {
+  STATUS_232_UNSPECIFIED = 0;
+  STATUS_232_ACTIVE = 1;
+  STATUS_232_INACTIVE = 2;
+  STATUS_232_PENDING = 3;
+}
+
+// Service definition
+service Service232 {
+  rpc Get232(Get232Request) returns (Get232Response);
+  rpc List232(List232Request) returns (List232Response);
+  rpc Create232(Create232Request) returns (Create232Response);
+}
+
+message Get232Request {
+  string id = 1;
+}
+
+message Get232Response {
+  Message232 result = 1;
+}
+
+message List232Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List232Response {
+  repeated Message232 results = 1;
+  string next_page_token = 2;
+}
+
+message Create232Request {
+  Message232 message = 1;
+}
+
+message Create232Response {
+  Message232 result = 1;
+}

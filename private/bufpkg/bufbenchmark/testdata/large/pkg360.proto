@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg360;
+
+// Message with various field types
+message Message360 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage360 nested = 7;
+  Status360 status = 8;
+}
+
+// Nested message type
+message NestedMessage360 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item360 items = 3;
+}
+
+// Simple item message
+message Item360 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status360 {
+  STATUS_360_UNSPECIFIED = 0;
+  STATUS_360_ACTIVE = 1;
+  STATUS_360_INACTIVE = 2;
+  STATUS_360_PENDING = 3;
+}
+
+// Service definition
+service Service360 {
+  rpc Get360(Get360Request) returns (Get360Response);
+  rpc List360(List360Request) returns (List360Response);
+  rpc Create360(Create360Request) returns (Create360Response);
+}
+
+message Get360Request {
+  string id = 1;
+}
+
+message Get360Response {
+  Message360 result = 1;
+}
+
+message List360Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List360Response {
+  repeated Message360 results = 1;
+  string next_page_token = 2;
+}
+
+message Create360Request {
+  Message360 message = 1;
+}
+
+message Create360Response {
+  Message360 result = 1;
+}

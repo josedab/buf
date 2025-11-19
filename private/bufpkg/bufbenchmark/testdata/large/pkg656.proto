@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg656;
+
+// Message with various field types
+message Message656 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage656 nested = 7;
+  Status656 status = 8;
+}
+
+// Nested message type
+message NestedMessage656 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item656 items = 3;
+}
+
+// Simple item message
+message Item656 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status656 {
+  STATUS_656_UNSPECIFIED = 0;
+  STATUS_656_ACTIVE = 1;
+  STATUS_656_INACTIVE = 2;
+  STATUS_656_PENDING = 3;
+}
+
+// Service definition
+service Service656 {
+  rpc Get656(Get656Request) returns (Get656Response);
+  rpc List656(List656Request) returns (List656Response);
+  rpc Create656(Create656Request) returns (Create656Response);
+}
+
+message Get656Request {
+  string id = 1;
+}
+
+message Get656Response {
+  Message656 result = 1;
+}
+
+message List656Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List656Response {
+  repeated Message656 results = 1;
+  string next_page_token = 2;
+}
+
+message Create656Request {
+  Message656 message = 1;
+}
+
+message Create656Response {
+  Message656 result = 1;
+}

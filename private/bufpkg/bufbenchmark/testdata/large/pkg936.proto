@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg936;
+
+// Message with various field types
+message Message936 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage936 nested = 7;
+  Status936 status = 8;
+}
+
+// Nested message type
+message NestedMessage936 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item936 items = 3;
+}
+
+// Simple item message
+message Item936 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status936 {
+  STATUS_936_UNSPECIFIED = 0;
+  STATUS_936_ACTIVE = 1;
+  STATUS_936_INACTIVE = 2;
+  STATUS_936_PENDING = 3;
+}
+
+// Service definition
+service Service936 {
+  rpc Get936(Get936Request) returns (Get936Response);
+  rpc List936(List936Request) returns (List936Response);
+  rpc Create936(Create936Request) returns (Create936Response);
+}
+
+message Get936Request {
+  string id = 1;
+}
+
+message Get936Response {
+  Message936 result = 1;
+}
+
+message List936Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List936Response {
+  repeated Message936 results = 1;
+  string next_page_token = 2;
+}
+
+message Create936Request {
+  Message936 message = 1;
+}
+
+message Create936Response {
+  Message936 result = 1;
+}

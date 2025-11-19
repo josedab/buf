@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg425;
+
+// Message with various field types
+message Message425 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage425 nested = 7;
+  Status425 status = 8;
+}
+
+// Nested message type
+message NestedMessage425 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item425 items = 3;
+}
+
+// Simple item message
+message Item425 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status425 {
+  STATUS_425_UNSPECIFIED = 0;
+  STATUS_425_ACTIVE = 1;
+  STATUS_425_INACTIVE = 2;
+  STATUS_425_PENDING = 3;
+}
+
+// Service definition
+service Service425 {
+  rpc Get425(Get425Request) returns (Get425Response);
+  rpc List425(List425Request) returns (List425Response);
+  rpc Create425(Create425Request) returns (Create425Response);
+}
+
+message Get425Request {
+  string id = 1;
+}
+
+message Get425Response {
+  Message425 result = 1;
+}
+
+message List425Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List425Response {
+  repeated Message425 results = 1;
+  string next_page_token = 2;
+}
+
+message Create425Request {
+  Message425 message = 1;
+}
+
+message Create425Response {
+  Message425 result = 1;
+}

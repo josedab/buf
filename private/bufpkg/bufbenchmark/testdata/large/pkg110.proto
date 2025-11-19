@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg110;
+
+// Message with various field types
+message Message110 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage110 nested = 7;
+  Status110 status = 8;
+}
+
+// Nested message type
+message NestedMessage110 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item110 items = 3;
+}
+
+// Simple item message
+message Item110 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status110 {
+  STATUS_110_UNSPECIFIED = 0;
+  STATUS_110_ACTIVE = 1;
+  STATUS_110_INACTIVE = 2;
+  STATUS_110_PENDING = 3;
+}
+
+// Service definition
+service Service110 {
+  rpc Get110(Get110Request) returns (Get110Response);
+  rpc List110(List110Request) returns (List110Response);
+  rpc Create110(Create110Request) returns (Create110Response);
+}
+
+message Get110Request {
+  string id = 1;
+}
+
+message Get110Response {
+  Message110 result = 1;
+}
+
+message List110Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List110Response {
+  repeated Message110 results = 1;
+  string next_page_token = 2;
+}
+
+message Create110Request {
+  Message110 message = 1;
+}
+
+message Create110Response {
+  Message110 result = 1;
+}

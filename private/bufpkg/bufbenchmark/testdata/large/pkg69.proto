@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg69;
+
+// Message with various field types
+message Message69 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage69 nested = 7;
+  Status69 status = 8;
+}
+
+// Nested message type
+message NestedMessage69 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item69 items = 3;
+}
+
+// Simple item message
+message Item69 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status69 {
+  STATUS_69_UNSPECIFIED = 0;
+  STATUS_69_ACTIVE = 1;
+  STATUS_69_INACTIVE = 2;
+  STATUS_69_PENDING = 3;
+}
+
+// Service definition
+service Service69 {
+  rpc Get69(Get69Request) returns (Get69Response);
+  rpc List69(List69Request) returns (List69Response);
+  rpc Create69(Create69Request) returns (Create69Response);
+}
+
+message Get69Request {
+  string id = 1;
+}
+
+message Get69Response {
+  Message69 result = 1;
+}
+
+message List69Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List69Response {
+  repeated Message69 results = 1;
+  string next_page_token = 2;
+}
+
+message Create69Request {
+  Message69 message = 1;
+}
+
+message Create69Response {
+  Message69 result = 1;
+}

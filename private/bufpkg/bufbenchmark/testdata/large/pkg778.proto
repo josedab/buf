@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg778;
+
+// Message with various field types
+message Message778 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage778 nested = 7;
+  Status778 status = 8;
+}
+
+// Nested message type
+message NestedMessage778 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item778 items = 3;
+}
+
+// Simple item message
+message Item778 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status778 {
+  STATUS_778_UNSPECIFIED = 0;
+  STATUS_778_ACTIVE = 1;
+  STATUS_778_INACTIVE = 2;
+  STATUS_778_PENDING = 3;
+}
+
+// Service definition
+service Service778 {
+  rpc Get778(Get778Request) returns (Get778Response);
+  rpc List778(List778Request) returns (List778Response);
+  rpc Create778(Create778Request) returns (Create778Response);
+}
+
+message Get778Request {
+  string id = 1;
+}
+
+message Get778Response {
+  Message778 result = 1;
+}
+
+message List778Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List778Response {
+  repeated Message778 results = 1;
+  string next_page_token = 2;
+}
+
+message Create778Request {
+  Message778 message = 1;
+}
+
+message Create778Response {
+  Message778 result = 1;
+}

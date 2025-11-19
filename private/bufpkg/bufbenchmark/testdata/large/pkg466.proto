@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg466;
+
+// Message with various field types
+message Message466 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage466 nested = 7;
+  Status466 status = 8;
+}
+
+// Nested message type
+message NestedMessage466 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item466 items = 3;
+}
+
+// Simple item message
+message Item466 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status466 {
+  STATUS_466_UNSPECIFIED = 0;
+  STATUS_466_ACTIVE = 1;
+  STATUS_466_INACTIVE = 2;
+  STATUS_466_PENDING = 3;
+}
+
+// Service definition
+service Service466 {
+  rpc Get466(Get466Request) returns (Get466Response);
+  rpc List466(List466Request) returns (List466Response);
+  rpc Create466(Create466Request) returns (Create466Response);
+}
+
+message Get466Request {
+  string id = 1;
+}
+
+message Get466Response {
+  Message466 result = 1;
+}
+
+message List466Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List466Response {
+  repeated Message466 results = 1;
+  string next_page_token = 2;
+}
+
+message Create466Request {
+  Message466 message = 1;
+}
+
+message Create466Response {
+  Message466 result = 1;
+}

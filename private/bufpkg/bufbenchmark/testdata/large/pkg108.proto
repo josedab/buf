@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg108;
+
+// Message with various field types
+message Message108 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage108 nested = 7;
+  Status108 status = 8;
+}
+
+// Nested message type
+message NestedMessage108 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item108 items = 3;
+}
+
+// Simple item message
+message Item108 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status108 {
+  STATUS_108_UNSPECIFIED = 0;
+  STATUS_108_ACTIVE = 1;
+  STATUS_108_INACTIVE = 2;
+  STATUS_108_PENDING = 3;
+}
+
+// Service definition
+service Service108 {
+  rpc Get108(Get108Request) returns (Get108Response);
+  rpc List108(List108Request) returns (List108Response);
+  rpc Create108(Create108Request) returns (Create108Response);
+}
+
+message Get108Request {
+  string id = 1;
+}
+
+message Get108Response {
+  Message108 result = 1;
+}
+
+message List108Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List108Response {
+  repeated Message108 results = 1;
+  string next_page_token = 2;
+}
+
+message Create108Request {
+  Message108 message = 1;
+}
+
+message Create108Response {
+  Message108 result = 1;
+}

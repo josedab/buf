@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg707;
+
+// Message with various field types
+message Message707 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage707 nested = 7;
+  Status707 status = 8;
+}
+
+// Nested message type
+message NestedMessage707 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item707 items = 3;
+}
+
+// Simple item message
+message Item707 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status707 {
+  STATUS_707_UNSPECIFIED = 0;
+  STATUS_707_ACTIVE = 1;
+  STATUS_707_INACTIVE = 2;
+  STATUS_707_PENDING = 3;
+}
+
+// Service definition
+service Service707 {
+  rpc Get707(Get707Request) returns (Get707Response);
+  rpc List707(List707Request) returns (List707Response);
+  rpc Create707(Create707Request) returns (Create707Response);
+}
+
+message Get707Request {
+  string id = 1;
+}
+
+message Get707Response {
+  Message707 result = 1;
+}
+
+message List707Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List707Response {
+  repeated Message707 results = 1;
+  string next_page_token = 2;
+}
+
+message Create707Request {
+  Message707 message = 1;
+}
+
+message Create707Response {
+  Message707 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg792;
+
+// Message with various field types
+message Message792 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage792 nested = 7;
+  Status792 status = 8;
+}
+
+// Nested message type
+message NestedMessage792 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item792 items = 3;
+}
+
+// Simple item message
+message Item792 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status792 {
+  STATUS_792_UNSPECIFIED = 0;
+  STATUS_792_ACTIVE = 1;
+  STATUS_792_INACTIVE = 2;
+  STATUS_792_PENDING = 3;
+}
+
+// Service definition
+service Service792 {
+  rpc Get792(Get792Request) returns (Get792Response);
+  rpc List792(List792Request) returns (List792Response);
+  rpc Create792(Create792Request) returns (Create792Response);
+}
+
+message Get792Request {
+  string id = 1;
+}
+
+message Get792Response {
+  Message792 result = 1;
+}
+
+message List792Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List792Response {
+  repeated Message792 results = 1;
+  string next_page_token = 2;
+}
+
+message Create792Request {
+  Message792 message = 1;
+}
+
+message Create792Response {
+  Message792 result = 1;
+}

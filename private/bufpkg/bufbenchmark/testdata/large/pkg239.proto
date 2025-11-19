@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg239;
+
+// Message with various field types
+message Message239 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage239 nested = 7;
+  Status239 status = 8;
+}
+
+// Nested message type
+message NestedMessage239 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item239 items = 3;
+}
+
+// Simple item message
+message Item239 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status239 {
+  STATUS_239_UNSPECIFIED = 0;
+  STATUS_239_ACTIVE = 1;
+  STATUS_239_INACTIVE = 2;
+  STATUS_239_PENDING = 3;
+}
+
+// Service definition
+service Service239 {
+  rpc Get239(Get239Request) returns (Get239Response);
+  rpc List239(List239Request) returns (List239Response);
+  rpc Create239(Create239Request) returns (Create239Response);
+}
+
+message Get239Request {
+  string id = 1;
+}
+
+message Get239Response {
+  Message239 result = 1;
+}
+
+message List239Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List239Response {
+  repeated Message239 results = 1;
+  string next_page_token = 2;
+}
+
+message Create239Request {
+  Message239 message = 1;
+}
+
+message Create239Response {
+  Message239 result = 1;
+}

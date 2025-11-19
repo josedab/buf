@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg225;
+
+// Message with various field types
+message Message225 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage225 nested = 7;
+  Status225 status = 8;
+}
+
+// Nested message type
+message NestedMessage225 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item225 items = 3;
+}
+
+// Simple item message
+message Item225 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status225 {
+  STATUS_225_UNSPECIFIED = 0;
+  STATUS_225_ACTIVE = 1;
+  STATUS_225_INACTIVE = 2;
+  STATUS_225_PENDING = 3;
+}
+
+// Service definition
+service Service225 {
+  rpc Get225(Get225Request) returns (Get225Response);
+  rpc List225(List225Request) returns (List225Response);
+  rpc Create225(Create225Request) returns (Create225Response);
+}
+
+message Get225Request {
+  string id = 1;
+}
+
+message Get225Response {
+  Message225 result = 1;
+}
+
+message List225Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List225Response {
+  repeated Message225 results = 1;
+  string next_page_token = 2;
+}
+
+message Create225Request {
+  Message225 message = 1;
+}
+
+message Create225Response {
+  Message225 result = 1;
+}

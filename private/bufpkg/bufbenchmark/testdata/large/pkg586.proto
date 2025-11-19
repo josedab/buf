@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg586;
+
+// Message with various field types
+message Message586 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage586 nested = 7;
+  Status586 status = 8;
+}
+
+// Nested message type
+message NestedMessage586 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item586 items = 3;
+}
+
+// Simple item message
+message Item586 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status586 {
+  STATUS_586_UNSPECIFIED = 0;
+  STATUS_586_ACTIVE = 1;
+  STATUS_586_INACTIVE = 2;
+  STATUS_586_PENDING = 3;
+}
+
+// Service definition
+service Service586 {
+  rpc Get586(Get586Request) returns (Get586Response);
+  rpc List586(List586Request) returns (List586Response);
+  rpc Create586(Create586Request) returns (Create586Response);
+}
+
+message Get586Request {
+  string id = 1;
+}
+
+message Get586Response {
+  Message586 result = 1;
+}
+
+message List586Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List586Response {
+  repeated Message586 results = 1;
+  string next_page_token = 2;
+}
+
+message Create586Request {
+  Message586 message = 1;
+}
+
+message Create586Response {
+  Message586 result = 1;
+}

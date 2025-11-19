@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg454;
+
+// Message with various field types
+message Message454 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage454 nested = 7;
+  Status454 status = 8;
+}
+
+// Nested message type
+message NestedMessage454 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item454 items = 3;
+}
+
+// Simple item message
+message Item454 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status454 {
+  STATUS_454_UNSPECIFIED = 0;
+  STATUS_454_ACTIVE = 1;
+  STATUS_454_INACTIVE = 2;
+  STATUS_454_PENDING = 3;
+}
+
+// Service definition
+service Service454 {
+  rpc Get454(Get454Request) returns (Get454Response);
+  rpc List454(List454Request) returns (List454Response);
+  rpc Create454(Create454Request) returns (Create454Response);
+}
+
+message Get454Request {
+  string id = 1;
+}
+
+message Get454Response {
+  Message454 result = 1;
+}
+
+message List454Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List454Response {
+  repeated Message454 results = 1;
+  string next_page_token = 2;
+}
+
+message Create454Request {
+  Message454 message = 1;
+}
+
+message Create454Response {
+  Message454 result = 1;
+}

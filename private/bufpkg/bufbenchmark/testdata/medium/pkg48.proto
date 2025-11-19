@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg48;
+
+// Message with various field types
+message Message48 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage48 nested = 7;
+  Status48 status = 8;
+}
+
+// Nested message type
+message NestedMessage48 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item48 items = 3;
+}
+
+// Simple item message
+message Item48 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status48 {
+  STATUS_48_UNSPECIFIED = 0;
+  STATUS_48_ACTIVE = 1;
+  STATUS_48_INACTIVE = 2;
+  STATUS_48_PENDING = 3;
+}
+
+// Service definition
+service Service48 {
+  rpc Get48(Get48Request) returns (Get48Response);
+  rpc List48(List48Request) returns (List48Response);
+  rpc Create48(Create48Request) returns (Create48Response);
+}
+
+message Get48Request {
+  string id = 1;
+}
+
+message Get48Response {
+  Message48 result = 1;
+}
+
+message List48Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List48Response {
+  repeated Message48 results = 1;
+  string next_page_token = 2;
+}
+
+message Create48Request {
+  Message48 message = 1;
+}
+
+message Create48Response {
+  Message48 result = 1;
+}

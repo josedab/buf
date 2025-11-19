@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg769;
+
+// Message with various field types
+message Message769 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage769 nested = 7;
+  Status769 status = 8;
+}
+
+// Nested message type
+message NestedMessage769 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item769 items = 3;
+}
+
+// Simple item message
+message Item769 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status769 {
+  STATUS_769_UNSPECIFIED = 0;
+  STATUS_769_ACTIVE = 1;
+  STATUS_769_INACTIVE = 2;
+  STATUS_769_PENDING = 3;
+}
+
+// Service definition
+service Service769 {
+  rpc Get769(Get769Request) returns (Get769Response);
+  rpc List769(List769Request) returns (List769Response);
+  rpc Create769(Create769Request) returns (Create769Response);
+}
+
+message Get769Request {
+  string id = 1;
+}
+
+message Get769Response {
+  Message769 result = 1;
+}
+
+message List769Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List769Response {
+  repeated Message769 results = 1;
+  string next_page_token = 2;
+}
+
+message Create769Request {
+  Message769 message = 1;
+}
+
+message Create769Response {
+  Message769 result = 1;
+}

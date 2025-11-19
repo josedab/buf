@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg844;
+
+// Message with various field types
+message Message844 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage844 nested = 7;
+  Status844 status = 8;
+}
+
+// Nested message type
+message NestedMessage844 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item844 items = 3;
+}
+
+// Simple item message
+message Item844 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status844 {
+  STATUS_844_UNSPECIFIED = 0;
+  STATUS_844_ACTIVE = 1;
+  STATUS_844_INACTIVE = 2;
+  STATUS_844_PENDING = 3;
+}
+
+// Service definition
+service Service844 {
+  rpc Get844(Get844Request) returns (Get844Response);
+  rpc List844(List844Request) returns (List844Response);
+  rpc Create844(Create844Request) returns (Create844Response);
+}
+
+message Get844Request {
+  string id = 1;
+}
+
+message Get844Response {
+  Message844 result = 1;
+}
+
+message List844Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List844Response {
+  repeated Message844 results = 1;
+  string next_page_token = 2;
+}
+
+message Create844Request {
+  Message844 message = 1;
+}
+
+message Create844Response {
+  Message844 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg268;
+
+// Message with various field types
+message Message268 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage268 nested = 7;
+  Status268 status = 8;
+}
+
+// Nested message type
+message NestedMessage268 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item268 items = 3;
+}
+
+// Simple item message
+message Item268 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status268 {
+  STATUS_268_UNSPECIFIED = 0;
+  STATUS_268_ACTIVE = 1;
+  STATUS_268_INACTIVE = 2;
+  STATUS_268_PENDING = 3;
+}
+
+// Service definition
+service Service268 {
+  rpc Get268(Get268Request) returns (Get268Response);
+  rpc List268(List268Request) returns (List268Response);
+  rpc Create268(Create268Request) returns (Create268Response);
+}
+
+message Get268Request {
+  string id = 1;
+}
+
+message Get268Response {
+  Message268 result = 1;
+}
+
+message List268Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List268Response {
+  repeated Message268 results = 1;
+  string next_page_token = 2;
+}
+
+message Create268Request {
+  Message268 message = 1;
+}
+
+message Create268Response {
+  Message268 result = 1;
+}

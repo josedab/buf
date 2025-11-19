@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg540;
+
+// Message with various field types
+message Message540 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage540 nested = 7;
+  Status540 status = 8;
+}
+
+// Nested message type
+message NestedMessage540 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item540 items = 3;
+}
+
+// Simple item message
+message Item540 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status540 {
+  STATUS_540_UNSPECIFIED = 0;
+  STATUS_540_ACTIVE = 1;
+  STATUS_540_INACTIVE = 2;
+  STATUS_540_PENDING = 3;
+}
+
+// Service definition
+service Service540 {
+  rpc Get540(Get540Request) returns (Get540Response);
+  rpc List540(List540Request) returns (List540Response);
+  rpc Create540(Create540Request) returns (Create540Response);
+}
+
+message Get540Request {
+  string id = 1;
+}
+
+message Get540Response {
+  Message540 result = 1;
+}
+
+message List540Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List540Response {
+  repeated Message540 results = 1;
+  string next_page_token = 2;
+}
+
+message Create540Request {
+  Message540 message = 1;
+}
+
+message Create540Response {
+  Message540 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg669;
+
+// Message with various field types
+message Message669 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage669 nested = 7;
+  Status669 status = 8;
+}
+
+// Nested message type
+message NestedMessage669 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item669 items = 3;
+}
+
+// Simple item message
+message Item669 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status669 {
+  STATUS_669_UNSPECIFIED = 0;
+  STATUS_669_ACTIVE = 1;
+  STATUS_669_INACTIVE = 2;
+  STATUS_669_PENDING = 3;
+}
+
+// Service definition
+service Service669 {
+  rpc Get669(Get669Request) returns (Get669Response);
+  rpc List669(List669Request) returns (List669Response);
+  rpc Create669(Create669Request) returns (Create669Response);
+}
+
+message Get669Request {
+  string id = 1;
+}
+
+message Get669Response {
+  Message669 result = 1;
+}
+
+message List669Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List669Response {
+  repeated Message669 results = 1;
+  string next_page_token = 2;
+}
+
+message Create669Request {
+  Message669 message = 1;
+}
+
+message Create669Response {
+  Message669 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg125;
+
+// Message with various field types
+message Message125 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage125 nested = 7;
+  Status125 status = 8;
+}
+
+// Nested message type
+message NestedMessage125 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item125 items = 3;
+}
+
+// Simple item message
+message Item125 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status125 {
+  STATUS_125_UNSPECIFIED = 0;
+  STATUS_125_ACTIVE = 1;
+  STATUS_125_INACTIVE = 2;
+  STATUS_125_PENDING = 3;
+}
+
+// Service definition
+service Service125 {
+  rpc Get125(Get125Request) returns (Get125Response);
+  rpc List125(List125Request) returns (List125Response);
+  rpc Create125(Create125Request) returns (Create125Response);
+}
+
+message Get125Request {
+  string id = 1;
+}
+
+message Get125Response {
+  Message125 result = 1;
+}
+
+message List125Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List125Response {
+  repeated Message125 results = 1;
+  string next_page_token = 2;
+}
+
+message Create125Request {
+  Message125 message = 1;
+}
+
+message Create125Response {
+  Message125 result = 1;
+}

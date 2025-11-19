@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg264;
+
+// Message with various field types
+message Message264 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage264 nested = 7;
+  Status264 status = 8;
+}
+
+// Nested message type
+message NestedMessage264 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item264 items = 3;
+}
+
+// Simple item message
+message Item264 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status264 {
+  STATUS_264_UNSPECIFIED = 0;
+  STATUS_264_ACTIVE = 1;
+  STATUS_264_INACTIVE = 2;
+  STATUS_264_PENDING = 3;
+}
+
+// Service definition
+service Service264 {
+  rpc Get264(Get264Request) returns (Get264Response);
+  rpc List264(List264Request) returns (List264Response);
+  rpc Create264(Create264Request) returns (Create264Response);
+}
+
+message Get264Request {
+  string id = 1;
+}
+
+message Get264Response {
+  Message264 result = 1;
+}
+
+message List264Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List264Response {
+  repeated Message264 results = 1;
+  string next_page_token = 2;
+}
+
+message Create264Request {
+  Message264 message = 1;
+}
+
+message Create264Response {
+  Message264 result = 1;
+}

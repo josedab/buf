@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg176;
+
+// Message with various field types
+message Message176 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage176 nested = 7;
+  Status176 status = 8;
+}
+
+// Nested message type
+message NestedMessage176 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item176 items = 3;
+}
+
+// Simple item message
+message Item176 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status176 {
+  STATUS_176_UNSPECIFIED = 0;
+  STATUS_176_ACTIVE = 1;
+  STATUS_176_INACTIVE = 2;
+  STATUS_176_PENDING = 3;
+}
+
+// Service definition
+service Service176 {
+  rpc Get176(Get176Request) returns (Get176Response);
+  rpc List176(List176Request) returns (List176Response);
+  rpc Create176(Create176Request) returns (Create176Response);
+}
+
+message Get176Request {
+  string id = 1;
+}
+
+message Get176Response {
+  Message176 result = 1;
+}
+
+message List176Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List176Response {
+  repeated Message176 results = 1;
+  string next_page_token = 2;
+}
+
+message Create176Request {
+  Message176 message = 1;
+}
+
+message Create176Response {
+  Message176 result = 1;
+}

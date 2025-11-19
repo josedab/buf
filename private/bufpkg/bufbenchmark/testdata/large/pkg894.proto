@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg894;
+
+// Message with various field types
+message Message894 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage894 nested = 7;
+  Status894 status = 8;
+}
+
+// Nested message type
+message NestedMessage894 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item894 items = 3;
+}
+
+// Simple item message
+message Item894 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status894 {
+  STATUS_894_UNSPECIFIED = 0;
+  STATUS_894_ACTIVE = 1;
+  STATUS_894_INACTIVE = 2;
+  STATUS_894_PENDING = 3;
+}
+
+// Service definition
+service Service894 {
+  rpc Get894(Get894Request) returns (Get894Response);
+  rpc List894(List894Request) returns (List894Response);
+  rpc Create894(Create894Request) returns (Create894Response);
+}
+
+message Get894Request {
+  string id = 1;
+}
+
+message Get894Response {
+  Message894 result = 1;
+}
+
+message List894Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List894Response {
+  repeated Message894 results = 1;
+  string next_page_token = 2;
+}
+
+message Create894Request {
+  Message894 message = 1;
+}
+
+message Create894Response {
+  Message894 result = 1;
+}

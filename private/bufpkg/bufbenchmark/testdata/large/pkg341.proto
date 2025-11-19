@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg341;
+
+// Message with various field types
+message Message341 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage341 nested = 7;
+  Status341 status = 8;
+}
+
+// Nested message type
+message NestedMessage341 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item341 items = 3;
+}
+
+// Simple item message
+message Item341 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status341 {
+  STATUS_341_UNSPECIFIED = 0;
+  STATUS_341_ACTIVE = 1;
+  STATUS_341_INACTIVE = 2;
+  STATUS_341_PENDING = 3;
+}
+
+// Service definition
+service Service341 {
+  rpc Get341(Get341Request) returns (Get341Response);
+  rpc List341(List341Request) returns (List341Response);
+  rpc Create341(Create341Request) returns (Create341Response);
+}
+
+message Get341Request {
+  string id = 1;
+}
+
+message Get341Response {
+  Message341 result = 1;
+}
+
+message List341Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List341Response {
+  repeated Message341 results = 1;
+  string next_page_token = 2;
+}
+
+message Create341Request {
+  Message341 message = 1;
+}
+
+message Create341Response {
+  Message341 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg659;
+
+// Message with various field types
+message Message659 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage659 nested = 7;
+  Status659 status = 8;
+}
+
+// Nested message type
+message NestedMessage659 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item659 items = 3;
+}
+
+// Simple item message
+message Item659 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status659 {
+  STATUS_659_UNSPECIFIED = 0;
+  STATUS_659_ACTIVE = 1;
+  STATUS_659_INACTIVE = 2;
+  STATUS_659_PENDING = 3;
+}
+
+// Service definition
+service Service659 {
+  rpc Get659(Get659Request) returns (Get659Response);
+  rpc List659(List659Request) returns (List659Response);
+  rpc Create659(Create659Request) returns (Create659Response);
+}
+
+message Get659Request {
+  string id = 1;
+}
+
+message Get659Response {
+  Message659 result = 1;
+}
+
+message List659Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List659Response {
+  repeated Message659 results = 1;
+  string next_page_token = 2;
+}
+
+message Create659Request {
+  Message659 message = 1;
+}
+
+message Create659Response {
+  Message659 result = 1;
+}

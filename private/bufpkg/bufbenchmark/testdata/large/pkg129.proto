@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg129;
+
+// Message with various field types
+message Message129 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage129 nested = 7;
+  Status129 status = 8;
+}
+
+// Nested message type
+message NestedMessage129 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item129 items = 3;
+}
+
+// Simple item message
+message Item129 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status129 {
+  STATUS_129_UNSPECIFIED = 0;
+  STATUS_129_ACTIVE = 1;
+  STATUS_129_INACTIVE = 2;
+  STATUS_129_PENDING = 3;
+}
+
+// Service definition
+service Service129 {
+  rpc Get129(Get129Request) returns (Get129Response);
+  rpc List129(List129Request) returns (List129Response);
+  rpc Create129(Create129Request) returns (Create129Response);
+}
+
+message Get129Request {
+  string id = 1;
+}
+
+message Get129Response {
+  Message129 result = 1;
+}
+
+message List129Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List129Response {
+  repeated Message129 results = 1;
+  string next_page_token = 2;
+}
+
+message Create129Request {
+  Message129 message = 1;
+}
+
+message Create129Response {
+  Message129 result = 1;
+}

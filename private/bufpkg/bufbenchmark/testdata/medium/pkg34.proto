@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg34;
+
+// Message with various field types
+message Message34 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage34 nested = 7;
+  Status34 status = 8;
+}
+
+// Nested message type
+message NestedMessage34 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item34 items = 3;
+}
+
+// Simple item message
+message Item34 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status34 {
+  STATUS_34_UNSPECIFIED = 0;
+  STATUS_34_ACTIVE = 1;
+  STATUS_34_INACTIVE = 2;
+  STATUS_34_PENDING = 3;
+}
+
+// Service definition
+service Service34 {
+  rpc Get34(Get34Request) returns (Get34Response);
+  rpc List34(List34Request) returns (List34Response);
+  rpc Create34(Create34Request) returns (Create34Response);
+}
+
+message Get34Request {
+  string id = 1;
+}
+
+message Get34Response {
+  Message34 result = 1;
+}
+
+message List34Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List34Response {
+  repeated Message34 results = 1;
+  string next_page_token = 2;
+}
+
+message Create34Request {
+  Message34 message = 1;
+}
+
+message Create34Response {
+  Message34 result = 1;
+}

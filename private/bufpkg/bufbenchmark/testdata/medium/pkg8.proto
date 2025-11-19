@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg8;
+
+// Message with various field types
+message Message8 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage8 nested = 7;
+  Status8 status = 8;
+}
+
+// Nested message type
+message NestedMessage8 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item8 items = 3;
+}
+
+// Simple item message
+message Item8 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status8 {
+  STATUS_8_UNSPECIFIED = 0;
+  STATUS_8_ACTIVE = 1;
+  STATUS_8_INACTIVE = 2;
+  STATUS_8_PENDING = 3;
+}
+
+// Service definition
+service Service8 {
+  rpc Get8(Get8Request) returns (Get8Response);
+  rpc List8(List8Request) returns (List8Response);
+  rpc Create8(Create8Request) returns (Create8Response);
+}
+
+message Get8Request {
+  string id = 1;
+}
+
+message Get8Response {
+  Message8 result = 1;
+}
+
+message List8Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List8Response {
+  repeated Message8 results = 1;
+  string next_page_token = 2;
+}
+
+message Create8Request {
+  Message8 message = 1;
+}
+
+message Create8Response {
+  Message8 result = 1;
+}

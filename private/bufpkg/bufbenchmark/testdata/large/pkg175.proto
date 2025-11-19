@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg175;
+
+// Message with various field types
+message Message175 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage175 nested = 7;
+  Status175 status = 8;
+}
+
+// Nested message type
+message NestedMessage175 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item175 items = 3;
+}
+
+// Simple item message
+message Item175 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status175 {
+  STATUS_175_UNSPECIFIED = 0;
+  STATUS_175_ACTIVE = 1;
+  STATUS_175_INACTIVE = 2;
+  STATUS_175_PENDING = 3;
+}
+
+// Service definition
+service Service175 {
+  rpc Get175(Get175Request) returns (Get175Response);
+  rpc List175(List175Request) returns (List175Response);
+  rpc Create175(Create175Request) returns (Create175Response);
+}
+
+message Get175Request {
+  string id = 1;
+}
+
+message Get175Response {
+  Message175 result = 1;
+}
+
+message List175Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List175Response {
+  repeated Message175 results = 1;
+  string next_page_token = 2;
+}
+
+message Create175Request {
+  Message175 message = 1;
+}
+
+message Create175Response {
+  Message175 result = 1;
+}

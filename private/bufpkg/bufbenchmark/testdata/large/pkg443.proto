@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg443;
+
+// Message with various field types
+message Message443 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage443 nested = 7;
+  Status443 status = 8;
+}
+
+// Nested message type
+message NestedMessage443 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item443 items = 3;
+}
+
+// Simple item message
+message Item443 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status443 {
+  STATUS_443_UNSPECIFIED = 0;
+  STATUS_443_ACTIVE = 1;
+  STATUS_443_INACTIVE = 2;
+  STATUS_443_PENDING = 3;
+}
+
+// Service definition
+service Service443 {
+  rpc Get443(Get443Request) returns (Get443Response);
+  rpc List443(List443Request) returns (List443Response);
+  rpc Create443(Create443Request) returns (Create443Response);
+}
+
+message Get443Request {
+  string id = 1;
+}
+
+message Get443Response {
+  Message443 result = 1;
+}
+
+message List443Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List443Response {
+  repeated Message443 results = 1;
+  string next_page_token = 2;
+}
+
+message Create443Request {
+  Message443 message = 1;
+}
+
+message Create443Response {
+  Message443 result = 1;
+}

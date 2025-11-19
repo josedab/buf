@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg184;
+
+// Message with various field types
+message Message184 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage184 nested = 7;
+  Status184 status = 8;
+}
+
+// Nested message type
+message NestedMessage184 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item184 items = 3;
+}
+
+// Simple item message
+message Item184 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status184 {
+  STATUS_184_UNSPECIFIED = 0;
+  STATUS_184_ACTIVE = 1;
+  STATUS_184_INACTIVE = 2;
+  STATUS_184_PENDING = 3;
+}
+
+// Service definition
+service Service184 {
+  rpc Get184(Get184Request) returns (Get184Response);
+  rpc List184(List184Request) returns (List184Response);
+  rpc Create184(Create184Request) returns (Create184Response);
+}
+
+message Get184Request {
+  string id = 1;
+}
+
+message Get184Response {
+  Message184 result = 1;
+}
+
+message List184Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List184Response {
+  repeated Message184 results = 1;
+  string next_page_token = 2;
+}
+
+message Create184Request {
+  Message184 message = 1;
+}
+
+message Create184Response {
+  Message184 result = 1;
+}

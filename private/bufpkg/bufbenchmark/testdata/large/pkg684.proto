@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg684;
+
+// Message with various field types
+message Message684 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage684 nested = 7;
+  Status684 status = 8;
+}
+
+// Nested message type
+message NestedMessage684 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item684 items = 3;
+}
+
+// Simple item message
+message Item684 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status684 {
+  STATUS_684_UNSPECIFIED = 0;
+  STATUS_684_ACTIVE = 1;
+  STATUS_684_INACTIVE = 2;
+  STATUS_684_PENDING = 3;
+}
+
+// Service definition
+service Service684 {
+  rpc Get684(Get684Request) returns (Get684Response);
+  rpc List684(List684Request) returns (List684Response);
+  rpc Create684(Create684Request) returns (Create684Response);
+}
+
+message Get684Request {
+  string id = 1;
+}
+
+message Get684Response {
+  Message684 result = 1;
+}
+
+message List684Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List684Response {
+  repeated Message684 results = 1;
+  string next_page_token = 2;
+}
+
+message Create684Request {
+  Message684 message = 1;
+}
+
+message Create684Response {
+  Message684 result = 1;
+}

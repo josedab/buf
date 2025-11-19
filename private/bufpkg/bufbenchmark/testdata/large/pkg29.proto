@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg29;
+
+// Message with various field types
+message Message29 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage29 nested = 7;
+  Status29 status = 8;
+}
+
+// Nested message type
+message NestedMessage29 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item29 items = 3;
+}
+
+// Simple item message
+message Item29 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status29 {
+  STATUS_29_UNSPECIFIED = 0;
+  STATUS_29_ACTIVE = 1;
+  STATUS_29_INACTIVE = 2;
+  STATUS_29_PENDING = 3;
+}
+
+// Service definition
+service Service29 {
+  rpc Get29(Get29Request) returns (Get29Response);
+  rpc List29(List29Request) returns (List29Response);
+  rpc Create29(Create29Request) returns (Create29Response);
+}
+
+message Get29Request {
+  string id = 1;
+}
+
+message Get29Response {
+  Message29 result = 1;
+}
+
+message List29Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List29Response {
+  repeated Message29 results = 1;
+  string next_page_token = 2;
+}
+
+message Create29Request {
+  Message29 message = 1;
+}
+
+message Create29Response {
+  Message29 result = 1;
+}

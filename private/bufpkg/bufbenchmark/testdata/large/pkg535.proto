@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg535;
+
+// Message with various field types
+message Message535 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage535 nested = 7;
+  Status535 status = 8;
+}
+
+// Nested message type
+message NestedMessage535 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item535 items = 3;
+}
+
+// Simple item message
+message Item535 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status535 {
+  STATUS_535_UNSPECIFIED = 0;
+  STATUS_535_ACTIVE = 1;
+  STATUS_535_INACTIVE = 2;
+  STATUS_535_PENDING = 3;
+}
+
+// Service definition
+service Service535 {
+  rpc Get535(Get535Request) returns (Get535Response);
+  rpc List535(List535Request) returns (List535Response);
+  rpc Create535(Create535Request) returns (Create535Response);
+}
+
+message Get535Request {
+  string id = 1;
+}
+
+message Get535Response {
+  Message535 result = 1;
+}
+
+message List535Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List535Response {
+  repeated Message535 results = 1;
+  string next_page_token = 2;
+}
+
+message Create535Request {
+  Message535 message = 1;
+}
+
+message Create535Response {
+  Message535 result = 1;
+}

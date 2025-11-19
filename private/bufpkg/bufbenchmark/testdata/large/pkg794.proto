@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg794;
+
+// Message with various field types
+message Message794 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage794 nested = 7;
+  Status794 status = 8;
+}
+
+// Nested message type
+message NestedMessage794 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item794 items = 3;
+}
+
+// Simple item message
+message Item794 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status794 {
+  STATUS_794_UNSPECIFIED = 0;
+  STATUS_794_ACTIVE = 1;
+  STATUS_794_INACTIVE = 2;
+  STATUS_794_PENDING = 3;
+}
+
+// Service definition
+service Service794 {
+  rpc Get794(Get794Request) returns (Get794Response);
+  rpc List794(List794Request) returns (List794Response);
+  rpc Create794(Create794Request) returns (Create794Response);
+}
+
+message Get794Request {
+  string id = 1;
+}
+
+message Get794Response {
+  Message794 result = 1;
+}
+
+message List794Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List794Response {
+  repeated Message794 results = 1;
+  string next_page_token = 2;
+}
+
+message Create794Request {
+  Message794 message = 1;
+}
+
+message Create794Response {
+  Message794 result = 1;
+}

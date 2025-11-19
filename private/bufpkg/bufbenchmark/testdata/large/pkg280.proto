@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg280;
+
+// Message with various field types
+message Message280 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage280 nested = 7;
+  Status280 status = 8;
+}
+
+// Nested message type
+message NestedMessage280 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item280 items = 3;
+}
+
+// Simple item message
+message Item280 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status280 {
+  STATUS_280_UNSPECIFIED = 0;
+  STATUS_280_ACTIVE = 1;
+  STATUS_280_INACTIVE = 2;
+  STATUS_280_PENDING = 3;
+}
+
+// Service definition
+service Service280 {
+  rpc Get280(Get280Request) returns (Get280Response);
+  rpc List280(List280Request) returns (List280Response);
+  rpc Create280(Create280Request) returns (Create280Response);
+}
+
+message Get280Request {
+  string id = 1;
+}
+
+message Get280Response {
+  Message280 result = 1;
+}
+
+message List280Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List280Response {
+  repeated Message280 results = 1;
+  string next_page_token = 2;
+}
+
+message Create280Request {
+  Message280 message = 1;
+}
+
+message Create280Response {
+  Message280 result = 1;
+}

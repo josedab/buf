@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg631;
+
+// Message with various field types
+message Message631 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage631 nested = 7;
+  Status631 status = 8;
+}
+
+// Nested message type
+message NestedMessage631 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item631 items = 3;
+}
+
+// Simple item message
+message Item631 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status631 {
+  STATUS_631_UNSPECIFIED = 0;
+  STATUS_631_ACTIVE = 1;
+  STATUS_631_INACTIVE = 2;
+  STATUS_631_PENDING = 3;
+}
+
+// Service definition
+service Service631 {
+  rpc Get631(Get631Request) returns (Get631Response);
+  rpc List631(List631Request) returns (List631Response);
+  rpc Create631(Create631Request) returns (Create631Response);
+}
+
+message Get631Request {
+  string id = 1;
+}
+
+message Get631Response {
+  Message631 result = 1;
+}
+
+message List631Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List631Response {
+  repeated Message631 results = 1;
+  string next_page_token = 2;
+}
+
+message Create631Request {
+  Message631 message = 1;
+}
+
+message Create631Response {
+  Message631 result = 1;
+}

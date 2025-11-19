@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg366;
+
+// Message with various field types
+message Message366 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage366 nested = 7;
+  Status366 status = 8;
+}
+
+// Nested message type
+message NestedMessage366 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item366 items = 3;
+}
+
+// Simple item message
+message Item366 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status366 {
+  STATUS_366_UNSPECIFIED = 0;
+  STATUS_366_ACTIVE = 1;
+  STATUS_366_INACTIVE = 2;
+  STATUS_366_PENDING = 3;
+}
+
+// Service definition
+service Service366 {
+  rpc Get366(Get366Request) returns (Get366Response);
+  rpc List366(List366Request) returns (List366Response);
+  rpc Create366(Create366Request) returns (Create366Response);
+}
+
+message Get366Request {
+  string id = 1;
+}
+
+message Get366Response {
+  Message366 result = 1;
+}
+
+message List366Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List366Response {
+  repeated Message366 results = 1;
+  string next_page_token = 2;
+}
+
+message Create366Request {
+  Message366 message = 1;
+}
+
+message Create366Response {
+  Message366 result = 1;
+}

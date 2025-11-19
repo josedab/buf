@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg383;
+
+// Message with various field types
+message Message383 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage383 nested = 7;
+  Status383 status = 8;
+}
+
+// Nested message type
+message NestedMessage383 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item383 items = 3;
+}
+
+// Simple item message
+message Item383 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status383 {
+  STATUS_383_UNSPECIFIED = 0;
+  STATUS_383_ACTIVE = 1;
+  STATUS_383_INACTIVE = 2;
+  STATUS_383_PENDING = 3;
+}
+
+// Service definition
+service Service383 {
+  rpc Get383(Get383Request) returns (Get383Response);
+  rpc List383(List383Request) returns (List383Response);
+  rpc Create383(Create383Request) returns (Create383Response);
+}
+
+message Get383Request {
+  string id = 1;
+}
+
+message Get383Response {
+  Message383 result = 1;
+}
+
+message List383Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List383Response {
+  repeated Message383 results = 1;
+  string next_page_token = 2;
+}
+
+message Create383Request {
+  Message383 message = 1;
+}
+
+message Create383Response {
+  Message383 result = 1;
+}

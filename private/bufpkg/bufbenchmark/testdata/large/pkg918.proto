@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg918;
+
+// Message with various field types
+message Message918 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage918 nested = 7;
+  Status918 status = 8;
+}
+
+// Nested message type
+message NestedMessage918 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item918 items = 3;
+}
+
+// Simple item message
+message Item918 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status918 {
+  STATUS_918_UNSPECIFIED = 0;
+  STATUS_918_ACTIVE = 1;
+  STATUS_918_INACTIVE = 2;
+  STATUS_918_PENDING = 3;
+}
+
+// Service definition
+service Service918 {
+  rpc Get918(Get918Request) returns (Get918Response);
+  rpc List918(List918Request) returns (List918Response);
+  rpc Create918(Create918Request) returns (Create918Response);
+}
+
+message Get918Request {
+  string id = 1;
+}
+
+message Get918Response {
+  Message918 result = 1;
+}
+
+message List918Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List918Response {
+  repeated Message918 results = 1;
+  string next_page_token = 2;
+}
+
+message Create918Request {
+  Message918 message = 1;
+}
+
+message Create918Response {
+  Message918 result = 1;
+}

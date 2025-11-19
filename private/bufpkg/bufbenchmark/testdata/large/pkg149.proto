@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg149;
+
+// Message with various field types
+message Message149 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage149 nested = 7;
+  Status149 status = 8;
+}
+
+// Nested message type
+message NestedMessage149 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item149 items = 3;
+}
+
+// Simple item message
+message Item149 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status149 {
+  STATUS_149_UNSPECIFIED = 0;
+  STATUS_149_ACTIVE = 1;
+  STATUS_149_INACTIVE = 2;
+  STATUS_149_PENDING = 3;
+}
+
+// Service definition
+service Service149 {
+  rpc Get149(Get149Request) returns (Get149Response);
+  rpc List149(List149Request) returns (List149Response);
+  rpc Create149(Create149Request) returns (Create149Response);
+}
+
+message Get149Request {
+  string id = 1;
+}
+
+message Get149Response {
+  Message149 result = 1;
+}
+
+message List149Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List149Response {
+  repeated Message149 results = 1;
+  string next_page_token = 2;
+}
+
+message Create149Request {
+  Message149 message = 1;
+}
+
+message Create149Response {
+  Message149 result = 1;
+}

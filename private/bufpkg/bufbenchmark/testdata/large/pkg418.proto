@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg418;
+
+// Message with various field types
+message Message418 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage418 nested = 7;
+  Status418 status = 8;
+}
+
+// Nested message type
+message NestedMessage418 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item418 items = 3;
+}
+
+// Simple item message
+message Item418 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status418 {
+  STATUS_418_UNSPECIFIED = 0;
+  STATUS_418_ACTIVE = 1;
+  STATUS_418_INACTIVE = 2;
+  STATUS_418_PENDING = 3;
+}
+
+// Service definition
+service Service418 {
+  rpc Get418(Get418Request) returns (Get418Response);
+  rpc List418(List418Request) returns (List418Response);
+  rpc Create418(Create418Request) returns (Create418Response);
+}
+
+message Get418Request {
+  string id = 1;
+}
+
+message Get418Response {
+  Message418 result = 1;
+}
+
+message List418Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List418Response {
+  repeated Message418 results = 1;
+  string next_page_token = 2;
+}
+
+message Create418Request {
+  Message418 message = 1;
+}
+
+message Create418Response {
+  Message418 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg88;
+
+// Message with various field types
+message Message88 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage88 nested = 7;
+  Status88 status = 8;
+}
+
+// Nested message type
+message NestedMessage88 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item88 items = 3;
+}
+
+// Simple item message
+message Item88 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status88 {
+  STATUS_88_UNSPECIFIED = 0;
+  STATUS_88_ACTIVE = 1;
+  STATUS_88_INACTIVE = 2;
+  STATUS_88_PENDING = 3;
+}
+
+// Service definition
+service Service88 {
+  rpc Get88(Get88Request) returns (Get88Response);
+  rpc List88(List88Request) returns (List88Response);
+  rpc Create88(Create88Request) returns (Create88Response);
+}
+
+message Get88Request {
+  string id = 1;
+}
+
+message Get88Response {
+  Message88 result = 1;
+}
+
+message List88Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List88Response {
+  repeated Message88 results = 1;
+  string next_page_token = 2;
+}
+
+message Create88Request {
+  Message88 message = 1;
+}
+
+message Create88Response {
+  Message88 result = 1;
+}

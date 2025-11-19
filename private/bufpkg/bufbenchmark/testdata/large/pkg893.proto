@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg893;
+
+// Message with various field types
+message Message893 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage893 nested = 7;
+  Status893 status = 8;
+}
+
+// Nested message type
+message NestedMessage893 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item893 items = 3;
+}
+
+// Simple item message
+message Item893 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status893 {
+  STATUS_893_UNSPECIFIED = 0;
+  STATUS_893_ACTIVE = 1;
+  STATUS_893_INACTIVE = 2;
+  STATUS_893_PENDING = 3;
+}
+
+// Service definition
+service Service893 {
+  rpc Get893(Get893Request) returns (Get893Response);
+  rpc List893(List893Request) returns (List893Response);
+  rpc Create893(Create893Request) returns (Create893Response);
+}
+
+message Get893Request {
+  string id = 1;
+}
+
+message Get893Response {
+  Message893 result = 1;
+}
+
+message List893Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List893Response {
+  repeated Message893 results = 1;
+  string next_page_token = 2;
+}
+
+message Create893Request {
+  Message893 message = 1;
+}
+
+message Create893Response {
+  Message893 result = 1;
+}

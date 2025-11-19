@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg511;
+
+// Message with various field types
+message Message511 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage511 nested = 7;
+  Status511 status = 8;
+}
+
+// Nested message type
+message NestedMessage511 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item511 items = 3;
+}
+
+// Simple item message
+message Item511 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status511 {
+  STATUS_511_UNSPECIFIED = 0;
+  STATUS_511_ACTIVE = 1;
+  STATUS_511_INACTIVE = 2;
+  STATUS_511_PENDING = 3;
+}
+
+// Service definition
+service Service511 {
+  rpc Get511(Get511Request) returns (Get511Response);
+  rpc List511(List511Request) returns (List511Response);
+  rpc Create511(Create511Request) returns (Create511Response);
+}
+
+message Get511Request {
+  string id = 1;
+}
+
+message Get511Response {
+  Message511 result = 1;
+}
+
+message List511Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List511Response {
+  repeated Message511 results = 1;
+  string next_page_token = 2;
+}
+
+message Create511Request {
+  Message511 message = 1;
+}
+
+message Create511Response {
+  Message511 result = 1;
+}

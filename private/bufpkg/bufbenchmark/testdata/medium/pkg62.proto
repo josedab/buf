@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg62;
+
+// Message with various field types
+message Message62 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage62 nested = 7;
+  Status62 status = 8;
+}
+
+// Nested message type
+message NestedMessage62 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item62 items = 3;
+}
+
+// Simple item message
+message Item62 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status62 {
+  STATUS_62_UNSPECIFIED = 0;
+  STATUS_62_ACTIVE = 1;
+  STATUS_62_INACTIVE = 2;
+  STATUS_62_PENDING = 3;
+}
+
+// Service definition
+service Service62 {
+  rpc Get62(Get62Request) returns (Get62Response);
+  rpc List62(List62Request) returns (List62Response);
+  rpc Create62(Create62Request) returns (Create62Response);
+}
+
+message Get62Request {
+  string id = 1;
+}
+
+message Get62Response {
+  Message62 result = 1;
+}
+
+message List62Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List62Response {
+  repeated Message62 results = 1;
+  string next_page_token = 2;
+}
+
+message Create62Request {
+  Message62 message = 1;
+}
+
+message Create62Response {
+  Message62 result = 1;
+}

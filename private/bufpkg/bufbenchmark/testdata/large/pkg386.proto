@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg386;
+
+// Message with various field types
+message Message386 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage386 nested = 7;
+  Status386 status = 8;
+}
+
+// Nested message type
+message NestedMessage386 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item386 items = 3;
+}
+
+// Simple item message
+message Item386 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status386 {
+  STATUS_386_UNSPECIFIED = 0;
+  STATUS_386_ACTIVE = 1;
+  STATUS_386_INACTIVE = 2;
+  STATUS_386_PENDING = 3;
+}
+
+// Service definition
+service Service386 {
+  rpc Get386(Get386Request) returns (Get386Response);
+  rpc List386(List386Request) returns (List386Response);
+  rpc Create386(Create386Request) returns (Create386Response);
+}
+
+message Get386Request {
+  string id = 1;
+}
+
+message Get386Response {
+  Message386 result = 1;
+}
+
+message List386Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List386Response {
+  repeated Message386 results = 1;
+  string next_page_token = 2;
+}
+
+message Create386Request {
+  Message386 message = 1;
+}
+
+message Create386Response {
+  Message386 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg290;
+
+// Message with various field types
+message Message290 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage290 nested = 7;
+  Status290 status = 8;
+}
+
+// Nested message type
+message NestedMessage290 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item290 items = 3;
+}
+
+// Simple item message
+message Item290 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status290 {
+  STATUS_290_UNSPECIFIED = 0;
+  STATUS_290_ACTIVE = 1;
+  STATUS_290_INACTIVE = 2;
+  STATUS_290_PENDING = 3;
+}
+
+// Service definition
+service Service290 {
+  rpc Get290(Get290Request) returns (Get290Response);
+  rpc List290(List290Request) returns (List290Response);
+  rpc Create290(Create290Request) returns (Create290Response);
+}
+
+message Get290Request {
+  string id = 1;
+}
+
+message Get290Response {
+  Message290 result = 1;
+}
+
+message List290Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List290Response {
+  repeated Message290 results = 1;
+  string next_page_token = 2;
+}
+
+message Create290Request {
+  Message290 message = 1;
+}
+
+message Create290Response {
+  Message290 result = 1;
+}

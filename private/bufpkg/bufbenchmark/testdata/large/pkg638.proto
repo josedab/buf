@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg638;
+
+// Message with various field types
+message Message638 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage638 nested = 7;
+  Status638 status = 8;
+}
+
+// Nested message type
+message NestedMessage638 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item638 items = 3;
+}
+
+// Simple item message
+message Item638 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status638 {
+  STATUS_638_UNSPECIFIED = 0;
+  STATUS_638_ACTIVE = 1;
+  STATUS_638_INACTIVE = 2;
+  STATUS_638_PENDING = 3;
+}
+
+// Service definition
+service Service638 {
+  rpc Get638(Get638Request) returns (Get638Response);
+  rpc List638(List638Request) returns (List638Response);
+  rpc Create638(Create638Request) returns (Create638Response);
+}
+
+message Get638Request {
+  string id = 1;
+}
+
+message Get638Response {
+  Message638 result = 1;
+}
+
+message List638Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List638Response {
+  repeated Message638 results = 1;
+  string next_page_token = 2;
+}
+
+message Create638Request {
+  Message638 message = 1;
+}
+
+message Create638Response {
+  Message638 result = 1;
+}

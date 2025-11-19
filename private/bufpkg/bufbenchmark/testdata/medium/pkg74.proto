@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg74;
+
+// Message with various field types
+message Message74 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage74 nested = 7;
+  Status74 status = 8;
+}
+
+// Nested message type
+message NestedMessage74 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item74 items = 3;
+}
+
+// Simple item message
+message Item74 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status74 {
+  STATUS_74_UNSPECIFIED = 0;
+  STATUS_74_ACTIVE = 1;
+  STATUS_74_INACTIVE = 2;
+  STATUS_74_PENDING = 3;
+}
+
+// Service definition
+service Service74 {
+  rpc Get74(Get74Request) returns (Get74Response);
+  rpc List74(List74Request) returns (List74Response);
+  rpc Create74(Create74Request) returns (Create74Response);
+}
+
+message Get74Request {
+  string id = 1;
+}
+
+message Get74Response {
+  Message74 result = 1;
+}
+
+message List74Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List74Response {
+  repeated Message74 results = 1;
+  string next_page_token = 2;
+}
+
+message Create74Request {
+  Message74 message = 1;
+}
+
+message Create74Response {
+  Message74 result = 1;
+}

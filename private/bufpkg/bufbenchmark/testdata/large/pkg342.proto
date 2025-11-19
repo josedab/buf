@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg342;
+
+// Message with various field types
+message Message342 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage342 nested = 7;
+  Status342 status = 8;
+}
+
+// Nested message type
+message NestedMessage342 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item342 items = 3;
+}
+
+// Simple item message
+message Item342 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status342 {
+  STATUS_342_UNSPECIFIED = 0;
+  STATUS_342_ACTIVE = 1;
+  STATUS_342_INACTIVE = 2;
+  STATUS_342_PENDING = 3;
+}
+
+// Service definition
+service Service342 {
+  rpc Get342(Get342Request) returns (Get342Response);
+  rpc List342(List342Request) returns (List342Response);
+  rpc Create342(Create342Request) returns (Create342Response);
+}
+
+message Get342Request {
+  string id = 1;
+}
+
+message Get342Response {
+  Message342 result = 1;
+}
+
+message List342Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List342Response {
+  repeated Message342 results = 1;
+  string next_page_token = 2;
+}
+
+message Create342Request {
+  Message342 message = 1;
+}
+
+message Create342Response {
+  Message342 result = 1;
+}

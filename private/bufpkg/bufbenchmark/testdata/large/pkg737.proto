@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg737;
+
+// Message with various field types
+message Message737 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage737 nested = 7;
+  Status737 status = 8;
+}
+
+// Nested message type
+message NestedMessage737 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item737 items = 3;
+}
+
+// Simple item message
+message Item737 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status737 {
+  STATUS_737_UNSPECIFIED = 0;
+  STATUS_737_ACTIVE = 1;
+  STATUS_737_INACTIVE = 2;
+  STATUS_737_PENDING = 3;
+}
+
+// Service definition
+service Service737 {
+  rpc Get737(Get737Request) returns (Get737Response);
+  rpc List737(List737Request) returns (List737Response);
+  rpc Create737(Create737Request) returns (Create737Response);
+}
+
+message Get737Request {
+  string id = 1;
+}
+
+message Get737Response {
+  Message737 result = 1;
+}
+
+message List737Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List737Response {
+  repeated Message737 results = 1;
+  string next_page_token = 2;
+}
+
+message Create737Request {
+  Message737 message = 1;
+}
+
+message Create737Response {
+  Message737 result = 1;
+}

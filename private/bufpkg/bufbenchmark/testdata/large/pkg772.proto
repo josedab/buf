@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg772;
+
+// Message with various field types
+message Message772 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage772 nested = 7;
+  Status772 status = 8;
+}
+
+// Nested message type
+message NestedMessage772 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item772 items = 3;
+}
+
+// Simple item message
+message Item772 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status772 {
+  STATUS_772_UNSPECIFIED = 0;
+  STATUS_772_ACTIVE = 1;
+  STATUS_772_INACTIVE = 2;
+  STATUS_772_PENDING = 3;
+}
+
+// Service definition
+service Service772 {
+  rpc Get772(Get772Request) returns (Get772Response);
+  rpc List772(List772Request) returns (List772Response);
+  rpc Create772(Create772Request) returns (Create772Response);
+}
+
+message Get772Request {
+  string id = 1;
+}
+
+message Get772Response {
+  Message772 result = 1;
+}
+
+message List772Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List772Response {
+  repeated Message772 results = 1;
+  string next_page_token = 2;
+}
+
+message Create772Request {
+  Message772 message = 1;
+}
+
+message Create772Response {
+  Message772 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg870;
+
+// Message with various field types
+message Message870 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage870 nested = 7;
+  Status870 status = 8;
+}
+
+// Nested message type
+message NestedMessage870 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item870 items = 3;
+}
+
+// Simple item message
+message Item870 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status870 {
+  STATUS_870_UNSPECIFIED = 0;
+  STATUS_870_ACTIVE = 1;
+  STATUS_870_INACTIVE = 2;
+  STATUS_870_PENDING = 3;
+}
+
+// Service definition
+service Service870 {
+  rpc Get870(Get870Request) returns (Get870Response);
+  rpc List870(List870Request) returns (List870Response);
+  rpc Create870(Create870Request) returns (Create870Response);
+}
+
+message Get870Request {
+  string id = 1;
+}
+
+message Get870Response {
+  Message870 result = 1;
+}
+
+message List870Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List870Response {
+  repeated Message870 results = 1;
+  string next_page_token = 2;
+}
+
+message Create870Request {
+  Message870 message = 1;
+}
+
+message Create870Response {
+  Message870 result = 1;
+}

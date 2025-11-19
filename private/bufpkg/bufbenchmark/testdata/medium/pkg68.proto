@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg68;
+
+// Message with various field types
+message Message68 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage68 nested = 7;
+  Status68 status = 8;
+}
+
+// Nested message type
+message NestedMessage68 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item68 items = 3;
+}
+
+// Simple item message
+message Item68 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status68 {
+  STATUS_68_UNSPECIFIED = 0;
+  STATUS_68_ACTIVE = 1;
+  STATUS_68_INACTIVE = 2;
+  STATUS_68_PENDING = 3;
+}
+
+// Service definition
+service Service68 {
+  rpc Get68(Get68Request) returns (Get68Response);
+  rpc List68(List68Request) returns (List68Response);
+  rpc Create68(Create68Request) returns (Create68Response);
+}
+
+message Get68Request {
+  string id = 1;
+}
+
+message Get68Response {
+  Message68 result = 1;
+}
+
+message List68Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List68Response {
+  repeated Message68 results = 1;
+  string next_page_token = 2;
+}
+
+message Create68Request {
+  Message68 message = 1;
+}
+
+message Create68Response {
+  Message68 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg713;
+
+// Message with various field types
+message Message713 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage713 nested = 7;
+  Status713 status = 8;
+}
+
+// Nested message type
+message NestedMessage713 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item713 items = 3;
+}
+
+// Simple item message
+message Item713 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status713 {
+  STATUS_713_UNSPECIFIED = 0;
+  STATUS_713_ACTIVE = 1;
+  STATUS_713_INACTIVE = 2;
+  STATUS_713_PENDING = 3;
+}
+
+// Service definition
+service Service713 {
+  rpc Get713(Get713Request) returns (Get713Response);
+  rpc List713(List713Request) returns (List713Response);
+  rpc Create713(Create713Request) returns (Create713Response);
+}
+
+message Get713Request {
+  string id = 1;
+}
+
+message Get713Response {
+  Message713 result = 1;
+}
+
+message List713Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List713Response {
+  repeated Message713 results = 1;
+  string next_page_token = 2;
+}
+
+message Create713Request {
+  Message713 message = 1;
+}
+
+message Create713Response {
+  Message713 result = 1;
+}

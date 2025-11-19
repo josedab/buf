@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg144;
+
+// Message with various field types
+message Message144 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage144 nested = 7;
+  Status144 status = 8;
+}
+
+// Nested message type
+message NestedMessage144 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item144 items = 3;
+}
+
+// Simple item message
+message Item144 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status144 {
+  STATUS_144_UNSPECIFIED = 0;
+  STATUS_144_ACTIVE = 1;
+  STATUS_144_INACTIVE = 2;
+  STATUS_144_PENDING = 3;
+}
+
+// Service definition
+service Service144 {
+  rpc Get144(Get144Request) returns (Get144Response);
+  rpc List144(List144Request) returns (List144Response);
+  rpc Create144(Create144Request) returns (Create144Response);
+}
+
+message Get144Request {
+  string id = 1;
+}
+
+message Get144Response {
+  Message144 result = 1;
+}
+
+message List144Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List144Response {
+  repeated Message144 results = 1;
+  string next_page_token = 2;
+}
+
+message Create144Request {
+  Message144 message = 1;
+}
+
+message Create144Response {
+  Message144 result = 1;
+}

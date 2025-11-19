@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg885;
+
+// Message with various field types
+message Message885 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage885 nested = 7;
+  Status885 status = 8;
+}
+
+// Nested message type
+message NestedMessage885 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item885 items = 3;
+}
+
+// Simple item message
+message Item885 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status885 {
+  STATUS_885_UNSPECIFIED = 0;
+  STATUS_885_ACTIVE = 1;
+  STATUS_885_INACTIVE = 2;
+  STATUS_885_PENDING = 3;
+}
+
+// Service definition
+service Service885 {
+  rpc Get885(Get885Request) returns (Get885Response);
+  rpc List885(List885Request) returns (List885Response);
+  rpc Create885(Create885Request) returns (Create885Response);
+}
+
+message Get885Request {
+  string id = 1;
+}
+
+message Get885Response {
+  Message885 result = 1;
+}
+
+message List885Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List885Response {
+  repeated Message885 results = 1;
+  string next_page_token = 2;
+}
+
+message Create885Request {
+  Message885 message = 1;
+}
+
+message Create885Response {
+  Message885 result = 1;
+}

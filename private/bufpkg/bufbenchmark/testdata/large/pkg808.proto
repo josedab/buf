@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg808;
+
+// Message with various field types
+message Message808 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage808 nested = 7;
+  Status808 status = 8;
+}
+
+// Nested message type
+message NestedMessage808 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item808 items = 3;
+}
+
+// Simple item message
+message Item808 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status808 {
+  STATUS_808_UNSPECIFIED = 0;
+  STATUS_808_ACTIVE = 1;
+  STATUS_808_INACTIVE = 2;
+  STATUS_808_PENDING = 3;
+}
+
+// Service definition
+service Service808 {
+  rpc Get808(Get808Request) returns (Get808Response);
+  rpc List808(List808Request) returns (List808Response);
+  rpc Create808(Create808Request) returns (Create808Response);
+}
+
+message Get808Request {
+  string id = 1;
+}
+
+message Get808Response {
+  Message808 result = 1;
+}
+
+message List808Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List808Response {
+  repeated Message808 results = 1;
+  string next_page_token = 2;
+}
+
+message Create808Request {
+  Message808 message = 1;
+}
+
+message Create808Response {
+  Message808 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg410;
+
+// Message with various field types
+message Message410 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage410 nested = 7;
+  Status410 status = 8;
+}
+
+// Nested message type
+message NestedMessage410 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item410 items = 3;
+}
+
+// Simple item message
+message Item410 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status410 {
+  STATUS_410_UNSPECIFIED = 0;
+  STATUS_410_ACTIVE = 1;
+  STATUS_410_INACTIVE = 2;
+  STATUS_410_PENDING = 3;
+}
+
+// Service definition
+service Service410 {
+  rpc Get410(Get410Request) returns (Get410Response);
+  rpc List410(List410Request) returns (List410Response);
+  rpc Create410(Create410Request) returns (Create410Response);
+}
+
+message Get410Request {
+  string id = 1;
+}
+
+message Get410Response {
+  Message410 result = 1;
+}
+
+message List410Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List410Response {
+  repeated Message410 results = 1;
+  string next_page_token = 2;
+}
+
+message Create410Request {
+  Message410 message = 1;
+}
+
+message Create410Response {
+  Message410 result = 1;
+}

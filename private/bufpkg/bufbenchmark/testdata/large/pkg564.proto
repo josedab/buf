@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg564;
+
+// Message with various field types
+message Message564 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage564 nested = 7;
+  Status564 status = 8;
+}
+
+// Nested message type
+message NestedMessage564 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item564 items = 3;
+}
+
+// Simple item message
+message Item564 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status564 {
+  STATUS_564_UNSPECIFIED = 0;
+  STATUS_564_ACTIVE = 1;
+  STATUS_564_INACTIVE = 2;
+  STATUS_564_PENDING = 3;
+}
+
+// Service definition
+service Service564 {
+  rpc Get564(Get564Request) returns (Get564Response);
+  rpc List564(List564Request) returns (List564Response);
+  rpc Create564(Create564Request) returns (Create564Response);
+}
+
+message Get564Request {
+  string id = 1;
+}
+
+message Get564Response {
+  Message564 result = 1;
+}
+
+message List564Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List564Response {
+  repeated Message564 results = 1;
+  string next_page_token = 2;
+}
+
+message Create564Request {
+  Message564 message = 1;
+}
+
+message Create564Response {
+  Message564 result = 1;
+}

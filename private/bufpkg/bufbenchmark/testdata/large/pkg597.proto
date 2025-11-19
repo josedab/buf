@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg597;
+
+// Message with various field types
+message Message597 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage597 nested = 7;
+  Status597 status = 8;
+}
+
+// Nested message type
+message NestedMessage597 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item597 items = 3;
+}
+
+// Simple item message
+message Item597 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status597 {
+  STATUS_597_UNSPECIFIED = 0;
+  STATUS_597_ACTIVE = 1;
+  STATUS_597_INACTIVE = 2;
+  STATUS_597_PENDING = 3;
+}
+
+// Service definition
+service Service597 {
+  rpc Get597(Get597Request) returns (Get597Response);
+  rpc List597(List597Request) returns (List597Response);
+  rpc Create597(Create597Request) returns (Create597Response);
+}
+
+message Get597Request {
+  string id = 1;
+}
+
+message Get597Response {
+  Message597 result = 1;
+}
+
+message List597Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List597Response {
+  repeated Message597 results = 1;
+  string next_page_token = 2;
+}
+
+message Create597Request {
+  Message597 message = 1;
+}
+
+message Create597Response {
+  Message597 result = 1;
+}

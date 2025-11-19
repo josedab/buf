@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg460;
+
+// Message with various field types
+message Message460 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage460 nested = 7;
+  Status460 status = 8;
+}
+
+// Nested message type
+message NestedMessage460 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item460 items = 3;
+}
+
+// Simple item message
+message Item460 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status460 {
+  STATUS_460_UNSPECIFIED = 0;
+  STATUS_460_ACTIVE = 1;
+  STATUS_460_INACTIVE = 2;
+  STATUS_460_PENDING = 3;
+}
+
+// Service definition
+service Service460 {
+  rpc Get460(Get460Request) returns (Get460Response);
+  rpc List460(List460Request) returns (List460Response);
+  rpc Create460(Create460Request) returns (Create460Response);
+}
+
+message Get460Request {
+  string id = 1;
+}
+
+message Get460Response {
+  Message460 result = 1;
+}
+
+message List460Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List460Response {
+  repeated Message460 results = 1;
+  string next_page_token = 2;
+}
+
+message Create460Request {
+  Message460 message = 1;
+}
+
+message Create460Response {
+  Message460 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg148;
+
+// Message with various field types
+message Message148 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage148 nested = 7;
+  Status148 status = 8;
+}
+
+// Nested message type
+message NestedMessage148 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item148 items = 3;
+}
+
+// Simple item message
+message Item148 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status148 {
+  STATUS_148_UNSPECIFIED = 0;
+  STATUS_148_ACTIVE = 1;
+  STATUS_148_INACTIVE = 2;
+  STATUS_148_PENDING = 3;
+}
+
+// Service definition
+service Service148 {
+  rpc Get148(Get148Request) returns (Get148Response);
+  rpc List148(List148Request) returns (List148Response);
+  rpc Create148(Create148Request) returns (Create148Response);
+}
+
+message Get148Request {
+  string id = 1;
+}
+
+message Get148Response {
+  Message148 result = 1;
+}
+
+message List148Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List148Response {
+  repeated Message148 results = 1;
+  string next_page_token = 2;
+}
+
+message Create148Request {
+  Message148 message = 1;
+}
+
+message Create148Response {
+  Message148 result = 1;
+}

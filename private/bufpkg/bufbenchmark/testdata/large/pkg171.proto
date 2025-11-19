@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg171;
+
+// Message with various field types
+message Message171 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage171 nested = 7;
+  Status171 status = 8;
+}
+
+// Nested message type
+message NestedMessage171 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item171 items = 3;
+}
+
+// Simple item message
+message Item171 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status171 {
+  STATUS_171_UNSPECIFIED = 0;
+  STATUS_171_ACTIVE = 1;
+  STATUS_171_INACTIVE = 2;
+  STATUS_171_PENDING = 3;
+}
+
+// Service definition
+service Service171 {
+  rpc Get171(Get171Request) returns (Get171Response);
+  rpc List171(List171Request) returns (List171Response);
+  rpc Create171(Create171Request) returns (Create171Response);
+}
+
+message Get171Request {
+  string id = 1;
+}
+
+message Get171Response {
+  Message171 result = 1;
+}
+
+message List171Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List171Response {
+  repeated Message171 results = 1;
+  string next_page_token = 2;
+}
+
+message Create171Request {
+  Message171 message = 1;
+}
+
+message Create171Response {
+  Message171 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg92;
+
+// Message with various field types
+message Message92 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage92 nested = 7;
+  Status92 status = 8;
+}
+
+// Nested message type
+message NestedMessage92 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item92 items = 3;
+}
+
+// Simple item message
+message Item92 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status92 {
+  STATUS_92_UNSPECIFIED = 0;
+  STATUS_92_ACTIVE = 1;
+  STATUS_92_INACTIVE = 2;
+  STATUS_92_PENDING = 3;
+}
+
+// Service definition
+service Service92 {
+  rpc Get92(Get92Request) returns (Get92Response);
+  rpc List92(List92Request) returns (List92Response);
+  rpc Create92(Create92Request) returns (Create92Response);
+}
+
+message Get92Request {
+  string id = 1;
+}
+
+message Get92Response {
+  Message92 result = 1;
+}
+
+message List92Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List92Response {
+  repeated Message92 results = 1;
+  string next_page_token = 2;
+}
+
+message Create92Request {
+  Message92 message = 1;
+}
+
+message Create92Response {
+  Message92 result = 1;
+}

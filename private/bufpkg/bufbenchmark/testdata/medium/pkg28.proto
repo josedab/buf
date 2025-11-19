@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg28;
+
+// Message with various field types
+message Message28 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage28 nested = 7;
+  Status28 status = 8;
+}
+
+// Nested message type
+message NestedMessage28 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item28 items = 3;
+}
+
+// Simple item message
+message Item28 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status28 {
+  STATUS_28_UNSPECIFIED = 0;
+  STATUS_28_ACTIVE = 1;
+  STATUS_28_INACTIVE = 2;
+  STATUS_28_PENDING = 3;
+}
+
+// Service definition
+service Service28 {
+  rpc Get28(Get28Request) returns (Get28Response);
+  rpc List28(List28Request) returns (List28Response);
+  rpc Create28(Create28Request) returns (Create28Response);
+}
+
+message Get28Request {
+  string id = 1;
+}
+
+message Get28Response {
+  Message28 result = 1;
+}
+
+message List28Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List28Response {
+  repeated Message28 results = 1;
+  string next_page_token = 2;
+}
+
+message Create28Request {
+  Message28 message = 1;
+}
+
+message Create28Response {
+  Message28 result = 1;
+}

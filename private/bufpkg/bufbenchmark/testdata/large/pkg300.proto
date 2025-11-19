@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg300;
+
+// Message with various field types
+message Message300 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage300 nested = 7;
+  Status300 status = 8;
+}
+
+// Nested message type
+message NestedMessage300 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item300 items = 3;
+}
+
+// Simple item message
+message Item300 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status300 {
+  STATUS_300_UNSPECIFIED = 0;
+  STATUS_300_ACTIVE = 1;
+  STATUS_300_INACTIVE = 2;
+  STATUS_300_PENDING = 3;
+}
+
+// Service definition
+service Service300 {
+  rpc Get300(Get300Request) returns (Get300Response);
+  rpc List300(List300Request) returns (List300Response);
+  rpc Create300(Create300Request) returns (Create300Response);
+}
+
+message Get300Request {
+  string id = 1;
+}
+
+message Get300Response {
+  Message300 result = 1;
+}
+
+message List300Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List300Response {
+  repeated Message300 results = 1;
+  string next_page_token = 2;
+}
+
+message Create300Request {
+  Message300 message = 1;
+}
+
+message Create300Response {
+  Message300 result = 1;
+}

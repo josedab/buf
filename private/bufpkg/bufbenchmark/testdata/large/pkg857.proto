@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg857;
+
+// Message with various field types
+message Message857 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage857 nested = 7;
+  Status857 status = 8;
+}
+
+// Nested message type
+message NestedMessage857 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item857 items = 3;
+}
+
+// Simple item message
+message Item857 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status857 {
+  STATUS_857_UNSPECIFIED = 0;
+  STATUS_857_ACTIVE = 1;
+  STATUS_857_INACTIVE = 2;
+  STATUS_857_PENDING = 3;
+}
+
+// Service definition
+service Service857 {
+  rpc Get857(Get857Request) returns (Get857Response);
+  rpc List857(List857Request) returns (List857Response);
+  rpc Create857(Create857Request) returns (Create857Response);
+}
+
+message Get857Request {
+  string id = 1;
+}
+
+message Get857Response {
+  Message857 result = 1;
+}
+
+message List857Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List857Response {
+  repeated Message857 results = 1;
+  string next_page_token = 2;
+}
+
+message Create857Request {
+  Message857 message = 1;
+}
+
+message Create857Response {
+  Message857 result = 1;
+}

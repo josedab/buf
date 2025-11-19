@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg441;
+
+// Message with various field types
+message Message441 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage441 nested = 7;
+  Status441 status = 8;
+}
+
+// Nested message type
+message NestedMessage441 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item441 items = 3;
+}
+
+// Simple item message
+message Item441 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status441 {
+  STATUS_441_UNSPECIFIED = 0;
+  STATUS_441_ACTIVE = 1;
+  STATUS_441_INACTIVE = 2;
+  STATUS_441_PENDING = 3;
+}
+
+// Service definition
+service Service441 {
+  rpc Get441(Get441Request) returns (Get441Response);
+  rpc List441(List441Request) returns (List441Response);
+  rpc Create441(Create441Request) returns (Create441Response);
+}
+
+message Get441Request {
+  string id = 1;
+}
+
+message Get441Response {
+  Message441 result = 1;
+}
+
+message List441Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List441Response {
+  repeated Message441 results = 1;
+  string next_page_token = 2;
+}
+
+message Create441Request {
+  Message441 message = 1;
+}
+
+message Create441Response {
+  Message441 result = 1;
+}

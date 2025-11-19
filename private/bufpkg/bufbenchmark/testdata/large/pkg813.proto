@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg813;
+
+// Message with various field types
+message Message813 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage813 nested = 7;
+  Status813 status = 8;
+}
+
+// Nested message type
+message NestedMessage813 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item813 items = 3;
+}
+
+// Simple item message
+message Item813 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status813 {
+  STATUS_813_UNSPECIFIED = 0;
+  STATUS_813_ACTIVE = 1;
+  STATUS_813_INACTIVE = 2;
+  STATUS_813_PENDING = 3;
+}
+
+// Service definition
+service Service813 {
+  rpc Get813(Get813Request) returns (Get813Response);
+  rpc List813(List813Request) returns (List813Response);
+  rpc Create813(Create813Request) returns (Create813Response);
+}
+
+message Get813Request {
+  string id = 1;
+}
+
+message Get813Response {
+  Message813 result = 1;
+}
+
+message List813Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List813Response {
+  repeated Message813 results = 1;
+  string next_page_token = 2;
+}
+
+message Create813Request {
+  Message813 message = 1;
+}
+
+message Create813Response {
+  Message813 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg38;
+
+// Message with various field types
+message Message38 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage38 nested = 7;
+  Status38 status = 8;
+}
+
+// Nested message type
+message NestedMessage38 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item38 items = 3;
+}
+
+// Simple item message
+message Item38 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status38 {
+  STATUS_38_UNSPECIFIED = 0;
+  STATUS_38_ACTIVE = 1;
+  STATUS_38_INACTIVE = 2;
+  STATUS_38_PENDING = 3;
+}
+
+// Service definition
+service Service38 {
+  rpc Get38(Get38Request) returns (Get38Response);
+  rpc List38(List38Request) returns (List38Response);
+  rpc Create38(Create38Request) returns (Create38Response);
+}
+
+message Get38Request {
+  string id = 1;
+}
+
+message Get38Response {
+  Message38 result = 1;
+}
+
+message List38Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List38Response {
+  repeated Message38 results = 1;
+  string next_page_token = 2;
+}
+
+message Create38Request {
+  Message38 message = 1;
+}
+
+message Create38Response {
+  Message38 result = 1;
+}

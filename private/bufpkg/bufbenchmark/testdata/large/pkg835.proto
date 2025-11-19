@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg835;
+
+// Message with various field types
+message Message835 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage835 nested = 7;
+  Status835 status = 8;
+}
+
+// Nested message type
+message NestedMessage835 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item835 items = 3;
+}
+
+// Simple item message
+message Item835 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status835 {
+  STATUS_835_UNSPECIFIED = 0;
+  STATUS_835_ACTIVE = 1;
+  STATUS_835_INACTIVE = 2;
+  STATUS_835_PENDING = 3;
+}
+
+// Service definition
+service Service835 {
+  rpc Get835(Get835Request) returns (Get835Response);
+  rpc List835(List835Request) returns (List835Response);
+  rpc Create835(Create835Request) returns (Create835Response);
+}
+
+message Get835Request {
+  string id = 1;
+}
+
+message Get835Response {
+  Message835 result = 1;
+}
+
+message List835Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List835Response {
+  repeated Message835 results = 1;
+  string next_page_token = 2;
+}
+
+message Create835Request {
+  Message835 message = 1;
+}
+
+message Create835Response {
+  Message835 result = 1;
+}

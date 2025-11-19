@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg150;
+
+// Message with various field types
+message Message150 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage150 nested = 7;
+  Status150 status = 8;
+}
+
+// Nested message type
+message NestedMessage150 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item150 items = 3;
+}
+
+// Simple item message
+message Item150 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status150 {
+  STATUS_150_UNSPECIFIED = 0;
+  STATUS_150_ACTIVE = 1;
+  STATUS_150_INACTIVE = 2;
+  STATUS_150_PENDING = 3;
+}
+
+// Service definition
+service Service150 {
+  rpc Get150(Get150Request) returns (Get150Response);
+  rpc List150(List150Request) returns (List150Response);
+  rpc Create150(Create150Request) returns (Create150Response);
+}
+
+message Get150Request {
+  string id = 1;
+}
+
+message Get150Response {
+  Message150 result = 1;
+}
+
+message List150Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List150Response {
+  repeated Message150 results = 1;
+  string next_page_token = 2;
+}
+
+message Create150Request {
+  Message150 message = 1;
+}
+
+message Create150Response {
+  Message150 result = 1;
+}

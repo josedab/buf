@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg365;
+
+// Message with various field types
+message Message365 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage365 nested = 7;
+  Status365 status = 8;
+}
+
+// Nested message type
+message NestedMessage365 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item365 items = 3;
+}
+
+// Simple item message
+message Item365 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status365 {
+  STATUS_365_UNSPECIFIED = 0;
+  STATUS_365_ACTIVE = 1;
+  STATUS_365_INACTIVE = 2;
+  STATUS_365_PENDING = 3;
+}
+
+// Service definition
+service Service365 {
+  rpc Get365(Get365Request) returns (Get365Response);
+  rpc List365(List365Request) returns (List365Response);
+  rpc Create365(Create365Request) returns (Create365Response);
+}
+
+message Get365Request {
+  string id = 1;
+}
+
+message Get365Response {
+  Message365 result = 1;
+}
+
+message List365Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List365Response {
+  repeated Message365 results = 1;
+  string next_page_token = 2;
+}
+
+message Create365Request {
+  Message365 message = 1;
+}
+
+message Create365Response {
+  Message365 result = 1;
+}

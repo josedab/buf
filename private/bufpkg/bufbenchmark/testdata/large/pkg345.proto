@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg345;
+
+// Message with various field types
+message Message345 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage345 nested = 7;
+  Status345 status = 8;
+}
+
+// Nested message type
+message NestedMessage345 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item345 items = 3;
+}
+
+// Simple item message
+message Item345 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status345 {
+  STATUS_345_UNSPECIFIED = 0;
+  STATUS_345_ACTIVE = 1;
+  STATUS_345_INACTIVE = 2;
+  STATUS_345_PENDING = 3;
+}
+
+// Service definition
+service Service345 {
+  rpc Get345(Get345Request) returns (Get345Response);
+  rpc List345(List345Request) returns (List345Response);
+  rpc Create345(Create345Request) returns (Create345Response);
+}
+
+message Get345Request {
+  string id = 1;
+}
+
+message Get345Response {
+  Message345 result = 1;
+}
+
+message List345Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List345Response {
+  repeated Message345 results = 1;
+  string next_page_token = 2;
+}
+
+message Create345Request {
+  Message345 message = 1;
+}
+
+message Create345Response {
+  Message345 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg328;
+
+// Message with various field types
+message Message328 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage328 nested = 7;
+  Status328 status = 8;
+}
+
+// Nested message type
+message NestedMessage328 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item328 items = 3;
+}
+
+// Simple item message
+message Item328 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status328 {
+  STATUS_328_UNSPECIFIED = 0;
+  STATUS_328_ACTIVE = 1;
+  STATUS_328_INACTIVE = 2;
+  STATUS_328_PENDING = 3;
+}
+
+// Service definition
+service Service328 {
+  rpc Get328(Get328Request) returns (Get328Response);
+  rpc List328(List328Request) returns (List328Response);
+  rpc Create328(Create328Request) returns (Create328Response);
+}
+
+message Get328Request {
+  string id = 1;
+}
+
+message Get328Response {
+  Message328 result = 1;
+}
+
+message List328Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List328Response {
+  repeated Message328 results = 1;
+  string next_page_token = 2;
+}
+
+message Create328Request {
+  Message328 message = 1;
+}
+
+message Create328Response {
+  Message328 result = 1;
+}

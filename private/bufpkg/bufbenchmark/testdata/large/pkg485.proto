@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg485;
+
+// Message with various field types
+message Message485 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage485 nested = 7;
+  Status485 status = 8;
+}
+
+// Nested message type
+message NestedMessage485 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item485 items = 3;
+}
+
+// Simple item message
+message Item485 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status485 {
+  STATUS_485_UNSPECIFIED = 0;
+  STATUS_485_ACTIVE = 1;
+  STATUS_485_INACTIVE = 2;
+  STATUS_485_PENDING = 3;
+}
+
+// Service definition
+service Service485 {
+  rpc Get485(Get485Request) returns (Get485Response);
+  rpc List485(List485Request) returns (List485Response);
+  rpc Create485(Create485Request) returns (Create485Response);
+}
+
+message Get485Request {
+  string id = 1;
+}
+
+message Get485Response {
+  Message485 result = 1;
+}
+
+message List485Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List485Response {
+  repeated Message485 results = 1;
+  string next_page_token = 2;
+}
+
+message Create485Request {
+  Message485 message = 1;
+}
+
+message Create485Response {
+  Message485 result = 1;
+}

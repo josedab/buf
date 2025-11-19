@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg450;
+
+// Message with various field types
+message Message450 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage450 nested = 7;
+  Status450 status = 8;
+}
+
+// Nested message type
+message NestedMessage450 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item450 items = 3;
+}
+
+// Simple item message
+message Item450 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status450 {
+  STATUS_450_UNSPECIFIED = 0;
+  STATUS_450_ACTIVE = 1;
+  STATUS_450_INACTIVE = 2;
+  STATUS_450_PENDING = 3;
+}
+
+// Service definition
+service Service450 {
+  rpc Get450(Get450Request) returns (Get450Response);
+  rpc List450(List450Request) returns (List450Response);
+  rpc Create450(Create450Request) returns (Create450Response);
+}
+
+message Get450Request {
+  string id = 1;
+}
+
+message Get450Response {
+  Message450 result = 1;
+}
+
+message List450Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List450Response {
+  repeated Message450 results = 1;
+  string next_page_token = 2;
+}
+
+message Create450Request {
+  Message450 message = 1;
+}
+
+message Create450Response {
+  Message450 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg977;
+
+// Message with various field types
+message Message977 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage977 nested = 7;
+  Status977 status = 8;
+}
+
+// Nested message type
+message NestedMessage977 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item977 items = 3;
+}
+
+// Simple item message
+message Item977 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status977 {
+  STATUS_977_UNSPECIFIED = 0;
+  STATUS_977_ACTIVE = 1;
+  STATUS_977_INACTIVE = 2;
+  STATUS_977_PENDING = 3;
+}
+
+// Service definition
+service Service977 {
+  rpc Get977(Get977Request) returns (Get977Response);
+  rpc List977(List977Request) returns (List977Response);
+  rpc Create977(Create977Request) returns (Create977Response);
+}
+
+message Get977Request {
+  string id = 1;
+}
+
+message Get977Response {
+  Message977 result = 1;
+}
+
+message List977Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List977Response {
+  repeated Message977 results = 1;
+  string next_page_token = 2;
+}
+
+message Create977Request {
+  Message977 message = 1;
+}
+
+message Create977Response {
+  Message977 result = 1;
+}

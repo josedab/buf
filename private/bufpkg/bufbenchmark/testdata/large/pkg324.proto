@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg324;
+
+// Message with various field types
+message Message324 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage324 nested = 7;
+  Status324 status = 8;
+}
+
+// Nested message type
+message NestedMessage324 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item324 items = 3;
+}
+
+// Simple item message
+message Item324 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status324 {
+  STATUS_324_UNSPECIFIED = 0;
+  STATUS_324_ACTIVE = 1;
+  STATUS_324_INACTIVE = 2;
+  STATUS_324_PENDING = 3;
+}
+
+// Service definition
+service Service324 {
+  rpc Get324(Get324Request) returns (Get324Response);
+  rpc List324(List324Request) returns (List324Response);
+  rpc Create324(Create324Request) returns (Create324Response);
+}
+
+message Get324Request {
+  string id = 1;
+}
+
+message Get324Response {
+  Message324 result = 1;
+}
+
+message List324Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List324Response {
+  repeated Message324 results = 1;
+  string next_page_token = 2;
+}
+
+message Create324Request {
+  Message324 message = 1;
+}
+
+message Create324Response {
+  Message324 result = 1;
+}

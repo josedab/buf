@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg989;
+
+// Message with various field types
+message Message989 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage989 nested = 7;
+  Status989 status = 8;
+}
+
+// Nested message type
+message NestedMessage989 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item989 items = 3;
+}
+
+// Simple item message
+message Item989 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status989 {
+  STATUS_989_UNSPECIFIED = 0;
+  STATUS_989_ACTIVE = 1;
+  STATUS_989_INACTIVE = 2;
+  STATUS_989_PENDING = 3;
+}
+
+// Service definition
+service Service989 {
+  rpc Get989(Get989Request) returns (Get989Response);
+  rpc List989(List989Request) returns (List989Response);
+  rpc Create989(Create989Request) returns (Create989Response);
+}
+
+message Get989Request {
+  string id = 1;
+}
+
+message Get989Response {
+  Message989 result = 1;
+}
+
+message List989Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List989Response {
+  repeated Message989 results = 1;
+  string next_page_token = 2;
+}
+
+message Create989Request {
+  Message989 message = 1;
+}
+
+message Create989Response {
+  Message989 result = 1;
+}

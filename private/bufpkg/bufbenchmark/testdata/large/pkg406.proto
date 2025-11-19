@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg406;
+
+// Message with various field types
+message Message406 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage406 nested = 7;
+  Status406 status = 8;
+}
+
+// Nested message type
+message NestedMessage406 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item406 items = 3;
+}
+
+// Simple item message
+message Item406 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status406 {
+  STATUS_406_UNSPECIFIED = 0;
+  STATUS_406_ACTIVE = 1;
+  STATUS_406_INACTIVE = 2;
+  STATUS_406_PENDING = 3;
+}
+
+// Service definition
+service Service406 {
+  rpc Get406(Get406Request) returns (Get406Response);
+  rpc List406(List406Request) returns (List406Response);
+  rpc Create406(Create406Request) returns (Create406Response);
+}
+
+message Get406Request {
+  string id = 1;
+}
+
+message Get406Response {
+  Message406 result = 1;
+}
+
+message List406Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List406Response {
+  repeated Message406 results = 1;
+  string next_page_token = 2;
+}
+
+message Create406Request {
+  Message406 message = 1;
+}
+
+message Create406Response {
+  Message406 result = 1;
+}

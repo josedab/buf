@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg132;
+
+// Message with various field types
+message Message132 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage132 nested = 7;
+  Status132 status = 8;
+}
+
+// Nested message type
+message NestedMessage132 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item132 items = 3;
+}
+
+// Simple item message
+message Item132 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status132 {
+  STATUS_132_UNSPECIFIED = 0;
+  STATUS_132_ACTIVE = 1;
+  STATUS_132_INACTIVE = 2;
+  STATUS_132_PENDING = 3;
+}
+
+// Service definition
+service Service132 {
+  rpc Get132(Get132Request) returns (Get132Response);
+  rpc List132(List132Request) returns (List132Response);
+  rpc Create132(Create132Request) returns (Create132Response);
+}
+
+message Get132Request {
+  string id = 1;
+}
+
+message Get132Response {
+  Message132 result = 1;
+}
+
+message List132Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List132Response {
+  repeated Message132 results = 1;
+  string next_page_token = 2;
+}
+
+message Create132Request {
+  Message132 message = 1;
+}
+
+message Create132Response {
+  Message132 result = 1;
+}

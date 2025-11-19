@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg799;
+
+// Message with various field types
+message Message799 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage799 nested = 7;
+  Status799 status = 8;
+}
+
+// Nested message type
+message NestedMessage799 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item799 items = 3;
+}
+
+// Simple item message
+message Item799 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status799 {
+  STATUS_799_UNSPECIFIED = 0;
+  STATUS_799_ACTIVE = 1;
+  STATUS_799_INACTIVE = 2;
+  STATUS_799_PENDING = 3;
+}
+
+// Service definition
+service Service799 {
+  rpc Get799(Get799Request) returns (Get799Response);
+  rpc List799(List799Request) returns (List799Response);
+  rpc Create799(Create799Request) returns (Create799Response);
+}
+
+message Get799Request {
+  string id = 1;
+}
+
+message Get799Response {
+  Message799 result = 1;
+}
+
+message List799Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List799Response {
+  repeated Message799 results = 1;
+  string next_page_token = 2;
+}
+
+message Create799Request {
+  Message799 message = 1;
+}
+
+message Create799Response {
+  Message799 result = 1;
+}

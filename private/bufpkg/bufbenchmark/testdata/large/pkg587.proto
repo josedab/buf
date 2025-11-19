@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg587;
+
+// Message with various field types
+message Message587 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage587 nested = 7;
+  Status587 status = 8;
+}
+
+// Nested message type
+message NestedMessage587 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item587 items = 3;
+}
+
+// Simple item message
+message Item587 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status587 {
+  STATUS_587_UNSPECIFIED = 0;
+  STATUS_587_ACTIVE = 1;
+  STATUS_587_INACTIVE = 2;
+  STATUS_587_PENDING = 3;
+}
+
+// Service definition
+service Service587 {
+  rpc Get587(Get587Request) returns (Get587Response);
+  rpc List587(List587Request) returns (List587Response);
+  rpc Create587(Create587Request) returns (Create587Response);
+}
+
+message Get587Request {
+  string id = 1;
+}
+
+message Get587Response {
+  Message587 result = 1;
+}
+
+message List587Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List587Response {
+  repeated Message587 results = 1;
+  string next_page_token = 2;
+}
+
+message Create587Request {
+  Message587 message = 1;
+}
+
+message Create587Response {
+  Message587 result = 1;
+}

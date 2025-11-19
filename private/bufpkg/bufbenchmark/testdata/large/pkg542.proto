@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg542;
+
+// Message with various field types
+message Message542 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage542 nested = 7;
+  Status542 status = 8;
+}
+
+// Nested message type
+message NestedMessage542 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item542 items = 3;
+}
+
+// Simple item message
+message Item542 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status542 {
+  STATUS_542_UNSPECIFIED = 0;
+  STATUS_542_ACTIVE = 1;
+  STATUS_542_INACTIVE = 2;
+  STATUS_542_PENDING = 3;
+}
+
+// Service definition
+service Service542 {
+  rpc Get542(Get542Request) returns (Get542Response);
+  rpc List542(List542Request) returns (List542Response);
+  rpc Create542(Create542Request) returns (Create542Response);
+}
+
+message Get542Request {
+  string id = 1;
+}
+
+message Get542Response {
+  Message542 result = 1;
+}
+
+message List542Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List542Response {
+  repeated Message542 results = 1;
+  string next_page_token = 2;
+}
+
+message Create542Request {
+  Message542 message = 1;
+}
+
+message Create542Response {
+  Message542 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg863;
+
+// Message with various field types
+message Message863 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage863 nested = 7;
+  Status863 status = 8;
+}
+
+// Nested message type
+message NestedMessage863 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item863 items = 3;
+}
+
+// Simple item message
+message Item863 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status863 {
+  STATUS_863_UNSPECIFIED = 0;
+  STATUS_863_ACTIVE = 1;
+  STATUS_863_INACTIVE = 2;
+  STATUS_863_PENDING = 3;
+}
+
+// Service definition
+service Service863 {
+  rpc Get863(Get863Request) returns (Get863Response);
+  rpc List863(List863Request) returns (List863Response);
+  rpc Create863(Create863Request) returns (Create863Response);
+}
+
+message Get863Request {
+  string id = 1;
+}
+
+message Get863Response {
+  Message863 result = 1;
+}
+
+message List863Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List863Response {
+  repeated Message863 results = 1;
+  string next_page_token = 2;
+}
+
+message Create863Request {
+  Message863 message = 1;
+}
+
+message Create863Response {
+  Message863 result = 1;
+}

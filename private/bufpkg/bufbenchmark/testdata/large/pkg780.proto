@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg780;
+
+// Message with various field types
+message Message780 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage780 nested = 7;
+  Status780 status = 8;
+}
+
+// Nested message type
+message NestedMessage780 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item780 items = 3;
+}
+
+// Simple item message
+message Item780 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status780 {
+  STATUS_780_UNSPECIFIED = 0;
+  STATUS_780_ACTIVE = 1;
+  STATUS_780_INACTIVE = 2;
+  STATUS_780_PENDING = 3;
+}
+
+// Service definition
+service Service780 {
+  rpc Get780(Get780Request) returns (Get780Response);
+  rpc List780(List780Request) returns (List780Response);
+  rpc Create780(Create780Request) returns (Create780Response);
+}
+
+message Get780Request {
+  string id = 1;
+}
+
+message Get780Response {
+  Message780 result = 1;
+}
+
+message List780Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List780Response {
+  repeated Message780 results = 1;
+  string next_page_token = 2;
+}
+
+message Create780Request {
+  Message780 message = 1;
+}
+
+message Create780Response {
+  Message780 result = 1;
+}

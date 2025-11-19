@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg879;
+
+// Message with various field types
+message Message879 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage879 nested = 7;
+  Status879 status = 8;
+}
+
+// Nested message type
+message NestedMessage879 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item879 items = 3;
+}
+
+// Simple item message
+message Item879 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status879 {
+  STATUS_879_UNSPECIFIED = 0;
+  STATUS_879_ACTIVE = 1;
+  STATUS_879_INACTIVE = 2;
+  STATUS_879_PENDING = 3;
+}
+
+// Service definition
+service Service879 {
+  rpc Get879(Get879Request) returns (Get879Response);
+  rpc List879(List879Request) returns (List879Response);
+  rpc Create879(Create879Request) returns (Create879Response);
+}
+
+message Get879Request {
+  string id = 1;
+}
+
+message Get879Response {
+  Message879 result = 1;
+}
+
+message List879Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List879Response {
+  repeated Message879 results = 1;
+  string next_page_token = 2;
+}
+
+message Create879Request {
+  Message879 message = 1;
+}
+
+message Create879Response {
+  Message879 result = 1;
+}

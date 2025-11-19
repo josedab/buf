@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg748;
+
+// Message with various field types
+message Message748 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage748 nested = 7;
+  Status748 status = 8;
+}
+
+// Nested message type
+message NestedMessage748 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item748 items = 3;
+}
+
+// Simple item message
+message Item748 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status748 {
+  STATUS_748_UNSPECIFIED = 0;
+  STATUS_748_ACTIVE = 1;
+  STATUS_748_INACTIVE = 2;
+  STATUS_748_PENDING = 3;
+}
+
+// Service definition
+service Service748 {
+  rpc Get748(Get748Request) returns (Get748Response);
+  rpc List748(List748Request) returns (List748Response);
+  rpc Create748(Create748Request) returns (Create748Response);
+}
+
+message Get748Request {
+  string id = 1;
+}
+
+message Get748Response {
+  Message748 result = 1;
+}
+
+message List748Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List748Response {
+  repeated Message748 results = 1;
+  string next_page_token = 2;
+}
+
+message Create748Request {
+  Message748 message = 1;
+}
+
+message Create748Response {
+  Message748 result = 1;
+}

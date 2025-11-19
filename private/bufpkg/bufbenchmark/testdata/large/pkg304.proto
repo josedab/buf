@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg304;
+
+// Message with various field types
+message Message304 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage304 nested = 7;
+  Status304 status = 8;
+}
+
+// Nested message type
+message NestedMessage304 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item304 items = 3;
+}
+
+// Simple item message
+message Item304 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status304 {
+  STATUS_304_UNSPECIFIED = 0;
+  STATUS_304_ACTIVE = 1;
+  STATUS_304_INACTIVE = 2;
+  STATUS_304_PENDING = 3;
+}
+
+// Service definition
+service Service304 {
+  rpc Get304(Get304Request) returns (Get304Response);
+  rpc List304(List304Request) returns (List304Response);
+  rpc Create304(Create304Request) returns (Create304Response);
+}
+
+message Get304Request {
+  string id = 1;
+}
+
+message Get304Response {
+  Message304 result = 1;
+}
+
+message List304Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List304Response {
+  repeated Message304 results = 1;
+  string next_page_token = 2;
+}
+
+message Create304Request {
+  Message304 message = 1;
+}
+
+message Create304Response {
+  Message304 result = 1;
+}

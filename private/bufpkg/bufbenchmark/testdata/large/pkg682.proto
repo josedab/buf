@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg682;
+
+// Message with various field types
+message Message682 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage682 nested = 7;
+  Status682 status = 8;
+}
+
+// Nested message type
+message NestedMessage682 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item682 items = 3;
+}
+
+// Simple item message
+message Item682 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status682 {
+  STATUS_682_UNSPECIFIED = 0;
+  STATUS_682_ACTIVE = 1;
+  STATUS_682_INACTIVE = 2;
+  STATUS_682_PENDING = 3;
+}
+
+// Service definition
+service Service682 {
+  rpc Get682(Get682Request) returns (Get682Response);
+  rpc List682(List682Request) returns (List682Response);
+  rpc Create682(Create682Request) returns (Create682Response);
+}
+
+message Get682Request {
+  string id = 1;
+}
+
+message Get682Response {
+  Message682 result = 1;
+}
+
+message List682Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List682Response {
+  repeated Message682 results = 1;
+  string next_page_token = 2;
+}
+
+message Create682Request {
+  Message682 message = 1;
+}
+
+message Create682Response {
+  Message682 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg106;
+
+// Message with various field types
+message Message106 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage106 nested = 7;
+  Status106 status = 8;
+}
+
+// Nested message type
+message NestedMessage106 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item106 items = 3;
+}
+
+// Simple item message
+message Item106 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status106 {
+  STATUS_106_UNSPECIFIED = 0;
+  STATUS_106_ACTIVE = 1;
+  STATUS_106_INACTIVE = 2;
+  STATUS_106_PENDING = 3;
+}
+
+// Service definition
+service Service106 {
+  rpc Get106(Get106Request) returns (Get106Response);
+  rpc List106(List106Request) returns (List106Response);
+  rpc Create106(Create106Request) returns (Create106Response);
+}
+
+message Get106Request {
+  string id = 1;
+}
+
+message Get106Response {
+  Message106 result = 1;
+}
+
+message List106Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List106Response {
+  repeated Message106 results = 1;
+  string next_page_token = 2;
+}
+
+message Create106Request {
+  Message106 message = 1;
+}
+
+message Create106Response {
+  Message106 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg200;
+
+// Message with various field types
+message Message200 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage200 nested = 7;
+  Status200 status = 8;
+}
+
+// Nested message type
+message NestedMessage200 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item200 items = 3;
+}
+
+// Simple item message
+message Item200 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status200 {
+  STATUS_200_UNSPECIFIED = 0;
+  STATUS_200_ACTIVE = 1;
+  STATUS_200_INACTIVE = 2;
+  STATUS_200_PENDING = 3;
+}
+
+// Service definition
+service Service200 {
+  rpc Get200(Get200Request) returns (Get200Response);
+  rpc List200(List200Request) returns (List200Response);
+  rpc Create200(Create200Request) returns (Create200Response);
+}
+
+message Get200Request {
+  string id = 1;
+}
+
+message Get200Response {
+  Message200 result = 1;
+}
+
+message List200Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List200Response {
+  repeated Message200 results = 1;
+  string next_page_token = 2;
+}
+
+message Create200Request {
+  Message200 message = 1;
+}
+
+message Create200Response {
+  Message200 result = 1;
+}

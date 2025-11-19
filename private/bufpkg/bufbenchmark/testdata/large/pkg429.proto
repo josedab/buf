@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg429;
+
+// Message with various field types
+message Message429 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage429 nested = 7;
+  Status429 status = 8;
+}
+
+// Nested message type
+message NestedMessage429 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item429 items = 3;
+}
+
+// Simple item message
+message Item429 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status429 {
+  STATUS_429_UNSPECIFIED = 0;
+  STATUS_429_ACTIVE = 1;
+  STATUS_429_INACTIVE = 2;
+  STATUS_429_PENDING = 3;
+}
+
+// Service definition
+service Service429 {
+  rpc Get429(Get429Request) returns (Get429Response);
+  rpc List429(List429Request) returns (List429Response);
+  rpc Create429(Create429Request) returns (Create429Response);
+}
+
+message Get429Request {
+  string id = 1;
+}
+
+message Get429Response {
+  Message429 result = 1;
+}
+
+message List429Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List429Response {
+  repeated Message429 results = 1;
+  string next_page_token = 2;
+}
+
+message Create429Request {
+  Message429 message = 1;
+}
+
+message Create429Response {
+  Message429 result = 1;
+}

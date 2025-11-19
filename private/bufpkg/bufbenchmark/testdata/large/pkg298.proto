@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg298;
+
+// Message with various field types
+message Message298 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage298 nested = 7;
+  Status298 status = 8;
+}
+
+// Nested message type
+message NestedMessage298 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item298 items = 3;
+}
+
+// Simple item message
+message Item298 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status298 {
+  STATUS_298_UNSPECIFIED = 0;
+  STATUS_298_ACTIVE = 1;
+  STATUS_298_INACTIVE = 2;
+  STATUS_298_PENDING = 3;
+}
+
+// Service definition
+service Service298 {
+  rpc Get298(Get298Request) returns (Get298Response);
+  rpc List298(List298Request) returns (List298Response);
+  rpc Create298(Create298Request) returns (Create298Response);
+}
+
+message Get298Request {
+  string id = 1;
+}
+
+message Get298Response {
+  Message298 result = 1;
+}
+
+message List298Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List298Response {
+  repeated Message298 results = 1;
+  string next_page_token = 2;
+}
+
+message Create298Request {
+  Message298 message = 1;
+}
+
+message Create298Response {
+  Message298 result = 1;
+}

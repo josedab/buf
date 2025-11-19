@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg490;
+
+// Message with various field types
+message Message490 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage490 nested = 7;
+  Status490 status = 8;
+}
+
+// Nested message type
+message NestedMessage490 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item490 items = 3;
+}
+
+// Simple item message
+message Item490 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status490 {
+  STATUS_490_UNSPECIFIED = 0;
+  STATUS_490_ACTIVE = 1;
+  STATUS_490_INACTIVE = 2;
+  STATUS_490_PENDING = 3;
+}
+
+// Service definition
+service Service490 {
+  rpc Get490(Get490Request) returns (Get490Response);
+  rpc List490(List490Request) returns (List490Response);
+  rpc Create490(Create490Request) returns (Create490Response);
+}
+
+message Get490Request {
+  string id = 1;
+}
+
+message Get490Response {
+  Message490 result = 1;
+}
+
+message List490Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List490Response {
+  repeated Message490 results = 1;
+  string next_page_token = 2;
+}
+
+message Create490Request {
+  Message490 message = 1;
+}
+
+message Create490Response {
+  Message490 result = 1;
+}

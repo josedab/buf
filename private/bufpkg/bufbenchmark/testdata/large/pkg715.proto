@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg715;
+
+// Message with various field types
+message Message715 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage715 nested = 7;
+  Status715 status = 8;
+}
+
+// Nested message type
+message NestedMessage715 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item715 items = 3;
+}
+
+// Simple item message
+message Item715 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status715 {
+  STATUS_715_UNSPECIFIED = 0;
+  STATUS_715_ACTIVE = 1;
+  STATUS_715_INACTIVE = 2;
+  STATUS_715_PENDING = 3;
+}
+
+// Service definition
+service Service715 {
+  rpc Get715(Get715Request) returns (Get715Response);
+  rpc List715(List715Request) returns (List715Response);
+  rpc Create715(Create715Request) returns (Create715Response);
+}
+
+message Get715Request {
+  string id = 1;
+}
+
+message Get715Response {
+  Message715 result = 1;
+}
+
+message List715Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List715Response {
+  repeated Message715 results = 1;
+  string next_page_token = 2;
+}
+
+message Create715Request {
+  Message715 message = 1;
+}
+
+message Create715Response {
+  Message715 result = 1;
+}

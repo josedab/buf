@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg726;
+
+// Message with various field types
+message Message726 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage726 nested = 7;
+  Status726 status = 8;
+}
+
+// Nested message type
+message NestedMessage726 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item726 items = 3;
+}
+
+// Simple item message
+message Item726 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status726 {
+  STATUS_726_UNSPECIFIED = 0;
+  STATUS_726_ACTIVE = 1;
+  STATUS_726_INACTIVE = 2;
+  STATUS_726_PENDING = 3;
+}
+
+// Service definition
+service Service726 {
+  rpc Get726(Get726Request) returns (Get726Response);
+  rpc List726(List726Request) returns (List726Response);
+  rpc Create726(Create726Request) returns (Create726Response);
+}
+
+message Get726Request {
+  string id = 1;
+}
+
+message Get726Response {
+  Message726 result = 1;
+}
+
+message List726Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List726Response {
+  repeated Message726 results = 1;
+  string next_page_token = 2;
+}
+
+message Create726Request {
+  Message726 message = 1;
+}
+
+message Create726Response {
+  Message726 result = 1;
+}

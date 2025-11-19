@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg906;
+
+// Message with various field types
+message Message906 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage906 nested = 7;
+  Status906 status = 8;
+}
+
+// Nested message type
+message NestedMessage906 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item906 items = 3;
+}
+
+// Simple item message
+message Item906 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status906 {
+  STATUS_906_UNSPECIFIED = 0;
+  STATUS_906_ACTIVE = 1;
+  STATUS_906_INACTIVE = 2;
+  STATUS_906_PENDING = 3;
+}
+
+// Service definition
+service Service906 {
+  rpc Get906(Get906Request) returns (Get906Response);
+  rpc List906(List906Request) returns (List906Response);
+  rpc Create906(Create906Request) returns (Create906Response);
+}
+
+message Get906Request {
+  string id = 1;
+}
+
+message Get906Response {
+  Message906 result = 1;
+}
+
+message List906Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List906Response {
+  repeated Message906 results = 1;
+  string next_page_token = 2;
+}
+
+message Create906Request {
+  Message906 message = 1;
+}
+
+message Create906Response {
+  Message906 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg355;
+
+// Message with various field types
+message Message355 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage355 nested = 7;
+  Status355 status = 8;
+}
+
+// Nested message type
+message NestedMessage355 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item355 items = 3;
+}
+
+// Simple item message
+message Item355 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status355 {
+  STATUS_355_UNSPECIFIED = 0;
+  STATUS_355_ACTIVE = 1;
+  STATUS_355_INACTIVE = 2;
+  STATUS_355_PENDING = 3;
+}
+
+// Service definition
+service Service355 {
+  rpc Get355(Get355Request) returns (Get355Response);
+  rpc List355(List355Request) returns (List355Response);
+  rpc Create355(Create355Request) returns (Create355Response);
+}
+
+message Get355Request {
+  string id = 1;
+}
+
+message Get355Response {
+  Message355 result = 1;
+}
+
+message List355Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List355Response {
+  repeated Message355 results = 1;
+  string next_page_token = 2;
+}
+
+message Create355Request {
+  Message355 message = 1;
+}
+
+message Create355Response {
+  Message355 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg544;
+
+// Message with various field types
+message Message544 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage544 nested = 7;
+  Status544 status = 8;
+}
+
+// Nested message type
+message NestedMessage544 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item544 items = 3;
+}
+
+// Simple item message
+message Item544 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status544 {
+  STATUS_544_UNSPECIFIED = 0;
+  STATUS_544_ACTIVE = 1;
+  STATUS_544_INACTIVE = 2;
+  STATUS_544_PENDING = 3;
+}
+
+// Service definition
+service Service544 {
+  rpc Get544(Get544Request) returns (Get544Response);
+  rpc List544(List544Request) returns (List544Response);
+  rpc Create544(Create544Request) returns (Create544Response);
+}
+
+message Get544Request {
+  string id = 1;
+}
+
+message Get544Response {
+  Message544 result = 1;
+}
+
+message List544Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List544Response {
+  repeated Message544 results = 1;
+  string next_page_token = 2;
+}
+
+message Create544Request {
+  Message544 message = 1;
+}
+
+message Create544Response {
+  Message544 result = 1;
+}

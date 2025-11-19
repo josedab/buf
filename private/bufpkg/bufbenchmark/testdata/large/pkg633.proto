@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg633;
+
+// Message with various field types
+message Message633 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage633 nested = 7;
+  Status633 status = 8;
+}
+
+// Nested message type
+message NestedMessage633 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item633 items = 3;
+}
+
+// Simple item message
+message Item633 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status633 {
+  STATUS_633_UNSPECIFIED = 0;
+  STATUS_633_ACTIVE = 1;
+  STATUS_633_INACTIVE = 2;
+  STATUS_633_PENDING = 3;
+}
+
+// Service definition
+service Service633 {
+  rpc Get633(Get633Request) returns (Get633Response);
+  rpc List633(List633Request) returns (List633Response);
+  rpc Create633(Create633Request) returns (Create633Response);
+}
+
+message Get633Request {
+  string id = 1;
+}
+
+message Get633Response {
+  Message633 result = 1;
+}
+
+message List633Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List633Response {
+  repeated Message633 results = 1;
+  string next_page_token = 2;
+}
+
+message Create633Request {
+  Message633 message = 1;
+}
+
+message Create633Response {
+  Message633 result = 1;
+}

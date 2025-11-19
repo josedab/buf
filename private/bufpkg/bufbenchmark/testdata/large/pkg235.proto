@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg235;
+
+// Message with various field types
+message Message235 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage235 nested = 7;
+  Status235 status = 8;
+}
+
+// Nested message type
+message NestedMessage235 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item235 items = 3;
+}
+
+// Simple item message
+message Item235 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status235 {
+  STATUS_235_UNSPECIFIED = 0;
+  STATUS_235_ACTIVE = 1;
+  STATUS_235_INACTIVE = 2;
+  STATUS_235_PENDING = 3;
+}
+
+// Service definition
+service Service235 {
+  rpc Get235(Get235Request) returns (Get235Response);
+  rpc List235(List235Request) returns (List235Response);
+  rpc Create235(Create235Request) returns (Create235Response);
+}
+
+message Get235Request {
+  string id = 1;
+}
+
+message Get235Response {
+  Message235 result = 1;
+}
+
+message List235Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List235Response {
+  repeated Message235 results = 1;
+  string next_page_token = 2;
+}
+
+message Create235Request {
+  Message235 message = 1;
+}
+
+message Create235Response {
+  Message235 result = 1;
+}

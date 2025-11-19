@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg403;
+
+// Message with various field types
+message Message403 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage403 nested = 7;
+  Status403 status = 8;
+}
+
+// Nested message type
+message NestedMessage403 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item403 items = 3;
+}
+
+// Simple item message
+message Item403 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status403 {
+  STATUS_403_UNSPECIFIED = 0;
+  STATUS_403_ACTIVE = 1;
+  STATUS_403_INACTIVE = 2;
+  STATUS_403_PENDING = 3;
+}
+
+// Service definition
+service Service403 {
+  rpc Get403(Get403Request) returns (Get403Response);
+  rpc List403(List403Request) returns (List403Response);
+  rpc Create403(Create403Request) returns (Create403Response);
+}
+
+message Get403Request {
+  string id = 1;
+}
+
+message Get403Response {
+  Message403 result = 1;
+}
+
+message List403Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List403Response {
+  repeated Message403 results = 1;
+  string next_page_token = 2;
+}
+
+message Create403Request {
+  Message403 message = 1;
+}
+
+message Create403Response {
+  Message403 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg471;
+
+// Message with various field types
+message Message471 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage471 nested = 7;
+  Status471 status = 8;
+}
+
+// Nested message type
+message NestedMessage471 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item471 items = 3;
+}
+
+// Simple item message
+message Item471 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status471 {
+  STATUS_471_UNSPECIFIED = 0;
+  STATUS_471_ACTIVE = 1;
+  STATUS_471_INACTIVE = 2;
+  STATUS_471_PENDING = 3;
+}
+
+// Service definition
+service Service471 {
+  rpc Get471(Get471Request) returns (Get471Response);
+  rpc List471(List471Request) returns (List471Response);
+  rpc Create471(Create471Request) returns (Create471Response);
+}
+
+message Get471Request {
+  string id = 1;
+}
+
+message Get471Response {
+  Message471 result = 1;
+}
+
+message List471Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List471Response {
+  repeated Message471 results = 1;
+  string next_page_token = 2;
+}
+
+message Create471Request {
+  Message471 message = 1;
+}
+
+message Create471Response {
+  Message471 result = 1;
+}

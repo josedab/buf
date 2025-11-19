@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg310;
+
+// Message with various field types
+message Message310 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage310 nested = 7;
+  Status310 status = 8;
+}
+
+// Nested message type
+message NestedMessage310 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item310 items = 3;
+}
+
+// Simple item message
+message Item310 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status310 {
+  STATUS_310_UNSPECIFIED = 0;
+  STATUS_310_ACTIVE = 1;
+  STATUS_310_INACTIVE = 2;
+  STATUS_310_PENDING = 3;
+}
+
+// Service definition
+service Service310 {
+  rpc Get310(Get310Request) returns (Get310Response);
+  rpc List310(List310Request) returns (List310Response);
+  rpc Create310(Create310Request) returns (Create310Response);
+}
+
+message Get310Request {
+  string id = 1;
+}
+
+message Get310Response {
+  Message310 result = 1;
+}
+
+message List310Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List310Response {
+  repeated Message310 results = 1;
+  string next_page_token = 2;
+}
+
+message Create310Request {
+  Message310 message = 1;
+}
+
+message Create310Response {
+  Message310 result = 1;
+}

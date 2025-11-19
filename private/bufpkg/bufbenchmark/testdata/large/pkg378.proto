@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg378;
+
+// Message with various field types
+message Message378 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage378 nested = 7;
+  Status378 status = 8;
+}
+
+// Nested message type
+message NestedMessage378 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item378 items = 3;
+}
+
+// Simple item message
+message Item378 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status378 {
+  STATUS_378_UNSPECIFIED = 0;
+  STATUS_378_ACTIVE = 1;
+  STATUS_378_INACTIVE = 2;
+  STATUS_378_PENDING = 3;
+}
+
+// Service definition
+service Service378 {
+  rpc Get378(Get378Request) returns (Get378Response);
+  rpc List378(List378Request) returns (List378Response);
+  rpc Create378(Create378Request) returns (Create378Response);
+}
+
+message Get378Request {
+  string id = 1;
+}
+
+message Get378Response {
+  Message378 result = 1;
+}
+
+message List378Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List378Response {
+  repeated Message378 results = 1;
+  string next_page_token = 2;
+}
+
+message Create378Request {
+  Message378 message = 1;
+}
+
+message Create378Response {
+  Message378 result = 1;
+}

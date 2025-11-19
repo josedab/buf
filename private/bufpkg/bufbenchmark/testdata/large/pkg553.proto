@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg553;
+
+// Message with various field types
+message Message553 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage553 nested = 7;
+  Status553 status = 8;
+}
+
+// Nested message type
+message NestedMessage553 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item553 items = 3;
+}
+
+// Simple item message
+message Item553 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status553 {
+  STATUS_553_UNSPECIFIED = 0;
+  STATUS_553_ACTIVE = 1;
+  STATUS_553_INACTIVE = 2;
+  STATUS_553_PENDING = 3;
+}
+
+// Service definition
+service Service553 {
+  rpc Get553(Get553Request) returns (Get553Response);
+  rpc List553(List553Request) returns (List553Response);
+  rpc Create553(Create553Request) returns (Create553Response);
+}
+
+message Get553Request {
+  string id = 1;
+}
+
+message Get553Response {
+  Message553 result = 1;
+}
+
+message List553Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List553Response {
+  repeated Message553 results = 1;
+  string next_page_token = 2;
+}
+
+message Create553Request {
+  Message553 message = 1;
+}
+
+message Create553Response {
+  Message553 result = 1;
+}

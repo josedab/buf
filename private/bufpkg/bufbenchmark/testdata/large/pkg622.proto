@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg622;
+
+// Message with various field types
+message Message622 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage622 nested = 7;
+  Status622 status = 8;
+}
+
+// Nested message type
+message NestedMessage622 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item622 items = 3;
+}
+
+// Simple item message
+message Item622 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status622 {
+  STATUS_622_UNSPECIFIED = 0;
+  STATUS_622_ACTIVE = 1;
+  STATUS_622_INACTIVE = 2;
+  STATUS_622_PENDING = 3;
+}
+
+// Service definition
+service Service622 {
+  rpc Get622(Get622Request) returns (Get622Response);
+  rpc List622(List622Request) returns (List622Response);
+  rpc Create622(Create622Request) returns (Create622Response);
+}
+
+message Get622Request {
+  string id = 1;
+}
+
+message Get622Response {
+  Message622 result = 1;
+}
+
+message List622Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List622Response {
+  repeated Message622 results = 1;
+  string next_page_token = 2;
+}
+
+message Create622Request {
+  Message622 message = 1;
+}
+
+message Create622Response {
+  Message622 result = 1;
+}

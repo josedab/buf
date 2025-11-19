@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg203;
+
+// Message with various field types
+message Message203 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage203 nested = 7;
+  Status203 status = 8;
+}
+
+// Nested message type
+message NestedMessage203 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item203 items = 3;
+}
+
+// Simple item message
+message Item203 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status203 {
+  STATUS_203_UNSPECIFIED = 0;
+  STATUS_203_ACTIVE = 1;
+  STATUS_203_INACTIVE = 2;
+  STATUS_203_PENDING = 3;
+}
+
+// Service definition
+service Service203 {
+  rpc Get203(Get203Request) returns (Get203Response);
+  rpc List203(List203Request) returns (List203Response);
+  rpc Create203(Create203Request) returns (Create203Response);
+}
+
+message Get203Request {
+  string id = 1;
+}
+
+message Get203Response {
+  Message203 result = 1;
+}
+
+message List203Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List203Response {
+  repeated Message203 results = 1;
+  string next_page_token = 2;
+}
+
+message Create203Request {
+  Message203 message = 1;
+}
+
+message Create203Response {
+  Message203 result = 1;
+}

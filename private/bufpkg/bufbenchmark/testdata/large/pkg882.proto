@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg882;
+
+// Message with various field types
+message Message882 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage882 nested = 7;
+  Status882 status = 8;
+}
+
+// Nested message type
+message NestedMessage882 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item882 items = 3;
+}
+
+// Simple item message
+message Item882 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status882 {
+  STATUS_882_UNSPECIFIED = 0;
+  STATUS_882_ACTIVE = 1;
+  STATUS_882_INACTIVE = 2;
+  STATUS_882_PENDING = 3;
+}
+
+// Service definition
+service Service882 {
+  rpc Get882(Get882Request) returns (Get882Response);
+  rpc List882(List882Request) returns (List882Response);
+  rpc Create882(Create882Request) returns (Create882Response);
+}
+
+message Get882Request {
+  string id = 1;
+}
+
+message Get882Response {
+  Message882 result = 1;
+}
+
+message List882Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List882Response {
+  repeated Message882 results = 1;
+  string next_page_token = 2;
+}
+
+message Create882Request {
+  Message882 message = 1;
+}
+
+message Create882Response {
+  Message882 result = 1;
+}

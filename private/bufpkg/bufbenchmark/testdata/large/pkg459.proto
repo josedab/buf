@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg459;
+
+// Message with various field types
+message Message459 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage459 nested = 7;
+  Status459 status = 8;
+}
+
+// Nested message type
+message NestedMessage459 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item459 items = 3;
+}
+
+// Simple item message
+message Item459 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status459 {
+  STATUS_459_UNSPECIFIED = 0;
+  STATUS_459_ACTIVE = 1;
+  STATUS_459_INACTIVE = 2;
+  STATUS_459_PENDING = 3;
+}
+
+// Service definition
+service Service459 {
+  rpc Get459(Get459Request) returns (Get459Response);
+  rpc List459(List459Request) returns (List459Response);
+  rpc Create459(Create459Request) returns (Create459Response);
+}
+
+message Get459Request {
+  string id = 1;
+}
+
+message Get459Response {
+  Message459 result = 1;
+}
+
+message List459Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List459Response {
+  repeated Message459 results = 1;
+  string next_page_token = 2;
+}
+
+message Create459Request {
+  Message459 message = 1;
+}
+
+message Create459Response {
+  Message459 result = 1;
+}

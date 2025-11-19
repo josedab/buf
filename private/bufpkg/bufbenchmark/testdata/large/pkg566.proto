@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg566;
+
+// Message with various field types
+message Message566 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage566 nested = 7;
+  Status566 status = 8;
+}
+
+// Nested message type
+message NestedMessage566 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item566 items = 3;
+}
+
+// Simple item message
+message Item566 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status566 {
+  STATUS_566_UNSPECIFIED = 0;
+  STATUS_566_ACTIVE = 1;
+  STATUS_566_INACTIVE = 2;
+  STATUS_566_PENDING = 3;
+}
+
+// Service definition
+service Service566 {
+  rpc Get566(Get566Request) returns (Get566Response);
+  rpc List566(List566Request) returns (List566Response);
+  rpc Create566(Create566Request) returns (Create566Response);
+}
+
+message Get566Request {
+  string id = 1;
+}
+
+message Get566Response {
+  Message566 result = 1;
+}
+
+message List566Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List566Response {
+  repeated Message566 results = 1;
+  string next_page_token = 2;
+}
+
+message Create566Request {
+  Message566 message = 1;
+}
+
+message Create566Response {
+  Message566 result = 1;
+}

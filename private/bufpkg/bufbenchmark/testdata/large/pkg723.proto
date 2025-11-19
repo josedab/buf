@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg723;
+
+// Message with various field types
+message Message723 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage723 nested = 7;
+  Status723 status = 8;
+}
+
+// Nested message type
+message NestedMessage723 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item723 items = 3;
+}
+
+// Simple item message
+message Item723 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status723 {
+  STATUS_723_UNSPECIFIED = 0;
+  STATUS_723_ACTIVE = 1;
+  STATUS_723_INACTIVE = 2;
+  STATUS_723_PENDING = 3;
+}
+
+// Service definition
+service Service723 {
+  rpc Get723(Get723Request) returns (Get723Response);
+  rpc List723(List723Request) returns (List723Response);
+  rpc Create723(Create723Request) returns (Create723Response);
+}
+
+message Get723Request {
+  string id = 1;
+}
+
+message Get723Response {
+  Message723 result = 1;
+}
+
+message List723Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List723Response {
+  repeated Message723 results = 1;
+  string next_page_token = 2;
+}
+
+message Create723Request {
+  Message723 message = 1;
+}
+
+message Create723Response {
+  Message723 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg786;
+
+// Message with various field types
+message Message786 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage786 nested = 7;
+  Status786 status = 8;
+}
+
+// Nested message type
+message NestedMessage786 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item786 items = 3;
+}
+
+// Simple item message
+message Item786 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status786 {
+  STATUS_786_UNSPECIFIED = 0;
+  STATUS_786_ACTIVE = 1;
+  STATUS_786_INACTIVE = 2;
+  STATUS_786_PENDING = 3;
+}
+
+// Service definition
+service Service786 {
+  rpc Get786(Get786Request) returns (Get786Response);
+  rpc List786(List786Request) returns (List786Response);
+  rpc Create786(Create786Request) returns (Create786Response);
+}
+
+message Get786Request {
+  string id = 1;
+}
+
+message Get786Response {
+  Message786 result = 1;
+}
+
+message List786Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List786Response {
+  repeated Message786 results = 1;
+  string next_page_token = 2;
+}
+
+message Create786Request {
+  Message786 message = 1;
+}
+
+message Create786Response {
+  Message786 result = 1;
+}

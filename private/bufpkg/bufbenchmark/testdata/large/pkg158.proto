@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg158;
+
+// Message with various field types
+message Message158 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage158 nested = 7;
+  Status158 status = 8;
+}
+
+// Nested message type
+message NestedMessage158 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item158 items = 3;
+}
+
+// Simple item message
+message Item158 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status158 {
+  STATUS_158_UNSPECIFIED = 0;
+  STATUS_158_ACTIVE = 1;
+  STATUS_158_INACTIVE = 2;
+  STATUS_158_PENDING = 3;
+}
+
+// Service definition
+service Service158 {
+  rpc Get158(Get158Request) returns (Get158Response);
+  rpc List158(List158Request) returns (List158Response);
+  rpc Create158(Create158Request) returns (Create158Response);
+}
+
+message Get158Request {
+  string id = 1;
+}
+
+message Get158Response {
+  Message158 result = 1;
+}
+
+message List158Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List158Response {
+  repeated Message158 results = 1;
+  string next_page_token = 2;
+}
+
+message Create158Request {
+  Message158 message = 1;
+}
+
+message Create158Response {
+  Message158 result = 1;
+}

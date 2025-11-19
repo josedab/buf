@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg946;
+
+// Message with various field types
+message Message946 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage946 nested = 7;
+  Status946 status = 8;
+}
+
+// Nested message type
+message NestedMessage946 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item946 items = 3;
+}
+
+// Simple item message
+message Item946 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status946 {
+  STATUS_946_UNSPECIFIED = 0;
+  STATUS_946_ACTIVE = 1;
+  STATUS_946_INACTIVE = 2;
+  STATUS_946_PENDING = 3;
+}
+
+// Service definition
+service Service946 {
+  rpc Get946(Get946Request) returns (Get946Response);
+  rpc List946(List946Request) returns (List946Response);
+  rpc Create946(Create946Request) returns (Create946Response);
+}
+
+message Get946Request {
+  string id = 1;
+}
+
+message Get946Response {
+  Message946 result = 1;
+}
+
+message List946Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List946Response {
+  repeated Message946 results = 1;
+  string next_page_token = 2;
+}
+
+message Create946Request {
+  Message946 message = 1;
+}
+
+message Create946Response {
+  Message946 result = 1;
+}

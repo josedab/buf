@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg932;
+
+// Message with various field types
+message Message932 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage932 nested = 7;
+  Status932 status = 8;
+}
+
+// Nested message type
+message NestedMessage932 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item932 items = 3;
+}
+
+// Simple item message
+message Item932 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status932 {
+  STATUS_932_UNSPECIFIED = 0;
+  STATUS_932_ACTIVE = 1;
+  STATUS_932_INACTIVE = 2;
+  STATUS_932_PENDING = 3;
+}
+
+// Service definition
+service Service932 {
+  rpc Get932(Get932Request) returns (Get932Response);
+  rpc List932(List932Request) returns (List932Response);
+  rpc Create932(Create932Request) returns (Create932Response);
+}
+
+message Get932Request {
+  string id = 1;
+}
+
+message Get932Response {
+  Message932 result = 1;
+}
+
+message List932Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List932Response {
+  repeated Message932 results = 1;
+  string next_page_token = 2;
+}
+
+message Create932Request {
+  Message932 message = 1;
+}
+
+message Create932Response {
+  Message932 result = 1;
+}

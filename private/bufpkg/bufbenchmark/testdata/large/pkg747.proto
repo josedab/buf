@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg747;
+
+// Message with various field types
+message Message747 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage747 nested = 7;
+  Status747 status = 8;
+}
+
+// Nested message type
+message NestedMessage747 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item747 items = 3;
+}
+
+// Simple item message
+message Item747 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status747 {
+  STATUS_747_UNSPECIFIED = 0;
+  STATUS_747_ACTIVE = 1;
+  STATUS_747_INACTIVE = 2;
+  STATUS_747_PENDING = 3;
+}
+
+// Service definition
+service Service747 {
+  rpc Get747(Get747Request) returns (Get747Response);
+  rpc List747(List747Request) returns (List747Response);
+  rpc Create747(Create747Request) returns (Create747Response);
+}
+
+message Get747Request {
+  string id = 1;
+}
+
+message Get747Response {
+  Message747 result = 1;
+}
+
+message List747Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List747Response {
+  repeated Message747 results = 1;
+  string next_page_token = 2;
+}
+
+message Create747Request {
+  Message747 message = 1;
+}
+
+message Create747Response {
+  Message747 result = 1;
+}

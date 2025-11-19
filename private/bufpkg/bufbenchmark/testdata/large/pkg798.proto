@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg798;
+
+// Message with various field types
+message Message798 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage798 nested = 7;
+  Status798 status = 8;
+}
+
+// Nested message type
+message NestedMessage798 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item798 items = 3;
+}
+
+// Simple item message
+message Item798 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status798 {
+  STATUS_798_UNSPECIFIED = 0;
+  STATUS_798_ACTIVE = 1;
+  STATUS_798_INACTIVE = 2;
+  STATUS_798_PENDING = 3;
+}
+
+// Service definition
+service Service798 {
+  rpc Get798(Get798Request) returns (Get798Response);
+  rpc List798(List798Request) returns (List798Response);
+  rpc Create798(Create798Request) returns (Create798Response);
+}
+
+message Get798Request {
+  string id = 1;
+}
+
+message Get798Response {
+  Message798 result = 1;
+}
+
+message List798Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List798Response {
+  repeated Message798 results = 1;
+  string next_page_token = 2;
+}
+
+message Create798Request {
+  Message798 message = 1;
+}
+
+message Create798Response {
+  Message798 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg384;
+
+// Message with various field types
+message Message384 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage384 nested = 7;
+  Status384 status = 8;
+}
+
+// Nested message type
+message NestedMessage384 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item384 items = 3;
+}
+
+// Simple item message
+message Item384 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status384 {
+  STATUS_384_UNSPECIFIED = 0;
+  STATUS_384_ACTIVE = 1;
+  STATUS_384_INACTIVE = 2;
+  STATUS_384_PENDING = 3;
+}
+
+// Service definition
+service Service384 {
+  rpc Get384(Get384Request) returns (Get384Response);
+  rpc List384(List384Request) returns (List384Response);
+  rpc Create384(Create384Request) returns (Create384Response);
+}
+
+message Get384Request {
+  string id = 1;
+}
+
+message Get384Response {
+  Message384 result = 1;
+}
+
+message List384Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List384Response {
+  repeated Message384 results = 1;
+  string next_page_token = 2;
+}
+
+message Create384Request {
+  Message384 message = 1;
+}
+
+message Create384Response {
+  Message384 result = 1;
+}

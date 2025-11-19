@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg506;
+
+// Message with various field types
+message Message506 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage506 nested = 7;
+  Status506 status = 8;
+}
+
+// Nested message type
+message NestedMessage506 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item506 items = 3;
+}
+
+// Simple item message
+message Item506 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status506 {
+  STATUS_506_UNSPECIFIED = 0;
+  STATUS_506_ACTIVE = 1;
+  STATUS_506_INACTIVE = 2;
+  STATUS_506_PENDING = 3;
+}
+
+// Service definition
+service Service506 {
+  rpc Get506(Get506Request) returns (Get506Response);
+  rpc List506(List506Request) returns (List506Response);
+  rpc Create506(Create506Request) returns (Create506Response);
+}
+
+message Get506Request {
+  string id = 1;
+}
+
+message Get506Response {
+  Message506 result = 1;
+}
+
+message List506Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List506Response {
+  repeated Message506 results = 1;
+  string next_page_token = 2;
+}
+
+message Create506Request {
+  Message506 message = 1;
+}
+
+message Create506Response {
+  Message506 result = 1;
+}

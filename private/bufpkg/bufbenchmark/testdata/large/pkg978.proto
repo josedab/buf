@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg978;
+
+// Message with various field types
+message Message978 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage978 nested = 7;
+  Status978 status = 8;
+}
+
+// Nested message type
+message NestedMessage978 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item978 items = 3;
+}
+
+// Simple item message
+message Item978 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status978 {
+  STATUS_978_UNSPECIFIED = 0;
+  STATUS_978_ACTIVE = 1;
+  STATUS_978_INACTIVE = 2;
+  STATUS_978_PENDING = 3;
+}
+
+// Service definition
+service Service978 {
+  rpc Get978(Get978Request) returns (Get978Response);
+  rpc List978(List978Request) returns (List978Response);
+  rpc Create978(Create978Request) returns (Create978Response);
+}
+
+message Get978Request {
+  string id = 1;
+}
+
+message Get978Response {
+  Message978 result = 1;
+}
+
+message List978Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List978Response {
+  repeated Message978 results = 1;
+  string next_page_token = 2;
+}
+
+message Create978Request {
+  Message978 message = 1;
+}
+
+message Create978Response {
+  Message978 result = 1;
+}

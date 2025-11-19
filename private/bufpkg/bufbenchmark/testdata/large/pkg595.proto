@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg595;
+
+// Message with various field types
+message Message595 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage595 nested = 7;
+  Status595 status = 8;
+}
+
+// Nested message type
+message NestedMessage595 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item595 items = 3;
+}
+
+// Simple item message
+message Item595 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status595 {
+  STATUS_595_UNSPECIFIED = 0;
+  STATUS_595_ACTIVE = 1;
+  STATUS_595_INACTIVE = 2;
+  STATUS_595_PENDING = 3;
+}
+
+// Service definition
+service Service595 {
+  rpc Get595(Get595Request) returns (Get595Response);
+  rpc List595(List595Request) returns (List595Response);
+  rpc Create595(Create595Request) returns (Create595Response);
+}
+
+message Get595Request {
+  string id = 1;
+}
+
+message Get595Response {
+  Message595 result = 1;
+}
+
+message List595Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List595Response {
+  repeated Message595 results = 1;
+  string next_page_token = 2;
+}
+
+message Create595Request {
+  Message595 message = 1;
+}
+
+message Create595Response {
+  Message595 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg32;
+
+// Message with various field types
+message Message32 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage32 nested = 7;
+  Status32 status = 8;
+}
+
+// Nested message type
+message NestedMessage32 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item32 items = 3;
+}
+
+// Simple item message
+message Item32 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status32 {
+  STATUS_32_UNSPECIFIED = 0;
+  STATUS_32_ACTIVE = 1;
+  STATUS_32_INACTIVE = 2;
+  STATUS_32_PENDING = 3;
+}
+
+// Service definition
+service Service32 {
+  rpc Get32(Get32Request) returns (Get32Response);
+  rpc List32(List32Request) returns (List32Response);
+  rpc Create32(Create32Request) returns (Create32Response);
+}
+
+message Get32Request {
+  string id = 1;
+}
+
+message Get32Response {
+  Message32 result = 1;
+}
+
+message List32Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List32Response {
+  repeated Message32 results = 1;
+  string next_page_token = 2;
+}
+
+message Create32Request {
+  Message32 message = 1;
+}
+
+message Create32Response {
+  Message32 result = 1;
+}

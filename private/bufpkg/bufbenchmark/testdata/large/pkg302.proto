@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg302;
+
+// Message with various field types
+message Message302 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage302 nested = 7;
+  Status302 status = 8;
+}
+
+// Nested message type
+message NestedMessage302 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item302 items = 3;
+}
+
+// Simple item message
+message Item302 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status302 {
+  STATUS_302_UNSPECIFIED = 0;
+  STATUS_302_ACTIVE = 1;
+  STATUS_302_INACTIVE = 2;
+  STATUS_302_PENDING = 3;
+}
+
+// Service definition
+service Service302 {
+  rpc Get302(Get302Request) returns (Get302Response);
+  rpc List302(List302Request) returns (List302Response);
+  rpc Create302(Create302Request) returns (Create302Response);
+}
+
+message Get302Request {
+  string id = 1;
+}
+
+message Get302Response {
+  Message302 result = 1;
+}
+
+message List302Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List302Response {
+  repeated Message302 results = 1;
+  string next_page_token = 2;
+}
+
+message Create302Request {
+  Message302 message = 1;
+}
+
+message Create302Response {
+  Message302 result = 1;
+}

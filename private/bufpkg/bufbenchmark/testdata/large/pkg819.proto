@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg819;
+
+// Message with various field types
+message Message819 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage819 nested = 7;
+  Status819 status = 8;
+}
+
+// Nested message type
+message NestedMessage819 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item819 items = 3;
+}
+
+// Simple item message
+message Item819 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status819 {
+  STATUS_819_UNSPECIFIED = 0;
+  STATUS_819_ACTIVE = 1;
+  STATUS_819_INACTIVE = 2;
+  STATUS_819_PENDING = 3;
+}
+
+// Service definition
+service Service819 {
+  rpc Get819(Get819Request) returns (Get819Response);
+  rpc List819(List819Request) returns (List819Response);
+  rpc Create819(Create819Request) returns (Create819Response);
+}
+
+message Get819Request {
+  string id = 1;
+}
+
+message Get819Response {
+  Message819 result = 1;
+}
+
+message List819Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List819Response {
+  repeated Message819 results = 1;
+  string next_page_token = 2;
+}
+
+message Create819Request {
+  Message819 message = 1;
+}
+
+message Create819Response {
+  Message819 result = 1;
+}

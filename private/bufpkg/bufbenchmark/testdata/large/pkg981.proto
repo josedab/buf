@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg981;
+
+// Message with various field types
+message Message981 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage981 nested = 7;
+  Status981 status = 8;
+}
+
+// Nested message type
+message NestedMessage981 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item981 items = 3;
+}
+
+// Simple item message
+message Item981 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status981 {
+  STATUS_981_UNSPECIFIED = 0;
+  STATUS_981_ACTIVE = 1;
+  STATUS_981_INACTIVE = 2;
+  STATUS_981_PENDING = 3;
+}
+
+// Service definition
+service Service981 {
+  rpc Get981(Get981Request) returns (Get981Response);
+  rpc List981(List981Request) returns (List981Response);
+  rpc Create981(Create981Request) returns (Create981Response);
+}
+
+message Get981Request {
+  string id = 1;
+}
+
+message Get981Response {
+  Message981 result = 1;
+}
+
+message List981Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List981Response {
+  repeated Message981 results = 1;
+  string next_page_token = 2;
+}
+
+message Create981Request {
+  Message981 message = 1;
+}
+
+message Create981Response {
+  Message981 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg351;
+
+// Message with various field types
+message Message351 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage351 nested = 7;
+  Status351 status = 8;
+}
+
+// Nested message type
+message NestedMessage351 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item351 items = 3;
+}
+
+// Simple item message
+message Item351 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status351 {
+  STATUS_351_UNSPECIFIED = 0;
+  STATUS_351_ACTIVE = 1;
+  STATUS_351_INACTIVE = 2;
+  STATUS_351_PENDING = 3;
+}
+
+// Service definition
+service Service351 {
+  rpc Get351(Get351Request) returns (Get351Response);
+  rpc List351(List351Request) returns (List351Response);
+  rpc Create351(Create351Request) returns (Create351Response);
+}
+
+message Get351Request {
+  string id = 1;
+}
+
+message Get351Response {
+  Message351 result = 1;
+}
+
+message List351Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List351Response {
+  repeated Message351 results = 1;
+  string next_page_token = 2;
+}
+
+message Create351Request {
+  Message351 message = 1;
+}
+
+message Create351Response {
+  Message351 result = 1;
+}

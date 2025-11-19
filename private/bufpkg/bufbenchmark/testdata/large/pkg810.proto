@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg810;
+
+// Message with various field types
+message Message810 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage810 nested = 7;
+  Status810 status = 8;
+}
+
+// Nested message type
+message NestedMessage810 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item810 items = 3;
+}
+
+// Simple item message
+message Item810 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status810 {
+  STATUS_810_UNSPECIFIED = 0;
+  STATUS_810_ACTIVE = 1;
+  STATUS_810_INACTIVE = 2;
+  STATUS_810_PENDING = 3;
+}
+
+// Service definition
+service Service810 {
+  rpc Get810(Get810Request) returns (Get810Response);
+  rpc List810(List810Request) returns (List810Response);
+  rpc Create810(Create810Request) returns (Create810Response);
+}
+
+message Get810Request {
+  string id = 1;
+}
+
+message Get810Response {
+  Message810 result = 1;
+}
+
+message List810Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List810Response {
+  repeated Message810 results = 1;
+  string next_page_token = 2;
+}
+
+message Create810Request {
+  Message810 message = 1;
+}
+
+message Create810Response {
+  Message810 result = 1;
+}

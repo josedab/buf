@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg919;
+
+// Message with various field types
+message Message919 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage919 nested = 7;
+  Status919 status = 8;
+}
+
+// Nested message type
+message NestedMessage919 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item919 items = 3;
+}
+
+// Simple item message
+message Item919 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status919 {
+  STATUS_919_UNSPECIFIED = 0;
+  STATUS_919_ACTIVE = 1;
+  STATUS_919_INACTIVE = 2;
+  STATUS_919_PENDING = 3;
+}
+
+// Service definition
+service Service919 {
+  rpc Get919(Get919Request) returns (Get919Response);
+  rpc List919(List919Request) returns (List919Response);
+  rpc Create919(Create919Request) returns (Create919Response);
+}
+
+message Get919Request {
+  string id = 1;
+}
+
+message Get919Response {
+  Message919 result = 1;
+}
+
+message List919Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List919Response {
+  repeated Message919 results = 1;
+  string next_page_token = 2;
+}
+
+message Create919Request {
+  Message919 message = 1;
+}
+
+message Create919Response {
+  Message919 result = 1;
+}

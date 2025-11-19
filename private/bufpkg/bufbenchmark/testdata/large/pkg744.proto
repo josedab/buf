@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg744;
+
+// Message with various field types
+message Message744 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage744 nested = 7;
+  Status744 status = 8;
+}
+
+// Nested message type
+message NestedMessage744 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item744 items = 3;
+}
+
+// Simple item message
+message Item744 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status744 {
+  STATUS_744_UNSPECIFIED = 0;
+  STATUS_744_ACTIVE = 1;
+  STATUS_744_INACTIVE = 2;
+  STATUS_744_PENDING = 3;
+}
+
+// Service definition
+service Service744 {
+  rpc Get744(Get744Request) returns (Get744Response);
+  rpc List744(List744Request) returns (List744Response);
+  rpc Create744(Create744Request) returns (Create744Response);
+}
+
+message Get744Request {
+  string id = 1;
+}
+
+message Get744Response {
+  Message744 result = 1;
+}
+
+message List744Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List744Response {
+  repeated Message744 results = 1;
+  string next_page_token = 2;
+}
+
+message Create744Request {
+  Message744 message = 1;
+}
+
+message Create744Response {
+  Message744 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg990;
+
+// Message with various field types
+message Message990 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage990 nested = 7;
+  Status990 status = 8;
+}
+
+// Nested message type
+message NestedMessage990 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item990 items = 3;
+}
+
+// Simple item message
+message Item990 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status990 {
+  STATUS_990_UNSPECIFIED = 0;
+  STATUS_990_ACTIVE = 1;
+  STATUS_990_INACTIVE = 2;
+  STATUS_990_PENDING = 3;
+}
+
+// Service definition
+service Service990 {
+  rpc Get990(Get990Request) returns (Get990Response);
+  rpc List990(List990Request) returns (List990Response);
+  rpc Create990(Create990Request) returns (Create990Response);
+}
+
+message Get990Request {
+  string id = 1;
+}
+
+message Get990Response {
+  Message990 result = 1;
+}
+
+message List990Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List990Response {
+  repeated Message990 results = 1;
+  string next_page_token = 2;
+}
+
+message Create990Request {
+  Message990 message = 1;
+}
+
+message Create990Response {
+  Message990 result = 1;
+}

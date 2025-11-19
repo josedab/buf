@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg61;
+
+// Message with various field types
+message Message61 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage61 nested = 7;
+  Status61 status = 8;
+}
+
+// Nested message type
+message NestedMessage61 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item61 items = 3;
+}
+
+// Simple item message
+message Item61 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status61 {
+  STATUS_61_UNSPECIFIED = 0;
+  STATUS_61_ACTIVE = 1;
+  STATUS_61_INACTIVE = 2;
+  STATUS_61_PENDING = 3;
+}
+
+// Service definition
+service Service61 {
+  rpc Get61(Get61Request) returns (Get61Response);
+  rpc List61(List61Request) returns (List61Response);
+  rpc Create61(Create61Request) returns (Create61Response);
+}
+
+message Get61Request {
+  string id = 1;
+}
+
+message Get61Response {
+  Message61 result = 1;
+}
+
+message List61Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List61Response {
+  repeated Message61 results = 1;
+  string next_page_token = 2;
+}
+
+message Create61Request {
+  Message61 message = 1;
+}
+
+message Create61Response {
+  Message61 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg578;
+
+// Message with various field types
+message Message578 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage578 nested = 7;
+  Status578 status = 8;
+}
+
+// Nested message type
+message NestedMessage578 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item578 items = 3;
+}
+
+// Simple item message
+message Item578 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status578 {
+  STATUS_578_UNSPECIFIED = 0;
+  STATUS_578_ACTIVE = 1;
+  STATUS_578_INACTIVE = 2;
+  STATUS_578_PENDING = 3;
+}
+
+// Service definition
+service Service578 {
+  rpc Get578(Get578Request) returns (Get578Response);
+  rpc List578(List578Request) returns (List578Response);
+  rpc Create578(Create578Request) returns (Create578Response);
+}
+
+message Get578Request {
+  string id = 1;
+}
+
+message Get578Response {
+  Message578 result = 1;
+}
+
+message List578Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List578Response {
+  repeated Message578 results = 1;
+  string next_page_token = 2;
+}
+
+message Create578Request {
+  Message578 message = 1;
+}
+
+message Create578Response {
+  Message578 result = 1;
+}

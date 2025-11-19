@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg574;
+
+// Message with various field types
+message Message574 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage574 nested = 7;
+  Status574 status = 8;
+}
+
+// Nested message type
+message NestedMessage574 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item574 items = 3;
+}
+
+// Simple item message
+message Item574 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status574 {
+  STATUS_574_UNSPECIFIED = 0;
+  STATUS_574_ACTIVE = 1;
+  STATUS_574_INACTIVE = 2;
+  STATUS_574_PENDING = 3;
+}
+
+// Service definition
+service Service574 {
+  rpc Get574(Get574Request) returns (Get574Response);
+  rpc List574(List574Request) returns (List574Response);
+  rpc Create574(Create574Request) returns (Create574Response);
+}
+
+message Get574Request {
+  string id = 1;
+}
+
+message Get574Response {
+  Message574 result = 1;
+}
+
+message List574Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List574Response {
+  repeated Message574 results = 1;
+  string next_page_token = 2;
+}
+
+message Create574Request {
+  Message574 message = 1;
+}
+
+message Create574Response {
+  Message574 result = 1;
+}

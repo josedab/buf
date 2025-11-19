@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg333;
+
+// Message with various field types
+message Message333 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage333 nested = 7;
+  Status333 status = 8;
+}
+
+// Nested message type
+message NestedMessage333 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item333 items = 3;
+}
+
+// Simple item message
+message Item333 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status333 {
+  STATUS_333_UNSPECIFIED = 0;
+  STATUS_333_ACTIVE = 1;
+  STATUS_333_INACTIVE = 2;
+  STATUS_333_PENDING = 3;
+}
+
+// Service definition
+service Service333 {
+  rpc Get333(Get333Request) returns (Get333Response);
+  rpc List333(List333Request) returns (List333Response);
+  rpc Create333(Create333Request) returns (Create333Response);
+}
+
+message Get333Request {
+  string id = 1;
+}
+
+message Get333Response {
+  Message333 result = 1;
+}
+
+message List333Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List333Response {
+  repeated Message333 results = 1;
+  string next_page_token = 2;
+}
+
+message Create333Request {
+  Message333 message = 1;
+}
+
+message Create333Response {
+  Message333 result = 1;
+}

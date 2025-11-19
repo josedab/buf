@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg492;
+
+// Message with various field types
+message Message492 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage492 nested = 7;
+  Status492 status = 8;
+}
+
+// Nested message type
+message NestedMessage492 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item492 items = 3;
+}
+
+// Simple item message
+message Item492 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status492 {
+  STATUS_492_UNSPECIFIED = 0;
+  STATUS_492_ACTIVE = 1;
+  STATUS_492_INACTIVE = 2;
+  STATUS_492_PENDING = 3;
+}
+
+// Service definition
+service Service492 {
+  rpc Get492(Get492Request) returns (Get492Response);
+  rpc List492(List492Request) returns (List492Response);
+  rpc Create492(Create492Request) returns (Create492Response);
+}
+
+message Get492Request {
+  string id = 1;
+}
+
+message Get492Response {
+  Message492 result = 1;
+}
+
+message List492Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List492Response {
+  repeated Message492 results = 1;
+  string next_page_token = 2;
+}
+
+message Create492Request {
+  Message492 message = 1;
+}
+
+message Create492Response {
+  Message492 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg444;
+
+// Message with various field types
+message Message444 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage444 nested = 7;
+  Status444 status = 8;
+}
+
+// Nested message type
+message NestedMessage444 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item444 items = 3;
+}
+
+// Simple item message
+message Item444 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status444 {
+  STATUS_444_UNSPECIFIED = 0;
+  STATUS_444_ACTIVE = 1;
+  STATUS_444_INACTIVE = 2;
+  STATUS_444_PENDING = 3;
+}
+
+// Service definition
+service Service444 {
+  rpc Get444(Get444Request) returns (Get444Response);
+  rpc List444(List444Request) returns (List444Response);
+  rpc Create444(Create444Request) returns (Create444Response);
+}
+
+message Get444Request {
+  string id = 1;
+}
+
+message Get444Response {
+  Message444 result = 1;
+}
+
+message List444Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List444Response {
+  repeated Message444 results = 1;
+  string next_page_token = 2;
+}
+
+message Create444Request {
+  Message444 message = 1;
+}
+
+message Create444Response {
+  Message444 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg517;
+
+// Message with various field types
+message Message517 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage517 nested = 7;
+  Status517 status = 8;
+}
+
+// Nested message type
+message NestedMessage517 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item517 items = 3;
+}
+
+// Simple item message
+message Item517 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status517 {
+  STATUS_517_UNSPECIFIED = 0;
+  STATUS_517_ACTIVE = 1;
+  STATUS_517_INACTIVE = 2;
+  STATUS_517_PENDING = 3;
+}
+
+// Service definition
+service Service517 {
+  rpc Get517(Get517Request) returns (Get517Response);
+  rpc List517(List517Request) returns (List517Response);
+  rpc Create517(Create517Request) returns (Create517Response);
+}
+
+message Get517Request {
+  string id = 1;
+}
+
+message Get517Response {
+  Message517 result = 1;
+}
+
+message List517Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List517Response {
+  repeated Message517 results = 1;
+  string next_page_token = 2;
+}
+
+message Create517Request {
+  Message517 message = 1;
+}
+
+message Create517Response {
+  Message517 result = 1;
+}

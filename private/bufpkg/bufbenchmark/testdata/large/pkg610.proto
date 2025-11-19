@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg610;
+
+// Message with various field types
+message Message610 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage610 nested = 7;
+  Status610 status = 8;
+}
+
+// Nested message type
+message NestedMessage610 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item610 items = 3;
+}
+
+// Simple item message
+message Item610 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status610 {
+  STATUS_610_UNSPECIFIED = 0;
+  STATUS_610_ACTIVE = 1;
+  STATUS_610_INACTIVE = 2;
+  STATUS_610_PENDING = 3;
+}
+
+// Service definition
+service Service610 {
+  rpc Get610(Get610Request) returns (Get610Response);
+  rpc List610(List610Request) returns (List610Response);
+  rpc Create610(Create610Request) returns (Create610Response);
+}
+
+message Get610Request {
+  string id = 1;
+}
+
+message Get610Response {
+  Message610 result = 1;
+}
+
+message List610Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List610Response {
+  repeated Message610 results = 1;
+  string next_page_token = 2;
+}
+
+message Create610Request {
+  Message610 message = 1;
+}
+
+message Create610Response {
+  Message610 result = 1;
+}

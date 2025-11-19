@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg969;
+
+// Message with various field types
+message Message969 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage969 nested = 7;
+  Status969 status = 8;
+}
+
+// Nested message type
+message NestedMessage969 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item969 items = 3;
+}
+
+// Simple item message
+message Item969 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status969 {
+  STATUS_969_UNSPECIFIED = 0;
+  STATUS_969_ACTIVE = 1;
+  STATUS_969_INACTIVE = 2;
+  STATUS_969_PENDING = 3;
+}
+
+// Service definition
+service Service969 {
+  rpc Get969(Get969Request) returns (Get969Response);
+  rpc List969(List969Request) returns (List969Response);
+  rpc Create969(Create969Request) returns (Create969Response);
+}
+
+message Get969Request {
+  string id = 1;
+}
+
+message Get969Response {
+  Message969 result = 1;
+}
+
+message List969Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List969Response {
+  repeated Message969 results = 1;
+  string next_page_token = 2;
+}
+
+message Create969Request {
+  Message969 message = 1;
+}
+
+message Create969Response {
+  Message969 result = 1;
+}

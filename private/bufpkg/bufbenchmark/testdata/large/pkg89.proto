@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg89;
+
+// Message with various field types
+message Message89 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage89 nested = 7;
+  Status89 status = 8;
+}
+
+// Nested message type
+message NestedMessage89 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item89 items = 3;
+}
+
+// Simple item message
+message Item89 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status89 {
+  STATUS_89_UNSPECIFIED = 0;
+  STATUS_89_ACTIVE = 1;
+  STATUS_89_INACTIVE = 2;
+  STATUS_89_PENDING = 3;
+}
+
+// Service definition
+service Service89 {
+  rpc Get89(Get89Request) returns (Get89Response);
+  rpc List89(List89Request) returns (List89Response);
+  rpc Create89(Create89Request) returns (Create89Response);
+}
+
+message Get89Request {
+  string id = 1;
+}
+
+message Get89Response {
+  Message89 result = 1;
+}
+
+message List89Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List89Response {
+  repeated Message89 results = 1;
+  string next_page_token = 2;
+}
+
+message Create89Request {
+  Message89 message = 1;
+}
+
+message Create89Response {
+  Message89 result = 1;
+}

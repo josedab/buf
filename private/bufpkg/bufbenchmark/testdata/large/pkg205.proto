@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg205;
+
+// Message with various field types
+message Message205 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage205 nested = 7;
+  Status205 status = 8;
+}
+
+// Nested message type
+message NestedMessage205 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item205 items = 3;
+}
+
+// Simple item message
+message Item205 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status205 {
+  STATUS_205_UNSPECIFIED = 0;
+  STATUS_205_ACTIVE = 1;
+  STATUS_205_INACTIVE = 2;
+  STATUS_205_PENDING = 3;
+}
+
+// Service definition
+service Service205 {
+  rpc Get205(Get205Request) returns (Get205Response);
+  rpc List205(List205Request) returns (List205Response);
+  rpc Create205(Create205Request) returns (Create205Response);
+}
+
+message Get205Request {
+  string id = 1;
+}
+
+message Get205Response {
+  Message205 result = 1;
+}
+
+message List205Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List205Response {
+  repeated Message205 results = 1;
+  string next_page_token = 2;
+}
+
+message Create205Request {
+  Message205 message = 1;
+}
+
+message Create205Response {
+  Message205 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg855;
+
+// Message with various field types
+message Message855 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage855 nested = 7;
+  Status855 status = 8;
+}
+
+// Nested message type
+message NestedMessage855 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item855 items = 3;
+}
+
+// Simple item message
+message Item855 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status855 {
+  STATUS_855_UNSPECIFIED = 0;
+  STATUS_855_ACTIVE = 1;
+  STATUS_855_INACTIVE = 2;
+  STATUS_855_PENDING = 3;
+}
+
+// Service definition
+service Service855 {
+  rpc Get855(Get855Request) returns (Get855Response);
+  rpc List855(List855Request) returns (List855Response);
+  rpc Create855(Create855Request) returns (Create855Response);
+}
+
+message Get855Request {
+  string id = 1;
+}
+
+message Get855Response {
+  Message855 result = 1;
+}
+
+message List855Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List855Response {
+  repeated Message855 results = 1;
+  string next_page_token = 2;
+}
+
+message Create855Request {
+  Message855 message = 1;
+}
+
+message Create855Response {
+  Message855 result = 1;
+}

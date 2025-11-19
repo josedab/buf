@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg641;
+
+// Message with various field types
+message Message641 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage641 nested = 7;
+  Status641 status = 8;
+}
+
+// Nested message type
+message NestedMessage641 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item641 items = 3;
+}
+
+// Simple item message
+message Item641 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status641 {
+  STATUS_641_UNSPECIFIED = 0;
+  STATUS_641_ACTIVE = 1;
+  STATUS_641_INACTIVE = 2;
+  STATUS_641_PENDING = 3;
+}
+
+// Service definition
+service Service641 {
+  rpc Get641(Get641Request) returns (Get641Response);
+  rpc List641(List641Request) returns (List641Response);
+  rpc Create641(Create641Request) returns (Create641Response);
+}
+
+message Get641Request {
+  string id = 1;
+}
+
+message Get641Response {
+  Message641 result = 1;
+}
+
+message List641Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List641Response {
+  repeated Message641 results = 1;
+  string next_page_token = 2;
+}
+
+message Create641Request {
+  Message641 message = 1;
+}
+
+message Create641Response {
+  Message641 result = 1;
+}

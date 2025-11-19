@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg437;
+
+// Message with various field types
+message Message437 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage437 nested = 7;
+  Status437 status = 8;
+}
+
+// Nested message type
+message NestedMessage437 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item437 items = 3;
+}
+
+// Simple item message
+message Item437 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status437 {
+  STATUS_437_UNSPECIFIED = 0;
+  STATUS_437_ACTIVE = 1;
+  STATUS_437_INACTIVE = 2;
+  STATUS_437_PENDING = 3;
+}
+
+// Service definition
+service Service437 {
+  rpc Get437(Get437Request) returns (Get437Response);
+  rpc List437(List437Request) returns (List437Response);
+  rpc Create437(Create437Request) returns (Create437Response);
+}
+
+message Get437Request {
+  string id = 1;
+}
+
+message Get437Response {
+  Message437 result = 1;
+}
+
+message List437Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List437Response {
+  repeated Message437 results = 1;
+  string next_page_token = 2;
+}
+
+message Create437Request {
+  Message437 message = 1;
+}
+
+message Create437Response {
+  Message437 result = 1;
+}

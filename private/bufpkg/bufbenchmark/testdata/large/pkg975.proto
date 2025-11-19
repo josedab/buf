@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg975;
+
+// Message with various field types
+message Message975 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage975 nested = 7;
+  Status975 status = 8;
+}
+
+// Nested message type
+message NestedMessage975 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item975 items = 3;
+}
+
+// Simple item message
+message Item975 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status975 {
+  STATUS_975_UNSPECIFIED = 0;
+  STATUS_975_ACTIVE = 1;
+  STATUS_975_INACTIVE = 2;
+  STATUS_975_PENDING = 3;
+}
+
+// Service definition
+service Service975 {
+  rpc Get975(Get975Request) returns (Get975Response);
+  rpc List975(List975Request) returns (List975Response);
+  rpc Create975(Create975Request) returns (Create975Response);
+}
+
+message Get975Request {
+  string id = 1;
+}
+
+message Get975Response {
+  Message975 result = 1;
+}
+
+message List975Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List975Response {
+  repeated Message975 results = 1;
+  string next_page_token = 2;
+}
+
+message Create975Request {
+  Message975 message = 1;
+}
+
+message Create975Response {
+  Message975 result = 1;
+}

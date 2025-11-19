@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg925;
+
+// Message with various field types
+message Message925 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage925 nested = 7;
+  Status925 status = 8;
+}
+
+// Nested message type
+message NestedMessage925 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item925 items = 3;
+}
+
+// Simple item message
+message Item925 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status925 {
+  STATUS_925_UNSPECIFIED = 0;
+  STATUS_925_ACTIVE = 1;
+  STATUS_925_INACTIVE = 2;
+  STATUS_925_PENDING = 3;
+}
+
+// Service definition
+service Service925 {
+  rpc Get925(Get925Request) returns (Get925Response);
+  rpc List925(List925Request) returns (List925Response);
+  rpc Create925(Create925Request) returns (Create925Response);
+}
+
+message Get925Request {
+  string id = 1;
+}
+
+message Get925Response {
+  Message925 result = 1;
+}
+
+message List925Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List925Response {
+  repeated Message925 results = 1;
+  string next_page_token = 2;
+}
+
+message Create925Request {
+  Message925 message = 1;
+}
+
+message Create925Response {
+  Message925 result = 1;
+}

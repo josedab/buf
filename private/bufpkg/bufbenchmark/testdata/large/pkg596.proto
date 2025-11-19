@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg596;
+
+// Message with various field types
+message Message596 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage596 nested = 7;
+  Status596 status = 8;
+}
+
+// Nested message type
+message NestedMessage596 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item596 items = 3;
+}
+
+// Simple item message
+message Item596 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status596 {
+  STATUS_596_UNSPECIFIED = 0;
+  STATUS_596_ACTIVE = 1;
+  STATUS_596_INACTIVE = 2;
+  STATUS_596_PENDING = 3;
+}
+
+// Service definition
+service Service596 {
+  rpc Get596(Get596Request) returns (Get596Response);
+  rpc List596(List596Request) returns (List596Response);
+  rpc Create596(Create596Request) returns (Create596Response);
+}
+
+message Get596Request {
+  string id = 1;
+}
+
+message Get596Response {
+  Message596 result = 1;
+}
+
+message List596Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List596Response {
+  repeated Message596 results = 1;
+  string next_page_token = 2;
+}
+
+message Create596Request {
+  Message596 message = 1;
+}
+
+message Create596Response {
+  Message596 result = 1;
+}

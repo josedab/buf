@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg960;
+
+// Message with various field types
+message Message960 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage960 nested = 7;
+  Status960 status = 8;
+}
+
+// Nested message type
+message NestedMessage960 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item960 items = 3;
+}
+
+// Simple item message
+message Item960 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status960 {
+  STATUS_960_UNSPECIFIED = 0;
+  STATUS_960_ACTIVE = 1;
+  STATUS_960_INACTIVE = 2;
+  STATUS_960_PENDING = 3;
+}
+
+// Service definition
+service Service960 {
+  rpc Get960(Get960Request) returns (Get960Response);
+  rpc List960(List960Request) returns (List960Response);
+  rpc Create960(Create960Request) returns (Create960Response);
+}
+
+message Get960Request {
+  string id = 1;
+}
+
+message Get960Response {
+  Message960 result = 1;
+}
+
+message List960Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List960Response {
+  repeated Message960 results = 1;
+  string next_page_token = 2;
+}
+
+message Create960Request {
+  Message960 message = 1;
+}
+
+message Create960Response {
+  Message960 result = 1;
+}

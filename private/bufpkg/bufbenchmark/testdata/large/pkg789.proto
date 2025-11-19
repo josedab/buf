@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg789;
+
+// Message with various field types
+message Message789 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage789 nested = 7;
+  Status789 status = 8;
+}
+
+// Nested message type
+message NestedMessage789 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item789 items = 3;
+}
+
+// Simple item message
+message Item789 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status789 {
+  STATUS_789_UNSPECIFIED = 0;
+  STATUS_789_ACTIVE = 1;
+  STATUS_789_INACTIVE = 2;
+  STATUS_789_PENDING = 3;
+}
+
+// Service definition
+service Service789 {
+  rpc Get789(Get789Request) returns (Get789Response);
+  rpc List789(List789Request) returns (List789Response);
+  rpc Create789(Create789Request) returns (Create789Response);
+}
+
+message Get789Request {
+  string id = 1;
+}
+
+message Get789Response {
+  Message789 result = 1;
+}
+
+message List789Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List789Response {
+  repeated Message789 results = 1;
+  string next_page_token = 2;
+}
+
+message Create789Request {
+  Message789 message = 1;
+}
+
+message Create789Response {
+  Message789 result = 1;
+}

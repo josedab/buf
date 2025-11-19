@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg168;
+
+// Message with various field types
+message Message168 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage168 nested = 7;
+  Status168 status = 8;
+}
+
+// Nested message type
+message NestedMessage168 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item168 items = 3;
+}
+
+// Simple item message
+message Item168 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status168 {
+  STATUS_168_UNSPECIFIED = 0;
+  STATUS_168_ACTIVE = 1;
+  STATUS_168_INACTIVE = 2;
+  STATUS_168_PENDING = 3;
+}
+
+// Service definition
+service Service168 {
+  rpc Get168(Get168Request) returns (Get168Response);
+  rpc List168(List168Request) returns (List168Response);
+  rpc Create168(Create168Request) returns (Create168Response);
+}
+
+message Get168Request {
+  string id = 1;
+}
+
+message Get168Response {
+  Message168 result = 1;
+}
+
+message List168Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List168Response {
+  repeated Message168 results = 1;
+  string next_page_token = 2;
+}
+
+message Create168Request {
+  Message168 message = 1;
+}
+
+message Create168Response {
+  Message168 result = 1;
+}

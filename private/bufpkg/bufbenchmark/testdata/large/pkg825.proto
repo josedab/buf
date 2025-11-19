@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg825;
+
+// Message with various field types
+message Message825 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage825 nested = 7;
+  Status825 status = 8;
+}
+
+// Nested message type
+message NestedMessage825 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item825 items = 3;
+}
+
+// Simple item message
+message Item825 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status825 {
+  STATUS_825_UNSPECIFIED = 0;
+  STATUS_825_ACTIVE = 1;
+  STATUS_825_INACTIVE = 2;
+  STATUS_825_PENDING = 3;
+}
+
+// Service definition
+service Service825 {
+  rpc Get825(Get825Request) returns (Get825Response);
+  rpc List825(List825Request) returns (List825Response);
+  rpc Create825(Create825Request) returns (Create825Response);
+}
+
+message Get825Request {
+  string id = 1;
+}
+
+message Get825Response {
+  Message825 result = 1;
+}
+
+message List825Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List825Response {
+  repeated Message825 results = 1;
+  string next_page_token = 2;
+}
+
+message Create825Request {
+  Message825 message = 1;
+}
+
+message Create825Response {
+  Message825 result = 1;
+}

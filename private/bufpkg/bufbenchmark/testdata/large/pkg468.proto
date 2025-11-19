@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg468;
+
+// Message with various field types
+message Message468 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage468 nested = 7;
+  Status468 status = 8;
+}
+
+// Nested message type
+message NestedMessage468 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item468 items = 3;
+}
+
+// Simple item message
+message Item468 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status468 {
+  STATUS_468_UNSPECIFIED = 0;
+  STATUS_468_ACTIVE = 1;
+  STATUS_468_INACTIVE = 2;
+  STATUS_468_PENDING = 3;
+}
+
+// Service definition
+service Service468 {
+  rpc Get468(Get468Request) returns (Get468Response);
+  rpc List468(List468Request) returns (List468Response);
+  rpc Create468(Create468Request) returns (Create468Response);
+}
+
+message Get468Request {
+  string id = 1;
+}
+
+message Get468Response {
+  Message468 result = 1;
+}
+
+message List468Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List468Response {
+  repeated Message468 results = 1;
+  string next_page_token = 2;
+}
+
+message Create468Request {
+  Message468 message = 1;
+}
+
+message Create468Response {
+  Message468 result = 1;
+}

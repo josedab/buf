@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg173;
+
+// Message with various field types
+message Message173 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage173 nested = 7;
+  Status173 status = 8;
+}
+
+// Nested message type
+message NestedMessage173 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item173 items = 3;
+}
+
+// Simple item message
+message Item173 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status173 {
+  STATUS_173_UNSPECIFIED = 0;
+  STATUS_173_ACTIVE = 1;
+  STATUS_173_INACTIVE = 2;
+  STATUS_173_PENDING = 3;
+}
+
+// Service definition
+service Service173 {
+  rpc Get173(Get173Request) returns (Get173Response);
+  rpc List173(List173Request) returns (List173Response);
+  rpc Create173(Create173Request) returns (Create173Response);
+}
+
+message Get173Request {
+  string id = 1;
+}
+
+message Get173Response {
+  Message173 result = 1;
+}
+
+message List173Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List173Response {
+  repeated Message173 results = 1;
+  string next_page_token = 2;
+}
+
+message Create173Request {
+  Message173 message = 1;
+}
+
+message Create173Response {
+  Message173 result = 1;
+}

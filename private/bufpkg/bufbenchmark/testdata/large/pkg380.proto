@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg380;
+
+// Message with various field types
+message Message380 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage380 nested = 7;
+  Status380 status = 8;
+}
+
+// Nested message type
+message NestedMessage380 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item380 items = 3;
+}
+
+// Simple item message
+message Item380 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status380 {
+  STATUS_380_UNSPECIFIED = 0;
+  STATUS_380_ACTIVE = 1;
+  STATUS_380_INACTIVE = 2;
+  STATUS_380_PENDING = 3;
+}
+
+// Service definition
+service Service380 {
+  rpc Get380(Get380Request) returns (Get380Response);
+  rpc List380(List380Request) returns (List380Response);
+  rpc Create380(Create380Request) returns (Create380Response);
+}
+
+message Get380Request {
+  string id = 1;
+}
+
+message Get380Response {
+  Message380 result = 1;
+}
+
+message List380Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List380Response {
+  repeated Message380 results = 1;
+  string next_page_token = 2;
+}
+
+message Create380Request {
+  Message380 message = 1;
+}
+
+message Create380Response {
+  Message380 result = 1;
+}

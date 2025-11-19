@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg950;
+
+// Message with various field types
+message Message950 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage950 nested = 7;
+  Status950 status = 8;
+}
+
+// Nested message type
+message NestedMessage950 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item950 items = 3;
+}
+
+// Simple item message
+message Item950 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status950 {
+  STATUS_950_UNSPECIFIED = 0;
+  STATUS_950_ACTIVE = 1;
+  STATUS_950_INACTIVE = 2;
+  STATUS_950_PENDING = 3;
+}
+
+// Service definition
+service Service950 {
+  rpc Get950(Get950Request) returns (Get950Response);
+  rpc List950(List950Request) returns (List950Response);
+  rpc Create950(Create950Request) returns (Create950Response);
+}
+
+message Get950Request {
+  string id = 1;
+}
+
+message Get950Response {
+  Message950 result = 1;
+}
+
+message List950Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List950Response {
+  repeated Message950 results = 1;
+  string next_page_token = 2;
+}
+
+message Create950Request {
+  Message950 message = 1;
+}
+
+message Create950Response {
+  Message950 result = 1;
+}

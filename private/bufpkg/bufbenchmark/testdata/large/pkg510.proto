@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg510;
+
+// Message with various field types
+message Message510 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage510 nested = 7;
+  Status510 status = 8;
+}
+
+// Nested message type
+message NestedMessage510 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item510 items = 3;
+}
+
+// Simple item message
+message Item510 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status510 {
+  STATUS_510_UNSPECIFIED = 0;
+  STATUS_510_ACTIVE = 1;
+  STATUS_510_INACTIVE = 2;
+  STATUS_510_PENDING = 3;
+}
+
+// Service definition
+service Service510 {
+  rpc Get510(Get510Request) returns (Get510Response);
+  rpc List510(List510Request) returns (List510Response);
+  rpc Create510(Create510Request) returns (Create510Response);
+}
+
+message Get510Request {
+  string id = 1;
+}
+
+message Get510Response {
+  Message510 result = 1;
+}
+
+message List510Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List510Response {
+  repeated Message510 results = 1;
+  string next_page_token = 2;
+}
+
+message Create510Request {
+  Message510 message = 1;
+}
+
+message Create510Response {
+  Message510 result = 1;
+}

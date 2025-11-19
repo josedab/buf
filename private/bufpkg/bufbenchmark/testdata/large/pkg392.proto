@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg392;
+
+// Message with various field types
+message Message392 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage392 nested = 7;
+  Status392 status = 8;
+}
+
+// Nested message type
+message NestedMessage392 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item392 items = 3;
+}
+
+// Simple item message
+message Item392 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status392 {
+  STATUS_392_UNSPECIFIED = 0;
+  STATUS_392_ACTIVE = 1;
+  STATUS_392_INACTIVE = 2;
+  STATUS_392_PENDING = 3;
+}
+
+// Service definition
+service Service392 {
+  rpc Get392(Get392Request) returns (Get392Response);
+  rpc List392(List392Request) returns (List392Response);
+  rpc Create392(Create392Request) returns (Create392Response);
+}
+
+message Get392Request {
+  string id = 1;
+}
+
+message Get392Response {
+  Message392 result = 1;
+}
+
+message List392Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List392Response {
+  repeated Message392 results = 1;
+  string next_page_token = 2;
+}
+
+message Create392Request {
+  Message392 message = 1;
+}
+
+message Create392Response {
+  Message392 result = 1;
+}

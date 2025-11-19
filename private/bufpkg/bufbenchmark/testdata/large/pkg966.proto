@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg966;
+
+// Message with various field types
+message Message966 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage966 nested = 7;
+  Status966 status = 8;
+}
+
+// Nested message type
+message NestedMessage966 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item966 items = 3;
+}
+
+// Simple item message
+message Item966 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status966 {
+  STATUS_966_UNSPECIFIED = 0;
+  STATUS_966_ACTIVE = 1;
+  STATUS_966_INACTIVE = 2;
+  STATUS_966_PENDING = 3;
+}
+
+// Service definition
+service Service966 {
+  rpc Get966(Get966Request) returns (Get966Response);
+  rpc List966(List966Request) returns (List966Response);
+  rpc Create966(Create966Request) returns (Create966Response);
+}
+
+message Get966Request {
+  string id = 1;
+}
+
+message Get966Response {
+  Message966 result = 1;
+}
+
+message List966Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List966Response {
+  repeated Message966 results = 1;
+  string next_page_token = 2;
+}
+
+message Create966Request {
+  Message966 message = 1;
+}
+
+message Create966Response {
+  Message966 result = 1;
+}

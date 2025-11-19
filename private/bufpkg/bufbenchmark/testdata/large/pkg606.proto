@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg606;
+
+// Message with various field types
+message Message606 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage606 nested = 7;
+  Status606 status = 8;
+}
+
+// Nested message type
+message NestedMessage606 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item606 items = 3;
+}
+
+// Simple item message
+message Item606 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status606 {
+  STATUS_606_UNSPECIFIED = 0;
+  STATUS_606_ACTIVE = 1;
+  STATUS_606_INACTIVE = 2;
+  STATUS_606_PENDING = 3;
+}
+
+// Service definition
+service Service606 {
+  rpc Get606(Get606Request) returns (Get606Response);
+  rpc List606(List606Request) returns (List606Response);
+  rpc Create606(Create606Request) returns (Create606Response);
+}
+
+message Get606Request {
+  string id = 1;
+}
+
+message Get606Response {
+  Message606 result = 1;
+}
+
+message List606Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List606Response {
+  repeated Message606 results = 1;
+  string next_page_token = 2;
+}
+
+message Create606Request {
+  Message606 message = 1;
+}
+
+message Create606Response {
+  Message606 result = 1;
+}

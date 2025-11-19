@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg137;
+
+// Message with various field types
+message Message137 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage137 nested = 7;
+  Status137 status = 8;
+}
+
+// Nested message type
+message NestedMessage137 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item137 items = 3;
+}
+
+// Simple item message
+message Item137 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status137 {
+  STATUS_137_UNSPECIFIED = 0;
+  STATUS_137_ACTIVE = 1;
+  STATUS_137_INACTIVE = 2;
+  STATUS_137_PENDING = 3;
+}
+
+// Service definition
+service Service137 {
+  rpc Get137(Get137Request) returns (Get137Response);
+  rpc List137(List137Request) returns (List137Response);
+  rpc Create137(Create137Request) returns (Create137Response);
+}
+
+message Get137Request {
+  string id = 1;
+}
+
+message Get137Response {
+  Message137 result = 1;
+}
+
+message List137Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List137Response {
+  repeated Message137 results = 1;
+  string next_page_token = 2;
+}
+
+message Create137Request {
+  Message137 message = 1;
+}
+
+message Create137Response {
+  Message137 result = 1;
+}

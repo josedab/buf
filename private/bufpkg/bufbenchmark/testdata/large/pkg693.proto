@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg693;
+
+// Message with various field types
+message Message693 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage693 nested = 7;
+  Status693 status = 8;
+}
+
+// Nested message type
+message NestedMessage693 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item693 items = 3;
+}
+
+// Simple item message
+message Item693 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status693 {
+  STATUS_693_UNSPECIFIED = 0;
+  STATUS_693_ACTIVE = 1;
+  STATUS_693_INACTIVE = 2;
+  STATUS_693_PENDING = 3;
+}
+
+// Service definition
+service Service693 {
+  rpc Get693(Get693Request) returns (Get693Response);
+  rpc List693(List693Request) returns (List693Response);
+  rpc Create693(Create693Request) returns (Create693Response);
+}
+
+message Get693Request {
+  string id = 1;
+}
+
+message Get693Response {
+  Message693 result = 1;
+}
+
+message List693Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List693Response {
+  repeated Message693 results = 1;
+  string next_page_token = 2;
+}
+
+message Create693Request {
+  Message693 message = 1;
+}
+
+message Create693Response {
+  Message693 result = 1;
+}

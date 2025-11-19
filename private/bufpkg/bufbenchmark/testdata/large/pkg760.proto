@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg760;
+
+// Message with various field types
+message Message760 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage760 nested = 7;
+  Status760 status = 8;
+}
+
+// Nested message type
+message NestedMessage760 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item760 items = 3;
+}
+
+// Simple item message
+message Item760 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status760 {
+  STATUS_760_UNSPECIFIED = 0;
+  STATUS_760_ACTIVE = 1;
+  STATUS_760_INACTIVE = 2;
+  STATUS_760_PENDING = 3;
+}
+
+// Service definition
+service Service760 {
+  rpc Get760(Get760Request) returns (Get760Response);
+  rpc List760(List760Request) returns (List760Response);
+  rpc Create760(Create760Request) returns (Create760Response);
+}
+
+message Get760Request {
+  string id = 1;
+}
+
+message Get760Response {
+  Message760 result = 1;
+}
+
+message List760Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List760Response {
+  repeated Message760 results = 1;
+  string next_page_token = 2;
+}
+
+message Create760Request {
+  Message760 message = 1;
+}
+
+message Create760Response {
+  Message760 result = 1;
+}

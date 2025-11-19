@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg85;
+
+// Message with various field types
+message Message85 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage85 nested = 7;
+  Status85 status = 8;
+}
+
+// Nested message type
+message NestedMessage85 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item85 items = 3;
+}
+
+// Simple item message
+message Item85 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status85 {
+  STATUS_85_UNSPECIFIED = 0;
+  STATUS_85_ACTIVE = 1;
+  STATUS_85_INACTIVE = 2;
+  STATUS_85_PENDING = 3;
+}
+
+// Service definition
+service Service85 {
+  rpc Get85(Get85Request) returns (Get85Response);
+  rpc List85(List85Request) returns (List85Response);
+  rpc Create85(Create85Request) returns (Create85Response);
+}
+
+message Get85Request {
+  string id = 1;
+}
+
+message Get85Response {
+  Message85 result = 1;
+}
+
+message List85Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List85Response {
+  repeated Message85 results = 1;
+  string next_page_token = 2;
+}
+
+message Create85Request {
+  Message85 message = 1;
+}
+
+message Create85Response {
+  Message85 result = 1;
+}

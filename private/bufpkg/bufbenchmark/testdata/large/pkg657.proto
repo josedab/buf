@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg657;
+
+// Message with various field types
+message Message657 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage657 nested = 7;
+  Status657 status = 8;
+}
+
+// Nested message type
+message NestedMessage657 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item657 items = 3;
+}
+
+// Simple item message
+message Item657 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status657 {
+  STATUS_657_UNSPECIFIED = 0;
+  STATUS_657_ACTIVE = 1;
+  STATUS_657_INACTIVE = 2;
+  STATUS_657_PENDING = 3;
+}
+
+// Service definition
+service Service657 {
+  rpc Get657(Get657Request) returns (Get657Response);
+  rpc List657(List657Request) returns (List657Response);
+  rpc Create657(Create657Request) returns (Create657Response);
+}
+
+message Get657Request {
+  string id = 1;
+}
+
+message Get657Response {
+  Message657 result = 1;
+}
+
+message List657Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List657Response {
+  repeated Message657 results = 1;
+  string next_page_token = 2;
+}
+
+message Create657Request {
+  Message657 message = 1;
+}
+
+message Create657Response {
+  Message657 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg979;
+
+// Message with various field types
+message Message979 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage979 nested = 7;
+  Status979 status = 8;
+}
+
+// Nested message type
+message NestedMessage979 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item979 items = 3;
+}
+
+// Simple item message
+message Item979 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status979 {
+  STATUS_979_UNSPECIFIED = 0;
+  STATUS_979_ACTIVE = 1;
+  STATUS_979_INACTIVE = 2;
+  STATUS_979_PENDING = 3;
+}
+
+// Service definition
+service Service979 {
+  rpc Get979(Get979Request) returns (Get979Response);
+  rpc List979(List979Request) returns (List979Response);
+  rpc Create979(Create979Request) returns (Create979Response);
+}
+
+message Get979Request {
+  string id = 1;
+}
+
+message Get979Response {
+  Message979 result = 1;
+}
+
+message List979Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List979Response {
+  repeated Message979 results = 1;
+  string next_page_token = 2;
+}
+
+message Create979Request {
+  Message979 message = 1;
+}
+
+message Create979Response {
+  Message979 result = 1;
+}

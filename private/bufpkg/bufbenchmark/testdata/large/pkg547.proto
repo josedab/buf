@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg547;
+
+// Message with various field types
+message Message547 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage547 nested = 7;
+  Status547 status = 8;
+}
+
+// Nested message type
+message NestedMessage547 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item547 items = 3;
+}
+
+// Simple item message
+message Item547 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status547 {
+  STATUS_547_UNSPECIFIED = 0;
+  STATUS_547_ACTIVE = 1;
+  STATUS_547_INACTIVE = 2;
+  STATUS_547_PENDING = 3;
+}
+
+// Service definition
+service Service547 {
+  rpc Get547(Get547Request) returns (Get547Response);
+  rpc List547(List547Request) returns (List547Response);
+  rpc Create547(Create547Request) returns (Create547Response);
+}
+
+message Get547Request {
+  string id = 1;
+}
+
+message Get547Response {
+  Message547 result = 1;
+}
+
+message List547Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List547Response {
+  repeated Message547 results = 1;
+  string next_page_token = 2;
+}
+
+message Create547Request {
+  Message547 message = 1;
+}
+
+message Create547Response {
+  Message547 result = 1;
+}

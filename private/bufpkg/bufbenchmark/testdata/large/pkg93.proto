@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg93;
+
+// Message with various field types
+message Message93 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage93 nested = 7;
+  Status93 status = 8;
+}
+
+// Nested message type
+message NestedMessage93 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item93 items = 3;
+}
+
+// Simple item message
+message Item93 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status93 {
+  STATUS_93_UNSPECIFIED = 0;
+  STATUS_93_ACTIVE = 1;
+  STATUS_93_INACTIVE = 2;
+  STATUS_93_PENDING = 3;
+}
+
+// Service definition
+service Service93 {
+  rpc Get93(Get93Request) returns (Get93Response);
+  rpc List93(List93Request) returns (List93Response);
+  rpc Create93(Create93Request) returns (Create93Response);
+}
+
+message Get93Request {
+  string id = 1;
+}
+
+message Get93Response {
+  Message93 result = 1;
+}
+
+message List93Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List93Response {
+  repeated Message93 results = 1;
+  string next_page_token = 2;
+}
+
+message Create93Request {
+  Message93 message = 1;
+}
+
+message Create93Response {
+  Message93 result = 1;
+}

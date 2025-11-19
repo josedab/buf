@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg211;
+
+// Message with various field types
+message Message211 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage211 nested = 7;
+  Status211 status = 8;
+}
+
+// Nested message type
+message NestedMessage211 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item211 items = 3;
+}
+
+// Simple item message
+message Item211 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status211 {
+  STATUS_211_UNSPECIFIED = 0;
+  STATUS_211_ACTIVE = 1;
+  STATUS_211_INACTIVE = 2;
+  STATUS_211_PENDING = 3;
+}
+
+// Service definition
+service Service211 {
+  rpc Get211(Get211Request) returns (Get211Response);
+  rpc List211(List211Request) returns (List211Response);
+  rpc Create211(Create211Request) returns (Create211Response);
+}
+
+message Get211Request {
+  string id = 1;
+}
+
+message Get211Response {
+  Message211 result = 1;
+}
+
+message List211Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List211Response {
+  repeated Message211 results = 1;
+  string next_page_token = 2;
+}
+
+message Create211Request {
+  Message211 message = 1;
+}
+
+message Create211Response {
+  Message211 result = 1;
+}

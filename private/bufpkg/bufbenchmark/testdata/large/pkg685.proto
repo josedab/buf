@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg685;
+
+// Message with various field types
+message Message685 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage685 nested = 7;
+  Status685 status = 8;
+}
+
+// Nested message type
+message NestedMessage685 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item685 items = 3;
+}
+
+// Simple item message
+message Item685 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status685 {
+  STATUS_685_UNSPECIFIED = 0;
+  STATUS_685_ACTIVE = 1;
+  STATUS_685_INACTIVE = 2;
+  STATUS_685_PENDING = 3;
+}
+
+// Service definition
+service Service685 {
+  rpc Get685(Get685Request) returns (Get685Response);
+  rpc List685(List685Request) returns (List685Response);
+  rpc Create685(Create685Request) returns (Create685Response);
+}
+
+message Get685Request {
+  string id = 1;
+}
+
+message Get685Response {
+  Message685 result = 1;
+}
+
+message List685Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List685Response {
+  repeated Message685 results = 1;
+  string next_page_token = 2;
+}
+
+message Create685Request {
+  Message685 message = 1;
+}
+
+message Create685Response {
+  Message685 result = 1;
+}

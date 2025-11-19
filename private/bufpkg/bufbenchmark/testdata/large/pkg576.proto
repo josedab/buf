@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg576;
+
+// Message with various field types
+message Message576 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage576 nested = 7;
+  Status576 status = 8;
+}
+
+// Nested message type
+message NestedMessage576 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item576 items = 3;
+}
+
+// Simple item message
+message Item576 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status576 {
+  STATUS_576_UNSPECIFIED = 0;
+  STATUS_576_ACTIVE = 1;
+  STATUS_576_INACTIVE = 2;
+  STATUS_576_PENDING = 3;
+}
+
+// Service definition
+service Service576 {
+  rpc Get576(Get576Request) returns (Get576Response);
+  rpc List576(List576Request) returns (List576Response);
+  rpc Create576(Create576Request) returns (Create576Response);
+}
+
+message Get576Request {
+  string id = 1;
+}
+
+message Get576Response {
+  Message576 result = 1;
+}
+
+message List576Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List576Response {
+  repeated Message576 results = 1;
+  string next_page_token = 2;
+}
+
+message Create576Request {
+  Message576 message = 1;
+}
+
+message Create576Response {
+  Message576 result = 1;
+}

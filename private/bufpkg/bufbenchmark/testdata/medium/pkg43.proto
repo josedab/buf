@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg43;
+
+// Message with various field types
+message Message43 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage43 nested = 7;
+  Status43 status = 8;
+}
+
+// Nested message type
+message NestedMessage43 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item43 items = 3;
+}
+
+// Simple item message
+message Item43 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status43 {
+  STATUS_43_UNSPECIFIED = 0;
+  STATUS_43_ACTIVE = 1;
+  STATUS_43_INACTIVE = 2;
+  STATUS_43_PENDING = 3;
+}
+
+// Service definition
+service Service43 {
+  rpc Get43(Get43Request) returns (Get43Response);
+  rpc List43(List43Request) returns (List43Response);
+  rpc Create43(Create43Request) returns (Create43Response);
+}
+
+message Get43Request {
+  string id = 1;
+}
+
+message Get43Response {
+  Message43 result = 1;
+}
+
+message List43Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List43Response {
+  repeated Message43 results = 1;
+  string next_page_token = 2;
+}
+
+message Create43Request {
+  Message43 message = 1;
+}
+
+message Create43Response {
+  Message43 result = 1;
+}

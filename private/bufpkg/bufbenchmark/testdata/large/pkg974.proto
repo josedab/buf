@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg974;
+
+// Message with various field types
+message Message974 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage974 nested = 7;
+  Status974 status = 8;
+}
+
+// Nested message type
+message NestedMessage974 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item974 items = 3;
+}
+
+// Simple item message
+message Item974 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status974 {
+  STATUS_974_UNSPECIFIED = 0;
+  STATUS_974_ACTIVE = 1;
+  STATUS_974_INACTIVE = 2;
+  STATUS_974_PENDING = 3;
+}
+
+// Service definition
+service Service974 {
+  rpc Get974(Get974Request) returns (Get974Response);
+  rpc List974(List974Request) returns (List974Response);
+  rpc Create974(Create974Request) returns (Create974Response);
+}
+
+message Get974Request {
+  string id = 1;
+}
+
+message Get974Response {
+  Message974 result = 1;
+}
+
+message List974Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List974Response {
+  repeated Message974 results = 1;
+  string next_page_token = 2;
+}
+
+message Create974Request {
+  Message974 message = 1;
+}
+
+message Create974Response {
+  Message974 result = 1;
+}

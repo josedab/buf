@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg661;
+
+// Message with various field types
+message Message661 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage661 nested = 7;
+  Status661 status = 8;
+}
+
+// Nested message type
+message NestedMessage661 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item661 items = 3;
+}
+
+// Simple item message
+message Item661 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status661 {
+  STATUS_661_UNSPECIFIED = 0;
+  STATUS_661_ACTIVE = 1;
+  STATUS_661_INACTIVE = 2;
+  STATUS_661_PENDING = 3;
+}
+
+// Service definition
+service Service661 {
+  rpc Get661(Get661Request) returns (Get661Response);
+  rpc List661(List661Request) returns (List661Response);
+  rpc Create661(Create661Request) returns (Create661Response);
+}
+
+message Get661Request {
+  string id = 1;
+}
+
+message Get661Response {
+  Message661 result = 1;
+}
+
+message List661Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List661Response {
+  repeated Message661 results = 1;
+  string next_page_token = 2;
+}
+
+message Create661Request {
+  Message661 message = 1;
+}
+
+message Create661Response {
+  Message661 result = 1;
+}

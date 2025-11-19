@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg770;
+
+// Message with various field types
+message Message770 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage770 nested = 7;
+  Status770 status = 8;
+}
+
+// Nested message type
+message NestedMessage770 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item770 items = 3;
+}
+
+// Simple item message
+message Item770 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status770 {
+  STATUS_770_UNSPECIFIED = 0;
+  STATUS_770_ACTIVE = 1;
+  STATUS_770_INACTIVE = 2;
+  STATUS_770_PENDING = 3;
+}
+
+// Service definition
+service Service770 {
+  rpc Get770(Get770Request) returns (Get770Response);
+  rpc List770(List770Request) returns (List770Response);
+  rpc Create770(Create770Request) returns (Create770Response);
+}
+
+message Get770Request {
+  string id = 1;
+}
+
+message Get770Response {
+  Message770 result = 1;
+}
+
+message List770Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List770Response {
+  repeated Message770 results = 1;
+  string next_page_token = 2;
+}
+
+message Create770Request {
+  Message770 message = 1;
+}
+
+message Create770Response {
+  Message770 result = 1;
+}

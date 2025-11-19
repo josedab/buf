@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg278;
+
+// Message with various field types
+message Message278 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage278 nested = 7;
+  Status278 status = 8;
+}
+
+// Nested message type
+message NestedMessage278 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item278 items = 3;
+}
+
+// Simple item message
+message Item278 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status278 {
+  STATUS_278_UNSPECIFIED = 0;
+  STATUS_278_ACTIVE = 1;
+  STATUS_278_INACTIVE = 2;
+  STATUS_278_PENDING = 3;
+}
+
+// Service definition
+service Service278 {
+  rpc Get278(Get278Request) returns (Get278Response);
+  rpc List278(List278Request) returns (List278Response);
+  rpc Create278(Create278Request) returns (Create278Response);
+}
+
+message Get278Request {
+  string id = 1;
+}
+
+message Get278Response {
+  Message278 result = 1;
+}
+
+message List278Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List278Response {
+  repeated Message278 results = 1;
+  string next_page_token = 2;
+}
+
+message Create278Request {
+  Message278 message = 1;
+}
+
+message Create278Response {
+  Message278 result = 1;
+}

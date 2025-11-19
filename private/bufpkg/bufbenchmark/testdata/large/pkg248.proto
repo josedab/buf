@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg248;
+
+// Message with various field types
+message Message248 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage248 nested = 7;
+  Status248 status = 8;
+}
+
+// Nested message type
+message NestedMessage248 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item248 items = 3;
+}
+
+// Simple item message
+message Item248 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status248 {
+  STATUS_248_UNSPECIFIED = 0;
+  STATUS_248_ACTIVE = 1;
+  STATUS_248_INACTIVE = 2;
+  STATUS_248_PENDING = 3;
+}
+
+// Service definition
+service Service248 {
+  rpc Get248(Get248Request) returns (Get248Response);
+  rpc List248(List248Request) returns (List248Response);
+  rpc Create248(Create248Request) returns (Create248Response);
+}
+
+message Get248Request {
+  string id = 1;
+}
+
+message Get248Response {
+  Message248 result = 1;
+}
+
+message List248Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List248Response {
+  repeated Message248 results = 1;
+  string next_page_token = 2;
+}
+
+message Create248Request {
+  Message248 message = 1;
+}
+
+message Create248Response {
+  Message248 result = 1;
+}

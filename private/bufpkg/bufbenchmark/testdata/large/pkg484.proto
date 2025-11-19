@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg484;
+
+// Message with various field types
+message Message484 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage484 nested = 7;
+  Status484 status = 8;
+}
+
+// Nested message type
+message NestedMessage484 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item484 items = 3;
+}
+
+// Simple item message
+message Item484 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status484 {
+  STATUS_484_UNSPECIFIED = 0;
+  STATUS_484_ACTIVE = 1;
+  STATUS_484_INACTIVE = 2;
+  STATUS_484_PENDING = 3;
+}
+
+// Service definition
+service Service484 {
+  rpc Get484(Get484Request) returns (Get484Response);
+  rpc List484(List484Request) returns (List484Response);
+  rpc Create484(Create484Request) returns (Create484Response);
+}
+
+message Get484Request {
+  string id = 1;
+}
+
+message Get484Response {
+  Message484 result = 1;
+}
+
+message List484Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List484Response {
+  repeated Message484 results = 1;
+  string next_page_token = 2;
+}
+
+message Create484Request {
+  Message484 message = 1;
+}
+
+message Create484Response {
+  Message484 result = 1;
+}

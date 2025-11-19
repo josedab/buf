@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg214;
+
+// Message with various field types
+message Message214 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage214 nested = 7;
+  Status214 status = 8;
+}
+
+// Nested message type
+message NestedMessage214 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item214 items = 3;
+}
+
+// Simple item message
+message Item214 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status214 {
+  STATUS_214_UNSPECIFIED = 0;
+  STATUS_214_ACTIVE = 1;
+  STATUS_214_INACTIVE = 2;
+  STATUS_214_PENDING = 3;
+}
+
+// Service definition
+service Service214 {
+  rpc Get214(Get214Request) returns (Get214Response);
+  rpc List214(List214Request) returns (List214Response);
+  rpc Create214(Create214Request) returns (Create214Response);
+}
+
+message Get214Request {
+  string id = 1;
+}
+
+message Get214Response {
+  Message214 result = 1;
+}
+
+message List214Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List214Response {
+  repeated Message214 results = 1;
+  string next_page_token = 2;
+}
+
+message Create214Request {
+  Message214 message = 1;
+}
+
+message Create214Response {
+  Message214 result = 1;
+}

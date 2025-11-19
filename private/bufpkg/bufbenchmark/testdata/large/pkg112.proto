@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg112;
+
+// Message with various field types
+message Message112 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage112 nested = 7;
+  Status112 status = 8;
+}
+
+// Nested message type
+message NestedMessage112 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item112 items = 3;
+}
+
+// Simple item message
+message Item112 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status112 {
+  STATUS_112_UNSPECIFIED = 0;
+  STATUS_112_ACTIVE = 1;
+  STATUS_112_INACTIVE = 2;
+  STATUS_112_PENDING = 3;
+}
+
+// Service definition
+service Service112 {
+  rpc Get112(Get112Request) returns (Get112Response);
+  rpc List112(List112Request) returns (List112Response);
+  rpc Create112(Create112Request) returns (Create112Response);
+}
+
+message Get112Request {
+  string id = 1;
+}
+
+message Get112Response {
+  Message112 result = 1;
+}
+
+message List112Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List112Response {
+  repeated Message112 results = 1;
+  string next_page_token = 2;
+}
+
+message Create112Request {
+  Message112 message = 1;
+}
+
+message Create112Response {
+  Message112 result = 1;
+}

@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg814;
+
+// Message with various field types
+message Message814 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage814 nested = 7;
+  Status814 status = 8;
+}
+
+// Nested message type
+message NestedMessage814 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item814 items = 3;
+}
+
+// Simple item message
+message Item814 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status814 {
+  STATUS_814_UNSPECIFIED = 0;
+  STATUS_814_ACTIVE = 1;
+  STATUS_814_INACTIVE = 2;
+  STATUS_814_PENDING = 3;
+}
+
+// Service definition
+service Service814 {
+  rpc Get814(Get814Request) returns (Get814Response);
+  rpc List814(List814Request) returns (List814Response);
+  rpc Create814(Create814Request) returns (Create814Response);
+}
+
+message Get814Request {
+  string id = 1;
+}
+
+message Get814Response {
+  Message814 result = 1;
+}
+
+message List814Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List814Response {
+  repeated Message814 results = 1;
+  string next_page_token = 2;
+}
+
+message Create814Request {
+  Message814 message = 1;
+}
+
+message Create814Response {
+  Message814 result = 1;
+}

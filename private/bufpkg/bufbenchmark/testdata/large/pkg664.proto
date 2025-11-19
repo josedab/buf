@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg664;
+
+// Message with various field types
+message Message664 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage664 nested = 7;
+  Status664 status = 8;
+}
+
+// Nested message type
+message NestedMessage664 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item664 items = 3;
+}
+
+// Simple item message
+message Item664 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status664 {
+  STATUS_664_UNSPECIFIED = 0;
+  STATUS_664_ACTIVE = 1;
+  STATUS_664_INACTIVE = 2;
+  STATUS_664_PENDING = 3;
+}
+
+// Service definition
+service Service664 {
+  rpc Get664(Get664Request) returns (Get664Response);
+  rpc List664(List664Request) returns (List664Response);
+  rpc Create664(Create664Request) returns (Create664Response);
+}
+
+message Get664Request {
+  string id = 1;
+}
+
+message Get664Response {
+  Message664 result = 1;
+}
+
+message List664Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List664Response {
+  repeated Message664 results = 1;
+  string next_page_token = 2;
+}
+
+message Create664Request {
+  Message664 message = 1;
+}
+
+message Create664Response {
+  Message664 result = 1;
+}

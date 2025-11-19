@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg439;
+
+// Message with various field types
+message Message439 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage439 nested = 7;
+  Status439 status = 8;
+}
+
+// Nested message type
+message NestedMessage439 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item439 items = 3;
+}
+
+// Simple item message
+message Item439 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status439 {
+  STATUS_439_UNSPECIFIED = 0;
+  STATUS_439_ACTIVE = 1;
+  STATUS_439_INACTIVE = 2;
+  STATUS_439_PENDING = 3;
+}
+
+// Service definition
+service Service439 {
+  rpc Get439(Get439Request) returns (Get439Response);
+  rpc List439(List439Request) returns (List439Response);
+  rpc Create439(Create439Request) returns (Create439Response);
+}
+
+message Get439Request {
+  string id = 1;
+}
+
+message Get439Response {
+  Message439 result = 1;
+}
+
+message List439Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List439Response {
+  repeated Message439 results = 1;
+  string next_page_token = 2;
+}
+
+message Create439Request {
+  Message439 message = 1;
+}
+
+message Create439Response {
+  Message439 result = 1;
+}

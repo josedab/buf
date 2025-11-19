@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg400;
+
+// Message with various field types
+message Message400 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage400 nested = 7;
+  Status400 status = 8;
+}
+
+// Nested message type
+message NestedMessage400 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item400 items = 3;
+}
+
+// Simple item message
+message Item400 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status400 {
+  STATUS_400_UNSPECIFIED = 0;
+  STATUS_400_ACTIVE = 1;
+  STATUS_400_INACTIVE = 2;
+  STATUS_400_PENDING = 3;
+}
+
+// Service definition
+service Service400 {
+  rpc Get400(Get400Request) returns (Get400Response);
+  rpc List400(List400Request) returns (List400Response);
+  rpc Create400(Create400Request) returns (Create400Response);
+}
+
+message Get400Request {
+  string id = 1;
+}
+
+message Get400Response {
+  Message400 result = 1;
+}
+
+message List400Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List400Response {
+  repeated Message400 results = 1;
+  string next_page_token = 2;
+}
+
+message Create400Request {
+  Message400 message = 1;
+}
+
+message Create400Response {
+  Message400 result = 1;
+}

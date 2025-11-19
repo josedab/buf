@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg524;
+
+// Message with various field types
+message Message524 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage524 nested = 7;
+  Status524 status = 8;
+}
+
+// Nested message type
+message NestedMessage524 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item524 items = 3;
+}
+
+// Simple item message
+message Item524 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status524 {
+  STATUS_524_UNSPECIFIED = 0;
+  STATUS_524_ACTIVE = 1;
+  STATUS_524_INACTIVE = 2;
+  STATUS_524_PENDING = 3;
+}
+
+// Service definition
+service Service524 {
+  rpc Get524(Get524Request) returns (Get524Response);
+  rpc List524(List524Request) returns (List524Response);
+  rpc Create524(Create524Request) returns (Create524Response);
+}
+
+message Get524Request {
+  string id = 1;
+}
+
+message Get524Response {
+  Message524 result = 1;
+}
+
+message List524Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List524Response {
+  repeated Message524 results = 1;
+  string next_page_token = 2;
+}
+
+message Create524Request {
+  Message524 message = 1;
+}
+
+message Create524Response {
+  Message524 result = 1;
+}

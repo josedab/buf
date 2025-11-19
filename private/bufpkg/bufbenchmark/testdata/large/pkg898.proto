@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg898;
+
+// Message with various field types
+message Message898 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage898 nested = 7;
+  Status898 status = 8;
+}
+
+// Nested message type
+message NestedMessage898 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item898 items = 3;
+}
+
+// Simple item message
+message Item898 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status898 {
+  STATUS_898_UNSPECIFIED = 0;
+  STATUS_898_ACTIVE = 1;
+  STATUS_898_INACTIVE = 2;
+  STATUS_898_PENDING = 3;
+}
+
+// Service definition
+service Service898 {
+  rpc Get898(Get898Request) returns (Get898Response);
+  rpc List898(List898Request) returns (List898Response);
+  rpc Create898(Create898Request) returns (Create898Response);
+}
+
+message Get898Request {
+  string id = 1;
+}
+
+message Get898Response {
+  Message898 result = 1;
+}
+
+message List898Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List898Response {
+  repeated Message898 results = 1;
+  string next_page_token = 2;
+}
+
+message Create898Request {
+  Message898 message = 1;
+}
+
+message Create898Response {
+  Message898 result = 1;
+}

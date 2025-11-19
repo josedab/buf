@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg944;
+
+// Message with various field types
+message Message944 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage944 nested = 7;
+  Status944 status = 8;
+}
+
+// Nested message type
+message NestedMessage944 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item944 items = 3;
+}
+
+// Simple item message
+message Item944 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status944 {
+  STATUS_944_UNSPECIFIED = 0;
+  STATUS_944_ACTIVE = 1;
+  STATUS_944_INACTIVE = 2;
+  STATUS_944_PENDING = 3;
+}
+
+// Service definition
+service Service944 {
+  rpc Get944(Get944Request) returns (Get944Response);
+  rpc List944(List944Request) returns (List944Response);
+  rpc Create944(Create944Request) returns (Create944Response);
+}
+
+message Get944Request {
+  string id = 1;
+}
+
+message Get944Response {
+  Message944 result = 1;
+}
+
+message List944Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List944Response {
+  repeated Message944 results = 1;
+  string next_page_token = 2;
+}
+
+message Create944Request {
+  Message944 message = 1;
+}
+
+message Create944Response {
+  Message944 result = 1;
+}

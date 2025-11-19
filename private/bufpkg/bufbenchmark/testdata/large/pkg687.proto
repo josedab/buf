@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg687;
+
+// Message with various field types
+message Message687 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage687 nested = 7;
+  Status687 status = 8;
+}
+
+// Nested message type
+message NestedMessage687 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item687 items = 3;
+}
+
+// Simple item message
+message Item687 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status687 {
+  STATUS_687_UNSPECIFIED = 0;
+  STATUS_687_ACTIVE = 1;
+  STATUS_687_INACTIVE = 2;
+  STATUS_687_PENDING = 3;
+}
+
+// Service definition
+service Service687 {
+  rpc Get687(Get687Request) returns (Get687Response);
+  rpc List687(List687Request) returns (List687Response);
+  rpc Create687(Create687Request) returns (Create687Response);
+}
+
+message Get687Request {
+  string id = 1;
+}
+
+message Get687Response {
+  Message687 result = 1;
+}
+
+message List687Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List687Response {
+  repeated Message687 results = 1;
+  string next_page_token = 2;
+}
+
+message Create687Request {
+  Message687 message = 1;
+}
+
+message Create687Response {
+  Message687 result = 1;
+}

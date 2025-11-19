@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg339;
+
+// Message with various field types
+message Message339 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage339 nested = 7;
+  Status339 status = 8;
+}
+
+// Nested message type
+message NestedMessage339 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item339 items = 3;
+}
+
+// Simple item message
+message Item339 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status339 {
+  STATUS_339_UNSPECIFIED = 0;
+  STATUS_339_ACTIVE = 1;
+  STATUS_339_INACTIVE = 2;
+  STATUS_339_PENDING = 3;
+}
+
+// Service definition
+service Service339 {
+  rpc Get339(Get339Request) returns (Get339Response);
+  rpc List339(List339Request) returns (List339Response);
+  rpc Create339(Create339Request) returns (Create339Response);
+}
+
+message Get339Request {
+  string id = 1;
+}
+
+message Get339Response {
+  Message339 result = 1;
+}
+
+message List339Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List339Response {
+  repeated Message339 results = 1;
+  string next_page_token = 2;
+}
+
+message Create339Request {
+  Message339 message = 1;
+}
+
+message Create339Response {
+  Message339 result = 1;
+}

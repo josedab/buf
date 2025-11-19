@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg178;
+
+// Message with various field types
+message Message178 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage178 nested = 7;
+  Status178 status = 8;
+}
+
+// Nested message type
+message NestedMessage178 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item178 items = 3;
+}
+
+// Simple item message
+message Item178 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status178 {
+  STATUS_178_UNSPECIFIED = 0;
+  STATUS_178_ACTIVE = 1;
+  STATUS_178_INACTIVE = 2;
+  STATUS_178_PENDING = 3;
+}
+
+// Service definition
+service Service178 {
+  rpc Get178(Get178Request) returns (Get178Response);
+  rpc List178(List178Request) returns (List178Response);
+  rpc Create178(Create178Request) returns (Create178Response);
+}
+
+message Get178Request {
+  string id = 1;
+}
+
+message Get178Response {
+  Message178 result = 1;
+}
+
+message List178Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List178Response {
+  repeated Message178 results = 1;
+  string next_page_token = 2;
+}
+
+message Create178Request {
+  Message178 message = 1;
+}
+
+message Create178Response {
+  Message178 result = 1;
+}

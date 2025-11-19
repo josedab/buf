@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg742;
+
+// Message with various field types
+message Message742 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage742 nested = 7;
+  Status742 status = 8;
+}
+
+// Nested message type
+message NestedMessage742 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item742 items = 3;
+}
+
+// Simple item message
+message Item742 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status742 {
+  STATUS_742_UNSPECIFIED = 0;
+  STATUS_742_ACTIVE = 1;
+  STATUS_742_INACTIVE = 2;
+  STATUS_742_PENDING = 3;
+}
+
+// Service definition
+service Service742 {
+  rpc Get742(Get742Request) returns (Get742Response);
+  rpc List742(List742Request) returns (List742Response);
+  rpc Create742(Create742Request) returns (Create742Response);
+}
+
+message Get742Request {
+  string id = 1;
+}
+
+message Get742Response {
+  Message742 result = 1;
+}
+
+message List742Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List742Response {
+  repeated Message742 results = 1;
+  string next_page_token = 2;
+}
+
+message Create742Request {
+  Message742 message = 1;
+}
+
+message Create742Response {
+  Message742 result = 1;
+}

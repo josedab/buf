@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg784;
+
+// Message with various field types
+message Message784 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage784 nested = 7;
+  Status784 status = 8;
+}
+
+// Nested message type
+message NestedMessage784 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item784 items = 3;
+}
+
+// Simple item message
+message Item784 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status784 {
+  STATUS_784_UNSPECIFIED = 0;
+  STATUS_784_ACTIVE = 1;
+  STATUS_784_INACTIVE = 2;
+  STATUS_784_PENDING = 3;
+}
+
+// Service definition
+service Service784 {
+  rpc Get784(Get784Request) returns (Get784Response);
+  rpc List784(List784Request) returns (List784Response);
+  rpc Create784(Create784Request) returns (Create784Response);
+}
+
+message Get784Request {
+  string id = 1;
+}
+
+message Get784Response {
+  Message784 result = 1;
+}
+
+message List784Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List784Response {
+  repeated Message784 results = 1;
+  string next_page_token = 2;
+}
+
+message Create784Request {
+  Message784 message = 1;
+}
+
+message Create784Response {
+  Message784 result = 1;
+}

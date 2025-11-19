@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg912;
+
+// Message with various field types
+message Message912 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage912 nested = 7;
+  Status912 status = 8;
+}
+
+// Nested message type
+message NestedMessage912 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item912 items = 3;
+}
+
+// Simple item message
+message Item912 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status912 {
+  STATUS_912_UNSPECIFIED = 0;
+  STATUS_912_ACTIVE = 1;
+  STATUS_912_INACTIVE = 2;
+  STATUS_912_PENDING = 3;
+}
+
+// Service definition
+service Service912 {
+  rpc Get912(Get912Request) returns (Get912Response);
+  rpc List912(List912Request) returns (List912Response);
+  rpc Create912(Create912Request) returns (Create912Response);
+}
+
+message Get912Request {
+  string id = 1;
+}
+
+message Get912Response {
+  Message912 result = 1;
+}
+
+message List912Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List912Response {
+  repeated Message912 results = 1;
+  string next_page_token = 2;
+}
+
+message Create912Request {
+  Message912 message = 1;
+}
+
+message Create912Response {
+  Message912 result = 1;
+}

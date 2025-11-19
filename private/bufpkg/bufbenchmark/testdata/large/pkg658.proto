@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg658;
+
+// Message with various field types
+message Message658 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage658 nested = 7;
+  Status658 status = 8;
+}
+
+// Nested message type
+message NestedMessage658 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item658 items = 3;
+}
+
+// Simple item message
+message Item658 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status658 {
+  STATUS_658_UNSPECIFIED = 0;
+  STATUS_658_ACTIVE = 1;
+  STATUS_658_INACTIVE = 2;
+  STATUS_658_PENDING = 3;
+}
+
+// Service definition
+service Service658 {
+  rpc Get658(Get658Request) returns (Get658Response);
+  rpc List658(List658Request) returns (List658Response);
+  rpc Create658(Create658Request) returns (Create658Response);
+}
+
+message Get658Request {
+  string id = 1;
+}
+
+message Get658Response {
+  Message658 result = 1;
+}
+
+message List658Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List658Response {
+  repeated Message658 results = 1;
+  string next_page_token = 2;
+}
+
+message Create658Request {
+  Message658 message = 1;
+}
+
+message Create658Response {
+  Message658 result = 1;
+}

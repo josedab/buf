@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg67;
+
+// Message with various field types
+message Message67 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage67 nested = 7;
+  Status67 status = 8;
+}
+
+// Nested message type
+message NestedMessage67 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item67 items = 3;
+}
+
+// Simple item message
+message Item67 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status67 {
+  STATUS_67_UNSPECIFIED = 0;
+  STATUS_67_ACTIVE = 1;
+  STATUS_67_INACTIVE = 2;
+  STATUS_67_PENDING = 3;
+}
+
+// Service definition
+service Service67 {
+  rpc Get67(Get67Request) returns (Get67Response);
+  rpc List67(List67Request) returns (List67Response);
+  rpc Create67(Create67Request) returns (Create67Response);
+}
+
+message Get67Request {
+  string id = 1;
+}
+
+message Get67Response {
+  Message67 result = 1;
+}
+
+message List67Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List67Response {
+  repeated Message67 results = 1;
+  string next_page_token = 2;
+}
+
+message Create67Request {
+  Message67 message = 1;
+}
+
+message Create67Response {
+  Message67 result = 1;
+}

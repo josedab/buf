@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg477;
+
+// Message with various field types
+message Message477 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage477 nested = 7;
+  Status477 status = 8;
+}
+
+// Nested message type
+message NestedMessage477 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item477 items = 3;
+}
+
+// Simple item message
+message Item477 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status477 {
+  STATUS_477_UNSPECIFIED = 0;
+  STATUS_477_ACTIVE = 1;
+  STATUS_477_INACTIVE = 2;
+  STATUS_477_PENDING = 3;
+}
+
+// Service definition
+service Service477 {
+  rpc Get477(Get477Request) returns (Get477Response);
+  rpc List477(List477Request) returns (List477Response);
+  rpc Create477(Create477Request) returns (Create477Response);
+}
+
+message Get477Request {
+  string id = 1;
+}
+
+message Get477Response {
+  Message477 result = 1;
+}
+
+message List477Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List477Response {
+  repeated Message477 results = 1;
+  string next_page_token = 2;
+}
+
+message Create477Request {
+  Message477 message = 1;
+}
+
+message Create477Response {
+  Message477 result = 1;
+}

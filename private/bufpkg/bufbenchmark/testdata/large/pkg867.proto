@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package benchmark.pkg867;
+
+// Message with various field types
+message Message867 {
+  string id = 1;
+  int32 count = 2;
+  int64 timestamp = 3;
+  bool active = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  NestedMessage867 nested = 7;
+  Status867 status = 8;
+}
+
+// Nested message type
+message NestedMessage867 {
+  string name = 1;
+  int32 value = 2;
+  repeated Item867 items = 3;
+}
+
+// Simple item message
+message Item867 {
+  string key = 1;
+  bytes data = 2;
+}
+
+// Status enum
+enum Status867 {
+  STATUS_867_UNSPECIFIED = 0;
+  STATUS_867_ACTIVE = 1;
+  STATUS_867_INACTIVE = 2;
+  STATUS_867_PENDING = 3;
+}
+
+// Service definition
+service Service867 {
+  rpc Get867(Get867Request) returns (Get867Response);
+  rpc List867(List867Request) returns (List867Response);
+  rpc Create867(Create867Request) returns (Create867Response);
+}
+
+message Get867Request {
+  string id = 1;
+}
+
+message Get867Response {
+  Message867 result = 1;
+}
+
+message List867Request {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message List867Response {
+  repeated Message867 results = 1;
+  string next_page_token = 2;
+}
+
+message Create867Request {
+  Message867 message = 1;
+}
+
+message Create867Response {
+  Message867 result = 1;
+}
