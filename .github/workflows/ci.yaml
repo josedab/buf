@@ -70,6 +70,15 @@ jobs:
             ${{ runner.os }}-buf-test-
       - name: make-test
         run: make test
+      - name: generate-coverage
+        run: |
+          go test -race -coverprofile=coverage.out -covermode=atomic ./...
+      - name: upload-coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.out
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
   docker:
     runs-on: ubuntu-latest
     needs:

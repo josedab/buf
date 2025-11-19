@@ -1,0 +1,45 @@
+coverage:
+  precision: 2
+  round: down
+  range: "60...90"
+
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 2%  # Allow 2% decrease
+
+      # Core packages need higher coverage
+      bufcheck:
+        paths:
+          - "private/bufpkg/bufcheck/**"
+        target: 80%
+
+      bufimage:
+        paths:
+          - "private/bufpkg/bufimage/**"
+        target: 75%
+
+      # CLI can have lower coverage
+      cmd:
+        paths:
+          - "cmd/**"
+        target: 60%
+
+    patch:
+      default:
+        target: 80%  # New code should be 80%+ covered
+
+parsers:
+  go:
+    partials_as_hits: true
+
+ignore:
+  - "private/gen/**"  # Generated code
+  - "**/testdata/**"
+  - "**/*_test.go"
+
+comment:
+  layout: "reach,diff,files"
+  behavior: default
+  require_changes: true

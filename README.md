@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/github/license/bufbuild/buf?color=blue)](https://github.com/bufbuild/buf/blob/main/LICENSE)
 [![Release](https://img.shields.io/github/v/release/bufbuild/buf?include_prereleases)](https://github.com/bufbuild/buf/releases)
 [![CI](https://github.com/bufbuild/buf/workflows/ci/badge.svg)](https://github.com/bufbuild/buf/actions?workflow=ci)
+[![codecov](https://codecov.io/gh/bufbuild/buf/branch/main/graph/badge.svg)](https://codecov.io/gh/bufbuild/buf)
 [![Docker](https://img.shields.io/docker/pulls/bufbuild/buf)](https://hub.docker.com/r/bufbuild/buf)
 [![Homebrew](https://img.shields.io/homebrew/v/buf)](https://github.com/bufbuild/homebrew-buf)
 [![Slack](https://img.shields.io/badge/slack-buf-%23e01563)][badges_slack]
