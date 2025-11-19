@@ -1,0 +1,80 @@
+%% Buf Architecture Overview
+%% Commit: e68c306ab3b6c39eef5abc23725d3e33d4a49cd4
+
+graph TB
+    subgraph CLI["CLI Layer (cmd/buf/)"]
+        MAIN[buf.go<br/>Entry Point]
+        BUILD[build]
+        LINT[lint]
+        BREAKING[breaking]
+        GENERATE[generate]
+        FORMAT[format]
+        PUSH[push]
+        REGISTRY[registry/*]
+    end
+
+    subgraph APP["Application Layer (bufctl/)"]
+        CTRL[Controller<br/>Orchestrator]
+        OPTIONS[Options<br/>Configuration]
+    end
+
+    subgraph DOMAIN["Domain Layer (bufpkg/)"]
+        CHECK[bufcheck<br/>Lint/Breaking Rules]
+        IMAGE[bufimage<br/>Compiled Protos]
+        MODULE[bufmodule<br/>Module System]
+        CONFIG[bufconfig<br/>Configuration]
+        PLUGIN[bufremoteplugin<br/>Plugin Execution]
+    end
+
+    subgraph INFRA["Infrastructure Layer"]
+        WS[bufworkspace<br/>Workspace Loading]
+        FETCH[buffetch<br/>Input Fetching]
+        GEN[bufgen<br/>Code Generation]
+        FMT[bufformat<br/>Formatting]
+        STORAGE[pkg/storage<br/>File System]
+        GIT[pkg/git<br/>Git Operations]
+        AUTH[pkg/httpauth<br/>Authentication]
+    end
+
+    subgraph EXTERNAL["External Services"]
+        BSR[Buf Schema Registry]
+        DOCKER[Docker]
+        WASM[WASM Runtime]
+    end
+
+    %% CLI to Controller
+    MAIN --> BUILD & LINT & BREAKING & GENERATE & FORMAT & PUSH & REGISTRY
+    BUILD & LINT & BREAKING & GENERATE & FORMAT & PUSH --> CTRL
+
+    %% Controller to Domain
+    CTRL --> CHECK
+    CTRL --> IMAGE
+    CTRL --> MODULE
+    CTRL --> CONFIG
+
+    %% Domain to Infrastructure
+    CHECK --> PLUGIN
+    IMAGE --> WS
+    MODULE --> FETCH
+    WS --> STORAGE
+    FETCH --> GIT
+    GEN --> PLUGIN
+
+    %% Infrastructure to External
+    PLUGIN --> DOCKER
+    PLUGIN --> WASM
+    AUTH --> BSR
+    FETCH --> BSR
+
+    %% Styling
+    classDef cliLayer fill:#e1f5fe,stroke:#01579b
+    classDef appLayer fill:#f3e5f5,stroke:#4a148c
+    classDef domainLayer fill:#e8f5e9,stroke:#1b5e20
+    classDef infraLayer fill:#fff3e0,stroke:#e65100
+    classDef external fill:#fce4ec,stroke:#880e4f
+
+    class MAIN,BUILD,LINT,BREAKING,GENERATE,FORMAT,PUSH,REGISTRY cliLayer
+    class CTRL,OPTIONS appLayer
+    class CHECK,IMAGE,MODULE,CONFIG,PLUGIN domainLayer
+    class WS,FETCH,GEN,FMT,STORAGE,GIT,AUTH infraLayer
+    class BSR,DOCKER,WASM external

@@ -1,0 +1,86 @@
+%% Buf Plugin Execution Flow
+%% Commit: e68c306ab3b6c39eef5abc23725d3e33d4a49cd4
+
+flowchart TD
+    subgraph CONFIG["Configuration"]
+        GEN_YAML[buf.gen.yaml]
+    end
+
+    subgraph RESOLVE["Plugin Resolution"]
+        PARSE_REF[Parse Plugin Reference]
+        CHECK_TYPE{Plugin Type?}
+        LOCAL_BIN[Local Binary]
+        REMOTE_REF[Remote Reference]
+        WASM_MOD[WASM Module]
+    end
+
+    subgraph CACHE["Cache Layer"]
+        CHECK_CACHE{In Cache?}
+        LOAD_CACHE[Load from Cache]
+        DOWNLOAD[Download from BSR]
+        STORE_CACHE[Store in Cache]
+    end
+
+    subgraph EXECUTE["Execution"]
+        LOCAL_EXEC[Execute Binary<br/>subprocess]
+        DOCKER_EXEC[Docker Container<br/>remote plugin]
+        WASM_EXEC[WASM Runtime<br/>sandboxed]
+    end
+
+    subgraph REQUEST["Request Preparation"]
+        BUILD_REQ[Build CodeGeneratorRequest]
+        SERIALIZE[Serialize protobuf]
+        SEND[Send to plugin]
+    end
+
+    subgraph RESPONSE["Response Handling"]
+        RECEIVE[Receive response]
+        DESERIALIZE[Deserialize]
+        WRITE_FILES[Write generated files]
+    end
+
+    %% Flow
+    GEN_YAML --> PARSE_REF
+    PARSE_REF --> CHECK_TYPE
+
+    CHECK_TYPE -->|local| LOCAL_BIN
+    CHECK_TYPE -->|remote| REMOTE_REF
+    CHECK_TYPE -->|wasm| WASM_MOD
+
+    LOCAL_BIN --> LOCAL_EXEC
+
+    REMOTE_REF --> CHECK_CACHE
+    WASM_MOD --> CHECK_CACHE
+
+    CHECK_CACHE -->|Yes| LOAD_CACHE
+    CHECK_CACHE -->|No| DOWNLOAD
+    DOWNLOAD --> STORE_CACHE
+    STORE_CACHE --> LOAD_CACHE
+
+    LOAD_CACHE -->|Docker image| DOCKER_EXEC
+    LOAD_CACHE -->|WASM bytes| WASM_EXEC
+
+    LOCAL_EXEC --> BUILD_REQ
+    DOCKER_EXEC --> BUILD_REQ
+    WASM_EXEC --> BUILD_REQ
+
+    BUILD_REQ --> SERIALIZE
+    SERIALIZE --> SEND
+    SEND --> RECEIVE
+    RECEIVE --> DESERIALIZE
+    DESERIALIZE --> WRITE_FILES
+
+    %% Styling
+    classDef config fill:#e1f5fe,stroke:#0277bd
+    classDef resolve fill:#f3e5f5,stroke:#6a1b9a
+    classDef cache fill:#fff3e0,stroke:#ef6c00
+    classDef execute fill:#e8f5e9,stroke:#2e7d32
+    classDef request fill:#fce4ec,stroke:#ad1457
+    classDef response fill:#e0f2f1,stroke:#00796b
+
+    class GEN_YAML config
+    class PARSE_REF,CHECK_TYPE,LOCAL_BIN,REMOTE_REF,WASM_MOD resolve
+    class CHECK_CACHE,LOAD_CACHE,DOWNLOAD,STORE_CACHE cache
+    class LOCAL_EXEC,DOCKER_EXEC,WASM_EXEC execute
+    class BUILD_REQ,SERIALIZE,SEND request
+    class RECEIVE,DESERIALIZE,WRITE_FILES response

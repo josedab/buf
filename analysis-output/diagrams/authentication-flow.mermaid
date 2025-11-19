@@ -1,0 +1,74 @@
+%% Buf Authentication Flow
+%% Commit: e68c306ab3b6c39eef5abc23725d3e33d4a49cd4
+
+flowchart TD
+    subgraph AUTH_SOURCES["Authentication Sources"]
+        ENV[BUF_TOKEN<br/>Environment Variable]
+        NETRC[.netrc File<br/>~/.netrc]
+        OAUTH[OAuth2<br/>Device Flow]
+    end
+
+    subgraph CHECK["Authentication Check"]
+        HAS_TOKEN{Has Token?}
+        CHECK_ENV{BUF_TOKEN set?}
+        CHECK_NETRC{In .netrc?}
+        NEED_LOGIN[Need Interactive Login]
+    end
+
+    subgraph OAUTH_FLOW["OAuth2 Device Flow"]
+        REQ_DEVICE[Request Device Code]
+        SHOW_URL[Display Verification URL]
+        USER_AUTH[User Opens Browser<br/>Enters Code]
+        POLL_TOKEN[Poll for Token]
+        RECEIVE_TOKEN[Receive Access Token]
+    end
+
+    subgraph STORAGE["Token Storage"]
+        SAVE_NETRC[Save to .netrc<br/>mode 0600]
+        VALIDATE[Validate Token<br/>GetCurrentUser]
+    end
+
+    subgraph USE["Token Usage"]
+        ADD_HEADER[Add Authorization Header]
+        MAKE_REQUEST[Make API Request]
+        HANDLE_401{401 Error?}
+        SUCCESS[Request Success]
+        RETRY[Retry Authentication]
+    end
+
+    %% Check flow
+    HAS_TOKEN --> CHECK_ENV
+    CHECK_ENV -->|Yes| ADD_HEADER
+    CHECK_ENV -->|No| CHECK_NETRC
+    CHECK_NETRC -->|Yes| ADD_HEADER
+    CHECK_NETRC -->|No| NEED_LOGIN
+
+    %% OAuth flow
+    NEED_LOGIN --> REQ_DEVICE
+    REQ_DEVICE --> SHOW_URL
+    SHOW_URL --> USER_AUTH
+    USER_AUTH --> POLL_TOKEN
+    POLL_TOKEN --> RECEIVE_TOKEN
+    RECEIVE_TOKEN --> VALIDATE
+    VALIDATE --> SAVE_NETRC
+    SAVE_NETRC --> ADD_HEADER
+
+    %% Usage flow
+    ADD_HEADER --> MAKE_REQUEST
+    MAKE_REQUEST --> HANDLE_401
+    HANDLE_401 -->|No| SUCCESS
+    HANDLE_401 -->|Yes| RETRY
+    RETRY --> NEED_LOGIN
+
+    %% Styling
+    classDef source fill:#e3f2fd,stroke:#1565c0
+    classDef check fill:#fff3e0,stroke:#ef6c00
+    classDef oauth fill:#f3e5f5,stroke:#7b1fa2
+    classDef storage fill:#e8f5e9,stroke:#2e7d32
+    classDef use fill:#fce4ec,stroke:#c2185b
+
+    class ENV,NETRC,OAUTH source
+    class HAS_TOKEN,CHECK_ENV,CHECK_NETRC,NEED_LOGIN check
+    class REQ_DEVICE,SHOW_URL,USER_AUTH,POLL_TOKEN,RECEIVE_TOKEN oauth
+    class SAVE_NETRC,VALIDATE storage
+    class ADD_HEADER,MAKE_REQUEST,HANDLE_401,SUCCESS,RETRY use

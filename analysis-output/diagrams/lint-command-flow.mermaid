@@ -1,0 +1,53 @@
+%% Buf Lint Command Flow
+%% Commit: e68c306ab3b6c39eef5abc23725d3e33d4a49cd4
+
+sequenceDiagram
+    participant User
+    participant CLI as buf lint
+    participant Ctrl as Controller
+    participant WS as Workspace
+    participant Compile as Compiler
+    participant Check as CheckClient
+    participant Rules as Lint Rules
+
+    User->>CLI: buf lint ./proto
+
+    CLI->>Ctrl: NewController(options)
+    Ctrl-->>CLI: controller
+
+    CLI->>Ctrl: GetImage(ctx, "./proto")
+
+    Ctrl->>WS: GetWorkspaceForBucket(bucket)
+    WS->>WS: Discover modules
+    WS->>WS: Resolve dependencies
+    WS-->>Ctrl: workspace
+
+    Ctrl->>Compile: CompileModules(modules)
+    Compile->>Compile: Parse .proto files
+    Compile->>Compile: Resolve imports
+    Compile->>Compile: Build descriptors
+    Compile-->>Ctrl: image
+
+    Ctrl-->>CLI: image
+
+    CLI->>Check: Lint(ctx, config, image.Files())
+
+    Check->>Check: Load lint config
+    Check->>Check: Resolve rule IDs
+
+    loop For each rule
+        Check->>Rules: Execute rule
+        Rules->>Rules: Check invariant
+        Rules-->>Check: annotations[]
+    end
+
+    Check-->>CLI: allAnnotations[]
+
+    alt No violations
+        CLI-->>User: Success (exit 0)
+    else Has violations
+        CLI->>CLI: Format annotations
+        CLI-->>User: Print errors (exit 100)
+    end
+
+    Note over User,Rules: Exit code 100 = file annotation errors

@@ -1,0 +1,115 @@
+%% Buf Data Flow
+%% Commit: e68c306ab3b6c39eef5abc23725d3e33d4a49cd4
+
+flowchart TD
+    subgraph INPUT["Input Sources"]
+        LOCAL[Local Directory]
+        GIT_REPO[Git Repository]
+        BSR_MOD[BSR Module]
+        ARCHIVE[Archive<br/>tar/zip]
+        IMG_FILE[Image File<br/>*.bin]
+    end
+
+    subgraph FETCH["Input Fetching (buffetch)"]
+        REF_PARSE[Reference Parser]
+        BUCKET_CREATE[Create ReadBucket]
+    end
+
+    subgraph WORKSPACE["Workspace Loading (bufworkspace)"]
+        WS_DISCOVER[Discover Modules]
+        DEP_RESOLVE[Resolve Dependencies]
+        TARGET_SELECT[Select Targets]
+    end
+
+    subgraph MODULE["Module System (bufmodule)"]
+        MOD_READ[Read Module Files]
+        MOD_KEY[Generate Module Key]
+        MOD_CACHE[Check Module Cache]
+    end
+
+    subgraph COMPILE["Compilation (bufprotocompile)"]
+        PARSE[Parse .proto Files]
+        RESOLVE[Resolve Imports]
+        COMPILE_DESC[Compile to Descriptors]
+    end
+
+    subgraph IMAGE["Image Creation (bufimage)"]
+        FILE_DESC[Create FileDescriptors]
+        SOURCE_INFO[Attach Source Info]
+        IMG_CREATE[Build Image]
+    end
+
+    subgraph PROCESS["Processing"]
+        LINT[Lint Rules<br/>40+ checks]
+        BREAKING[Breaking Rules<br/>53+ checks]
+        GENERATE[Code Generation<br/>via plugins]
+        FORMAT[Format<br/>Industry Standard]
+    end
+
+    subgraph OUTPUT["Output"]
+        ANNOTATIONS[FileAnnotations<br/>Errors/Warnings]
+        GEN_CODE[Generated Code<br/>Go/Java/etc.]
+        FMT_FILES[Formatted Files]
+        PUSH_BSR[Push to BSR]
+    end
+
+    %% Input to Fetch
+    LOCAL --> REF_PARSE
+    GIT_REPO --> REF_PARSE
+    BSR_MOD --> REF_PARSE
+    ARCHIVE --> REF_PARSE
+    IMG_FILE --> REF_PARSE
+
+    REF_PARSE --> BUCKET_CREATE
+
+    %% Fetch to Workspace
+    BUCKET_CREATE --> WS_DISCOVER
+    WS_DISCOVER --> DEP_RESOLVE
+    DEP_RESOLVE --> TARGET_SELECT
+
+    %% Workspace to Module
+    TARGET_SELECT --> MOD_READ
+    MOD_READ --> MOD_KEY
+    MOD_KEY --> MOD_CACHE
+
+    %% Module to Compile
+    MOD_CACHE --> PARSE
+    PARSE --> RESOLVE
+    RESOLVE --> COMPILE_DESC
+
+    %% Compile to Image
+    COMPILE_DESC --> FILE_DESC
+    FILE_DESC --> SOURCE_INFO
+    SOURCE_INFO --> IMG_CREATE
+
+    %% Image to Processing
+    IMG_CREATE --> LINT
+    IMG_CREATE --> BREAKING
+    IMG_CREATE --> GENERATE
+    IMG_CREATE --> FORMAT
+
+    %% Processing to Output
+    LINT --> ANNOTATIONS
+    BREAKING --> ANNOTATIONS
+    GENERATE --> GEN_CODE
+    FORMAT --> FMT_FILES
+    IMG_CREATE --> PUSH_BSR
+
+    %% Styling
+    classDef input fill:#e3f2fd,stroke:#1565c0
+    classDef fetch fill:#f3e5f5,stroke:#7b1fa2
+    classDef workspace fill:#e8f5e9,stroke:#2e7d32
+    classDef module fill:#fff8e1,stroke:#ff8f00
+    classDef compile fill:#fce4ec,stroke:#c2185b
+    classDef image fill:#e0f2f1,stroke:#00695c
+    classDef process fill:#f5f5f5,stroke:#616161
+    classDef output fill:#ffebee,stroke:#c62828
+
+    class LOCAL,GIT_REPO,BSR_MOD,ARCHIVE,IMG_FILE input
+    class REF_PARSE,BUCKET_CREATE fetch
+    class WS_DISCOVER,DEP_RESOLVE,TARGET_SELECT workspace
+    class MOD_READ,MOD_KEY,MOD_CACHE module
+    class PARSE,RESOLVE,COMPILE_DESC compile
+    class FILE_DESC,SOURCE_INFO,IMG_CREATE image
+    class LINT,BREAKING,GENERATE,FORMAT process
+    class ANNOTATIONS,GEN_CODE,FMT_FILES,PUSH_BSR output
