@@ -147,6 +147,11 @@ func (s *server) Initialize(
 				ResolveProvider:   true,
 				TriggerCharacters: []string{".", "\"", "/"},
 			},
+			CodeActionProvider: &protocol.CodeActionOptions{
+				CodeActionKinds: []protocol.CodeActionKind{
+					protocol.QuickFix,
+				},
+			},
 			DefinitionProvider:         &protocol.DefinitionOptions{},
 			TypeDefinitionProvider:     &protocol.TypeDefinitionOptions{},
 			DocumentFormattingProvider: true,

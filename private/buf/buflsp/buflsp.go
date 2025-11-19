@@ -63,6 +63,7 @@ func Serve(
 	}
 	lsp.fileManager = newFileManager(lsp)
 	lsp.workspaceManager = newWorkspaceManager(lsp)
+	lsp.debouncer = newDebouncer()
 	off := protocol.TraceOff
 	lsp.traceValue.Store(&off)
 
@@ -92,6 +93,7 @@ type lsp struct {
 	queryExecutor    *incremental.Executor
 	wktBucket        storage.ReadBucket
 	shutdown         bool
+	debouncer        *debouncer
 
 	lock sync.Mutex
 
