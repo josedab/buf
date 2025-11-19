@@ -383,3 +383,8 @@ func createCacheDir(baseCacheDirPath string, relDirPath string) error {
 	}
 	return nil
 }
+
+// CacheDirPath returns the cache directory path from the container.
+func CacheDirPath(container appext.Container) (string, error) {
+	return container.CacheDirPath(), nil
+}
